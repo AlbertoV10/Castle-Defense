@@ -30,4 +30,24 @@
         android:layout_marginTop="38dp"
         android:text="Start" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/start_button"
+        android:layout_alignStart="@+id/start_button"
+        android:layout_below="@+id/start_button"
+        android:layout_marginTop="27dp"
+        android:text="Load" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="24dp"
+        android:text="Tutorial" />
+
 </RelativeLayout>
