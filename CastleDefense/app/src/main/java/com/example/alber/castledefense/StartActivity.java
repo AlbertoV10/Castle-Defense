@@ -1,5 +1,6 @@
 package com.example.alber.castledefense;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,9 @@ public class StartActivity
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
+            Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
+            Intent battleIntent = new Intent(StartActivity.this, BattleScreenActivity.class);
+            startActivity(battleIntent);
 
 
             }
