@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Next Wave" />
+        android:text="End Wave" />
 
     <TextView
         android:id="@+id/textView2"
