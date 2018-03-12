@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".BattleScreenActivity" />
-        <activity android:name=".EndOfRoundActivity"></activity>
+        <activity android:name=".EndOfRoundActivity" />
+        <activity android:name=".UpgradeScreenActivity"></activity>
     </application>
 
 </manifest>

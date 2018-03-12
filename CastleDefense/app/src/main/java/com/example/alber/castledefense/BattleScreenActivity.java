@@ -14,7 +14,7 @@ public class BattleScreenActivity extends AppCompatActivity {
 
     private Button mPauseButton;
     private Button mExitButton;
-    private Button mnextRound;
+    private Button mNextRoundButton;
     private TextView pauseText;
 
     @Override
@@ -26,6 +26,7 @@ public class BattleScreenActivity extends AppCompatActivity {
 
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
+        mNextRoundButton = (Button) findViewById(R.id.next_round);
         pauseText = (TextView) findViewById(R.id.pause_text);
 
         mPauseButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,14 @@ public class BattleScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent battleIntent = new Intent(BattleScreenActivity.this, StartActivity.class);
                 startActivity(battleIntent);
+            }
+        });
+
+        mNextRoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent battleEndIntent = new Intent(BattleScreenActivity.this, EndOfRoundActivity.class);
+                startActivity(battleEndIntent);
             }
         });
     }
