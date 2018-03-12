@@ -58,5 +58,41 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Button" />
+        android:text="Next Wave" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/round_text"
+        android:layout_alignBottom="@+id/round_text"
+        android:layout_marginEnd="49dp"
+        android:layout_marginRight="49dp"
+        android:layout_toLeftOf="@+id/pause_text"
+        android:layout_toStartOf="@+id/pause_text"
+        android:text="Enemies: " />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignLeft="@+id/pause_text"
+        android:layout_alignStart="@+id/pause_text"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:text="Money:" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="Score:" />
 </RelativeLayout>
