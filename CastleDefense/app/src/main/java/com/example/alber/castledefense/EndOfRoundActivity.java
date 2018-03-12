@@ -11,10 +11,10 @@ public class EndOfRoundActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        mUpgradeButton = (Button) findViewById(R.id.to_upgrade_button);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_of_round);
+        mUpgradeButton = (Button) findViewById(R.id.to_upgrade_button);
+
 
         mUpgradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
