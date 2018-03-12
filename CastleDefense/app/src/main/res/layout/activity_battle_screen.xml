@@ -7,7 +7,7 @@
     tools:context="com.example.alber.castledefense.BattleScreenActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/round_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -34,9 +34,29 @@
         android:id="@+id/exit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/round_text"
+        android:layout_alignBottom="@+id/round_text"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="Exit" />
+
+    <TextView
+        android:id="@+id/pause_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:alpha="0"
+        android:text="Paused" />
+
+    <Button
+        android:id="@+id/next_round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/pause_button"
+        android:layout_alignBottom="@+id/pause_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Button" />
 </RelativeLayout>

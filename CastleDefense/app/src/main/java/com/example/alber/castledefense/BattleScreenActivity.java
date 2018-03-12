@@ -1,9 +1,11 @@
 package com.example.alber.castledefense;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BattleScreenActivity extends AppCompatActivity {
@@ -12,7 +14,8 @@ public class BattleScreenActivity extends AppCompatActivity {
 
     private Button mPauseButton;
     private Button mExitButton;
-    private Toast pausedToast;
+    private Button mnextRound;
+    private TextView pauseText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,21 +26,23 @@ public class BattleScreenActivity extends AppCompatActivity {
 
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
+        pauseText = (TextView) findViewById(R.id.pause_text);
 
         mPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 togglePause();
-                pausedToast = Toast.makeText(BattleScreenActivity.this, R.string.paused_toast, Toast.LENGTH_SHORT);
 
                 if(isPaused)
                 {
-                    pausedToast.show();
+                    pauseText.setAlpha(1);
+                    mPauseButton.setText("Resume");
                 }
                 else
                 {
-                    pausedToast.cancel();
+                    pauseText.setAlpha(0);
+                    mPauseButton.setText("Pause");
                 }
             }
         });
@@ -45,7 +50,8 @@ public class BattleScreenActivity extends AppCompatActivity {
         mExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent battleIntent = new Intent(BattleScreenActivity.this, StartActivity.class);
+                startActivity(battleIntent);
             }
         });
     }
