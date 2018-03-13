@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/battle_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.alber.castledefense.BattleScreenActivity">
@@ -95,4 +96,14 @@
         android:layout_toEndOf="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
         android:text="Score:" />
+
+    <Button
+        android:id="@+id/start_wave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/pause_button"
+        android:layout_alignBottom="@+id/pause_button"
+        android:layout_centerHorizontal="true"
+        android:text="Start Wave"
+        android:onClick="startButtonClickHandler"/>
 </RelativeLayout>
