@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="50dp"
+    android:width="50dp"
+    android:viewportHeight="50"
+    android:viewportWidth="50">
+
+    <path
+        android:name="dark_triangle"
+        android:fillColor="#A9A9A9"
+        android:pathData="M 25,0 L 0,50 50,50 z" />
+</vector>

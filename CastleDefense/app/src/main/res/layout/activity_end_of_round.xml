@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_end_of_round"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="landscape">
@@ -80,7 +81,7 @@
             android:text="Upgrade" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/next_wave"
             android:layout_width="125dp"
             android:layout_height="75dp"
             android:layout_alignLeft="@+id/textView5"
