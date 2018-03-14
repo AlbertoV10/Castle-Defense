@@ -14,6 +14,7 @@ public class StartActivity
 
     private ViewGroup mContentView;
     private Button mStartButton;
+    private Button mLoadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,22 @@ public class StartActivity
         });
 
         mStartButton = (Button) findViewById(R.id.start_button);
+        mLoadButton = (Button) findViewById(R.id.load_button);
+
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
             Intent battleIntent = new Intent(StartActivity.this, BattleScreenActivity.class);
             startActivity(battleIntent);
+            }
+        });
+
+        mLoadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent loadIntent = new Intent(StartActivity.this, LoadMenuActivity.class);
+                startActivity(loadIntent);
             }
         });
     }

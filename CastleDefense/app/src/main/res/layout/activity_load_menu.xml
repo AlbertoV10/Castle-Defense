@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_load_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.alber.castledefense.LoadMenuActivity">
+
+    <TextView
+        android:id="@+id/load_game_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:text="Load Game"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/file_1_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/load_game_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="File 1" />
+
+    <Button
+        android:id="@+id/file_2_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/file_1_button"
+        android:layout_below="@+id/file_1_button"
+        android:layout_marginTop="33dp"
+        android:text="File 2" />
+
+    <Button
+        android:id="@+id/file_3_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/file_2_button"
+        android:layout_below="@+id/file_2_button"
+        android:layout_marginTop="30dp"
+        android:text="File 3" />
+</RelativeLayout>
