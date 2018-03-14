@@ -27,7 +27,9 @@
         <activity
             android:name=".UpgradeScreenActivity"
             android:screenOrientation="userLandscape" />
-        <activity android:name=".LoadMenuActivity"></activity>
+        <activity
+            android:name=".LoadMenuActivity"
+            android:screenOrientation="userLandscape"/>
     </application>
 
 </manifest>
