@@ -45,7 +45,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);
         pauseText = (TextView) findViewById(R.id.pause_text);
-
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
 
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
