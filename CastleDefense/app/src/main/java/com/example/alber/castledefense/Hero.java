@@ -6,25 +6,15 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 
-/**
- * Created by ryan.torres097 on 3/26/18.
- */
-
-public class Tower extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
-    private int rateOfFire;
+public class Hero extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private int damage;
     private double damagePiercing;
-    private int upgradeLevel;
-    private int upgradeCost;
 
-    public Tower(Context context) {
+    public Hero(Context context) {
         super(context);
         // sets default values for tower
         setDamage(10);
-        setRateOfFire(10);
-        setDamagePiercing(1);
-        this.upgradeLevel = 1;
-        this.upgradeCost = 100;
+        setDamagePiercing(1.0);
     }
 
 
@@ -33,42 +23,15 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
     }
 
     public int getDamage(){
-        return  this.damage;
+        return this.damage;
     }
 
-    public int getTowerLevel() {
-        return  this.upgradeLevel;
-    }
-
-    public int getUpgradeCost(){
-        return  this.upgradeCost;
-    }
-
-    public int getRateOfFire(){
-        return this.rateOfFire;
-    }
-
-    public void upgradeTower(){
-        this.upgradeLevel++;
-
-        // Mock Values, will implemenet algorithm in later sprint
-        setRateOfFire(this.rateOfFire + 10);
-        setDamage(this.damage + 10);
-        setDamagePiercing(this.damagePiercing + 10);
-        this.upgradeCost = this.upgradeCost *2;
-    }
-
-    // Name changed from setDamageReduction
-    public void setDamagePiercing(double reduce) {
-        this.damagePiercing = reduce;
+    public void setDamagePiercing(double newDP) {
+        this.damagePiercing = newDP;
     }
 
     public void setDamage(int damage) {
         this.damage = damage;
-    }
-
-    public void setRateOfFire(int rate) {
-        this.rateOfFire = rate;
     }
 
     @Override
