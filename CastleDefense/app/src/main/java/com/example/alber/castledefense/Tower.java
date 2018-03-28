@@ -67,8 +67,7 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
         this.damage = damage;
     }
 
-    public void setRateOfFire(int rate)
-    {
+    public void setRateOfFire(int rate) {
         this.rateOfFire = rate;
     }
 
