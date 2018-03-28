@@ -39,7 +39,6 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     {
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
-        // mAnimator.setFloatValues(START, END);
         mAnimator.setFloatValues(0f,screenWidth);
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.setTarget(this);
