@@ -6,13 +6,14 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 
-public class Town extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+//public class Town extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class Town{
     private int income;
     private int wallHealth;
     private int maxWallHealth;
 
-    public Town(Context context) {
-        super(context);
+    public Town() {
+        //super(context);
         // sets default values for town
         setIncome(100);
         setWallHealth(100);
@@ -40,7 +41,7 @@ public class Town extends AppCompatImageView implements Animator.AnimatorListene
     }
 
     public void setMaxWallHealth(int newMaxWallHealth) {this.maxWallHealth = newMaxWallHealth;}
-
+/*
     @Override
     public void onAnimationStart(Animator animator) {
         // nothing yet
@@ -65,6 +66,7 @@ public class Town extends AppCompatImageView implements Animator.AnimatorListene
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         setX((float) valueAnimator.getAnimatedValue());
     }
+*/
 /*
     // Touching the enemy picture will remove it from the display
     @Override
