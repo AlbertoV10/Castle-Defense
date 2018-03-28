@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -103,6 +104,21 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
             public void onClick(View view) {
                 Intent battleEndIntent = new Intent(BattleScreenActivity.this, EndOfRoundActivity.class);
                 startActivity(battleEndIntent);
+            }
+        });
+
+        // create a projectile on touch
+        mContentView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
+                    arrow.setX(motionEvent.getX());
+                    arrow.setY(motionEvent.getY());
+                    mContentView.addView(arrow);
+                }
+                return false;
             }
         });
     }
