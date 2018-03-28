@@ -27,17 +27,15 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
 
         mListener = (EnemyListener) context;
 
-        this.setImageResource(R.drawable.temp_enemy2);
+        this.setImageResource(R.drawable.temp_enemy3);
         this.setColorFilter(color);
 
         //int rawWidth = rawHeight / 2;
         int rawWidth = rawHeight;
 
         // Control size of enemy here
-        //int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
-        //int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-        int dpHeight = PixelHelper.pixelsToDp(rawHeight, context);
-        int dpWidth = PixelHelper.pixelsToDp(rawWidth, context);
+        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
+        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
 
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);

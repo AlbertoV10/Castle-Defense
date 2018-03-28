@@ -33,6 +33,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     public static final int MAX_ANIMATION_DURATION = 4000;
     private int mWave;
     private int mEnemiesKilled;
+    private int[] yPositions = new int[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,17 +186,20 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
             int maxDelay = MAX_ANIMATION_DELAY;
             //int minDelay = maxDelay / 2;
             int minDelay = MIN_ANIMATION_DELAY;
-
             int enemiesLaunched = 0;
+            yPositions[0] = mScreenHeight/8;
+            yPositions[1] = 3*mScreenHeight/8;
+            yPositions[2] = 5*mScreenHeight/8;
             while (enemiesLaunched < 5) {
-                // Get a random vertical position for the next balloon
+                // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
-                int yPosition = random.nextInt(mScreenHeight/3)+mScreenHeight/4;
-                publishProgress(yPosition);
+                //int yPosition = random.nextInt(mScreenHeight/3)+mScreenHeight/4;
+                int yPosition = random.nextInt(3);
+                publishProgress(yPositions[yPosition]);
                 enemiesLaunched++;
 
                 // Wait a random number of milliseconds before looping
-                int delay = random.nextInt(minDelay) + minDelay;
+                int delay = random.nextInt(maxDelay) + minDelay;
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
