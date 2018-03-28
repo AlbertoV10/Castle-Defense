@@ -11,22 +11,23 @@ import com.example.alber.castledefense.Enemy;
 public class GameManager {
     Enemy enemies[];
     Tower towers[];
-    //Town town;
-    //Hero hero;
+    Town town;
+    Hero hero;
     int numOfEnemies;
     int currentWave;
     int remainingEnemies;
     int currentGold;
     Layout layout;
-    
+
     public GameManager(Layout layout)
     {
         this.layout = layout;
-        createEnemies();
-        createHero();
+        //createEnemies();
+        //createHero();
+        //createTown();
         this.currentWave = 1;
         this.numOfEnemies = 10;
-        this.remainingEnemies = 10;
+        this.remainingEnemies = 10;     //Mock data
         this.currentGold = 0;
     }
 
@@ -40,11 +41,11 @@ public class GameManager {
         return this.towers;
     }
 
-    /*
-    public hero getHero()
+
+    public Hero getHero()
     {
         return this.hero;
-    }*/
+    }
 
     /*
     public getUpgrades()
@@ -72,9 +73,9 @@ public class GameManager {
         return this.currentGold;
     }
 
-    public void addTower(Tower tower)
+    public void setTowers(Tower[] tower)
     {
-
+        this.towers = tower;
     }
 
     public void increaseWave()
@@ -87,14 +88,31 @@ public class GameManager {
         this.remainingEnemies--;
     }
 
-    public void createHero()
+    public void setHero(Hero hero)
     {
-
+        this.hero = hero;
     }
 
-    public void createEnemies()
+    public void setEnemies(Enemy[] enemies)
     {
+        this.enemies = enemies;
+    }
 
+    public void createTown()
+    {
+        this.town = new Town();
+    }
+
+    public void removeEnemy(Enemy enemy)
+    {
+        for (int enemyIndex = 0; enemyIndex <  enemies.length; enemyIndex++)
+        {
+            if (enemy.equals(enemies[enemyIndex]))
+            {
+                enemies[enemyIndex] = null; // Nulls out an enemy
+                break;
+            }
+        }
     }
 
 
