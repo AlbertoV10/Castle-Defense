@@ -5,6 +5,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
+
+import com.example.alber.castledefense.utils.PixelHelper;
 
 public class Hero extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private int damage;
@@ -15,6 +18,25 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         // sets default values for tower
         setDamage(10);
         setDamagePiercing(1.0);
+    }
+    public Hero(Context context, int color, int rawHeight)
+    {
+        super(context);
+
+        //mListener = (Enemy.EnemyListener) context;
+
+        this.setImageResource(R.drawable.temp_enemy3);
+        this.setColorFilter(color);
+
+        //int rawWidth = rawHeight / 2;
+        int rawWidth = rawHeight;
+
+        // Control size of enemy here
+        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
+        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
+
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
+        setLayoutParams(params);
     }
 
 
