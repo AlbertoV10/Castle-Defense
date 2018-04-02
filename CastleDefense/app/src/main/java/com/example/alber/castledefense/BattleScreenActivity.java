@@ -23,7 +23,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private Button mExitButton;
     private Button mNextRoundButton;
     private TextView pauseText;
-
+    private GameManager gameManager;
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -35,6 +35,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int mWave;
     private int mEnemiesKilled;
     private int[] yPositions = new int[3];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,9 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         mNextRoundButton = (Button) findViewById(R.id.next_round);
         pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
-
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         setToFullScreen();
+        this.gameManager = new GameManager();
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())

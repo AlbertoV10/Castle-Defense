@@ -19,7 +19,7 @@ public class GameManager {
     int currentGold;
     Layout layout;
 
-    public GameManager(Layout layout)
+    public GameManager()
     {
         this.layout = layout;
         //createEnemies();

@@ -16,6 +16,9 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     private ValueAnimator mAnimator;
     private EnemyListener mListener;
     private boolean mHit;
+    private int armor;
+    private int healthRemaining;
+    private boolean isDead;
 
     public Enemy(Context context)
     {
@@ -39,6 +42,32 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
 
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
+
+
+        this.armor = 10;
+        this.healthRemaining = 10;
+        this.isDead = false;
+    }
+
+
+    public boolean isDead()
+    {
+        return this.isDead;
+    }
+
+    public int healthRemaining()
+    {
+        return this.healthRemaining;
+    }
+
+    public void projectileCollision(Projectile projectile)
+    {
+        int damageMultiplier  = 1 - this.armor + projectile.getPiercingValue();
+        this.healthRemaining -=  damageMultiplier * projectile.getDamage();
+        if (this.healthRemaining <= 0)
+        {
+            this.isDead = true;
+        }
     }
 
     // Starts the enemy at x position 0, running to screenWidth
