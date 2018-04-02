@@ -18,6 +18,7 @@ import java.util.Random;
 public class BattleScreenActivity extends AppCompatActivity implements Enemy.EnemyListener{
 
     private boolean isPaused;
+    private boolean isWaveActive;
 
     private Button mPauseButton;
     private Button mExitButton;
@@ -42,6 +43,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         setContentView(R.layout.activity_battle_screen);
 
         isPaused = false;
+        isWaveActive = false;
 
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
@@ -111,16 +113,21 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         mContentView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP)
-                {
-                    Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
-                    arrow.setX(mScreenWidth);
-                    arrow.setY(motionEvent.getY());
-                    mContentView.addView(arrow);
-                    arrow.fireProjectile(mScreenWidth, 3000);
+                if(isWaveActive) {
+                    int touchX = (int)motionEvent.getX();
+                    int touchY = (int)motionEvent.getY();
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
+                        arrow.setX(mScreenWidth);
+                        arrow.setY(motionEvent.getY());
+                        mContentView.addView(arrow);
+                        arrow.fireProjectile(mScreenWidth, 500, touchX);
 
+
+                    }
                 }
                 return false;
+
             }
         });
     }
@@ -132,10 +139,12 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         if(!isPaused)
         {
             isPaused = true;
+            isWaveActive = false;
         }
         else
         {
             isPaused = false;
+            isWaveActive = true;
         }
 
         return isPaused;
@@ -173,6 +182,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     }
 
     public void startButtonClickHandler(View view) {
+        isWaveActive = true;
         startWave();
     }
 
@@ -240,13 +250,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private void launchEnemy(int y) {
 
         Enemy enemy = new Enemy(this, 0xFFFF0000, 150);
-        /*
-        if (mNextColor + 1 == mBalloonColors.length) {
-            mNextColor = 0;
-        } else {
-            mNextColor++;
-        }
-        */
 
         // Set enemy vertical position and dimensions, add to container
         enemy.setX(0);

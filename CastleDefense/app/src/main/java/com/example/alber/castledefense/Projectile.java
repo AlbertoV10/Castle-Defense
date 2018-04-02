@@ -12,6 +12,7 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
+    private int stopPositionX;
 
     public Projectile(Context context)
     {
@@ -35,8 +36,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         setLayoutParams(params);
     }
 
-    public void fireProjectile(int screenWidth, int duration)
+    public void fireProjectile(int screenWidth, int duration, int stopPositionX)
     {
+        this.stopPositionX = stopPositionX;
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
         mAnimator.setFloatValues(screenWidth,0f);
@@ -70,5 +72,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         setX((float) valueAnimator.getAnimatedValue());
+        if(!(getX() > stopPositionX))
+        {
+            mAnimator.cancel();
+        }
     }
 }
