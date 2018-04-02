@@ -114,14 +114,18 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP)
                 {
                     Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
-                    arrow.setX(motionEvent.getX());
+                    arrow.setX(mScreenWidth);
                     arrow.setY(motionEvent.getY());
                     mContentView.addView(arrow);
+                    arrow.fireProjectile(mScreenWidth, 3000);
+
                 }
                 return false;
             }
         });
     }
+
+
 
     boolean togglePause()
     {
