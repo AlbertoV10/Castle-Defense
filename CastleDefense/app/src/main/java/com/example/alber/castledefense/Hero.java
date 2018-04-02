@@ -17,7 +17,7 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         super(context);
         // sets default values for tower
         setDamage(10);
-        setDamagePiercing(1.0);
+        setDamagePiercing(.2);
     }
     public Hero(Context context, int color, int rawHeight)
     {

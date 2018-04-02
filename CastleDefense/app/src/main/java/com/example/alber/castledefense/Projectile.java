@@ -12,7 +12,12 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
+<<<<<<< HEAD
     private int stopPositionX;
+=======
+    private int damage;
+    private int piercingValue;
+>>>>>>> Enemy-HP-And-Death
 
     public Projectile(Context context)
     {
@@ -22,7 +27,6 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     public Projectile (Context context, int color, int rawHeight)
     {
         super(context);
-
         // will need to change image
         this.setImageResource(R.drawable.temp_enemy2);
         this.setColorFilter(color);
@@ -31,9 +35,22 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         // Control size of arrow here
         int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
         int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
+
+        this.damage = 5;   // Mock Data
+        this.piercingValue = 10; // Mock data
+
+    }
+
+    public int getDamage()
+    {
+        return this.damage;
+    }
+
+    public int getPiercingValue()
+    {
+        return  this.piercingValue;
     }
 
     public void fireProjectile(int screenWidth, int duration, int stopPositionX)

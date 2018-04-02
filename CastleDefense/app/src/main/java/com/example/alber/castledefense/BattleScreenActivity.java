@@ -24,7 +24,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private Button mExitButton;
     private Button mNextRoundButton;
     private TextView pauseText;
-
+    private GameManager gameManager;
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -37,22 +37,29 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int mEnemiesKilled;
     private int[] yPositions = new int[3];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_screen);
 
         isPaused = false;
+<<<<<<< HEAD
         isWaveActive = false;
 
+=======
+>>>>>>> Enemy-HP-And-Death
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);
         pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
-
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         setToFullScreen();
+
+        this.gameManager = new GameManager();
+        Hero hero = new Hero(this);
+        this.gameManager.setHero(hero);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -187,12 +194,18 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     }
 
     //@Override
-    public void killEnemy(Enemy enemy, boolean userTouch) {
+    public void damageEnemy(Enemy enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
-        if(userTouch){
-            mEnemiesKilled++;
-            mContentView.removeView(enemy);
-        }
+        //f(userTouch){
+            enemy.touchEvent(gameManager.getHero());
+            if (enemy.isDead())
+            {
+                mEnemiesKilled++;
+                mContentView.removeView(enemy);
+                //gameManager.removeEnemy(enemy);
+                //gameManager.decreaseEnemies();
+            }
+       // }
         updateDisplay();
     }
 
