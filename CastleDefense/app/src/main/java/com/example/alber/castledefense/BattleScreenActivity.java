@@ -44,11 +44,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         setContentView(R.layout.activity_battle_screen);
 
         isPaused = false;
-<<<<<<< HEAD
         isWaveActive = false;
-
-=======
->>>>>>> Enemy-HP-And-Death
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);

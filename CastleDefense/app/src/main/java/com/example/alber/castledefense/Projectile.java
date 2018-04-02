@@ -12,12 +12,9 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
-<<<<<<< HEAD
     private int stopPositionX;
-=======
     private int damage;
     private int piercingValue;
->>>>>>> Enemy-HP-And-Death
 
     public Projectile(Context context)
     {
