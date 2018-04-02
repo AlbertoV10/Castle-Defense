@@ -2,12 +2,14 @@ package com.example.alber.castledefense;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.util.Log;
 
 import com.example.alber.castledefense.utils.PixelHelper;
 
@@ -16,7 +18,7 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     private ValueAnimator mAnimator;
     private EnemyListener mListener;
     private boolean mHit;
-    private int armor;
+    private double armor;
     private int healthRemaining;
     private boolean isDead;
 
@@ -44,8 +46,8 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
         setLayoutParams(params);
 
 
-        this.armor = 10;
-        this.healthRemaining = 10;
+        this.armor = .10;
+        this.healthRemaining = 30;
         this.isDead = false;
     }
 
@@ -60,9 +62,19 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
         return this.healthRemaining;
     }
 
+    public void touchEvent(Hero hero)
+    {
+        double damageMultiplier  = 1 - this.armor + hero.getDamagePiercing();
+        this.healthRemaining -=  damageMultiplier * hero.getDamage();
+        if (this.healthRemaining <= 0)
+        {
+            this.isDead = true;
+        }
+    }
+
     public void projectileCollision(Projectile projectile)
     {
-        int damageMultiplier  = 1 - this.armor + projectile.getPiercingValue();
+        double damageMultiplier  = 1 - this.armor + projectile.getPiercingValue();
         this.healthRemaining -=  damageMultiplier * projectile.getDamage();
         if (this.healthRemaining <= 0)
         {
@@ -93,7 +105,7 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     public void onAnimationEnd(Animator animator) {
         if(!mHit)
         {
-            mListener.killEnemy(this, false);
+            mListener.damageEnemy(this, false);
         }
     }
 
@@ -115,17 +127,21 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     // Touching the enemy picture will remove it from the display
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        if(!mHit && event.getAction() == MotionEvent.ACTION_DOWN)
-        {
-            mListener.killEnemy(this, true);
-            mHit = true;
-            mAnimator.cancel();
-        }
+
+        //if(!mHit && event.getAction() == MotionEvent.ACTION_DOWN)
+        //{
+            mListener.damageEnemy(this, true);
+           // mHit = true;
+            if(this.isDead)
+            {
+                mAnimator.cancel();
+            }
+        //}
         return super.onTouchEvent(event);
     }
 
     // Waits for user touch
-    public interface EnemyListener{
-        void killEnemy(Enemy enemy, boolean userTouch);
+        public interface EnemyListener{
+            void damageEnemy(Enemy enemy, boolean userTouch);
+        }
     }
-}

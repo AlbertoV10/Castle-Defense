@@ -9,15 +9,15 @@ import com.example.alber.castledefense.Enemy;
  */
 
 public class GameManager {
-    Enemy enemies[];
-    Tower towers[];
-    Town town;
-    Hero hero;
-    int numOfEnemies;
-    int currentWave;
-    int remainingEnemies;
-    int currentGold;
-    Layout layout;
+    private Enemy enemies[];
+    private Tower towers[];
+    private Town town;
+    private Hero hero;
+    private int numOfEnemies;
+    private int currentWave;
+    private int remainingEnemies;
+    private int currentGold;
+    private Layout layout;
 
     public GameManager()
     {
