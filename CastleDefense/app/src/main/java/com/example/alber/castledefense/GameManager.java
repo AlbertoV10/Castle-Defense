@@ -8,18 +8,22 @@ import com.example.alber.castledefense.Enemy;
  * Created by ryan.torres097 on 3/28/18.
  */
 
+/*  https://stackoverflow.com/questions/35168981/how-can-i-share-code-between-multiple-activities-in-android
+ *  Try to allow multiple activities to access this data.
+ */
 public class GameManager {
-    Enemy enemies[];
-    Tower towers[];
-    Town town;
-    Hero hero;
-    int numOfEnemies;
-    int currentWave;
-    int remainingEnemies;
-    int currentGold;
-    Layout layout;
+    // set defaults here?
+    private Enemy enemies[];
+    private Tower towers[];
+    private Town town;
+    private Hero hero;
+    private int numOfEnemies;
+    private int currentWave;
+    private int remainingEnemies;
+    private int currentGold;
+    private Layout layout;
 
-    public GameManager(Layout layout)
+    public GameManager(Layout layout) // needed?
     {
         this.layout = layout;
         //createEnemies();
@@ -40,7 +44,6 @@ public class GameManager {
     {
         return this.towers;
     }
-
 
     public Hero getHero()
     {
