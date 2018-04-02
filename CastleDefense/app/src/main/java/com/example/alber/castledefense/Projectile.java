@@ -77,4 +77,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
             mAnimator.cancel();
         }
     }
+
+    public int getProjectileXPosition()
+    {
+        return (int)getX();
+    }
 }
