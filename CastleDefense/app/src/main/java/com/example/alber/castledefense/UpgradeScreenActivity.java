@@ -8,8 +8,12 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import java.io.Serializable;
+
+// TODO
+// How are upgrades applied?
+// Are they individual upgrades? (tower 1 damage, tower 1 ROF, tower 1 pierce)
+// or does upgrading the tower upgrade the damage + ROF + pierce etc
 
 public class UpgradeScreenActivity extends AppCompatActivity {
 
