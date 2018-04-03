@@ -12,6 +12,9 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
+    private int stopPositionX;
+    private int damage;
+    private int piercingValue;
 
     public Projectile(Context context)
     {
@@ -21,22 +24,35 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     public Projectile (Context context, int color, int rawHeight)
     {
         super(context);
-
         // will need to change image
-        this.setImageResource(R.drawable.temp_enemy2);
+        this.setImageResource(R.drawable.Arrow);
         this.setColorFilter(color);
         int rawWidth = rawHeight;
 
         // Control size of arrow here
         int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
         int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
+
+        this.damage = 5;   // Mock Data
+        this.piercingValue = 10; // Mock data
+
     }
 
-    public void fireProjectile(int screenWidth, int duration)
+    public int getDamage()
     {
+        return this.damage;
+    }
+
+    public int getPiercingValue()
+    {
+        return  this.piercingValue;
+    }
+
+    public void fireProjectile(int screenWidth, int duration, int stopPositionX)
+    {
+        this.stopPositionX = stopPositionX;
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
         mAnimator.setFloatValues(screenWidth,0f);
@@ -70,5 +86,14 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         setX((float) valueAnimator.getAnimatedValue());
+        if(!(getX() > stopPositionX))
+        {
+            mAnimator.cancel();
+        }
+    }
+
+    public int getProjectileXPosition()
+    {
+        return (int)getX();
     }
 }

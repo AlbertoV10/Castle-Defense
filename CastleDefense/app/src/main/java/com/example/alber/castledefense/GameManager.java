@@ -12,7 +12,10 @@ import com.example.alber.castledefense.Enemy;
  *  Try to allow multiple activities to access this data.
  */
 public class GameManager {
+<<<<<<< HEAD
     // set defaults here?
+=======
+>>>>>>> master
     private Enemy enemies[];
     private Tower towers[];
     private Town town;
@@ -23,7 +26,11 @@ public class GameManager {
     private int currentGold;
     private Layout layout;
 
+<<<<<<< HEAD
     public GameManager(Layout layout) // needed?
+=======
+    public GameManager()
+>>>>>>> master
     {
         this.layout = layout;
         //createEnemies();
