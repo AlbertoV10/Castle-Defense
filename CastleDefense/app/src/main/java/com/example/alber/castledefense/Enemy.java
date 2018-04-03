@@ -141,7 +141,7 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     }
 
     // Waits for user touch
-        public interface EnemyListener{
+    public interface EnemyListener{
             void damageEnemy(Enemy enemy, boolean userTouch);
         }
     }

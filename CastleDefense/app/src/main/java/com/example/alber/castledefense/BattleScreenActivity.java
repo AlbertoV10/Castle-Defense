@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.view.ViewTreeObserver;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Random;
 
-public class BattleScreenActivity extends AppCompatActivity implements Enemy.EnemyListener{
+public class BattleScreenActivity extends AppCompatActivity implements Enemy.EnemyListener,Projectile.ProjectileListener{
 
     private boolean isPaused;
     private boolean isWaveActive;
@@ -36,6 +38,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int mWave;
     private int mEnemiesKilled;
     private int[] yPositions = new int[3];
+    private Intent intent;
 
 
     @Override
@@ -53,9 +56,12 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         setToFullScreen();
 
-        this.gameManager = new GameManager();
-        Hero hero = new Hero(this);
-        this.gameManager.setHero(hero);
+        // Get gameManager object from last screen
+        intent = getIntent();
+        this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
+        //this.gameManager = new GameManager();
+        //Hero hero = new Hero(this);
+        //this.gameManager.setHero(hero);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -108,6 +114,8 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
             @Override
             public void onClick(View view) {
                 Intent battleEndIntent = new Intent(BattleScreenActivity.this, EndOfRoundActivity.class);
+                // Pass gameManager object to next screen
+                battleEndIntent.putExtra("gameManager", gameManager);
                 startActivity(battleEndIntent);
             }
         });
@@ -134,8 +142,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
             }
         });
     }
-
-
 
     boolean togglePause()
     {
@@ -193,7 +199,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     public void damageEnemy(Enemy enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
         //f(userTouch){
-            enemy.touchEvent(gameManager.getHero());
+            //enemy.touchEvent(gameManager.getHero());
             if (enemy.isDead())
             {
                 mEnemiesKilled++;
@@ -202,6 +208,11 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                 //gameManager.decreaseEnemies();
             }
        // }
+        updateDisplay();
+    }
+
+    public void removeProjectile(Projectile projectile) {
+        mContentView.removeView(projectile);
         updateDisplay();
     }
 

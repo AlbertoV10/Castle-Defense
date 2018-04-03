@@ -8,11 +8,15 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 public class EndOfRoundActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
     private Button mUpgradeButton;
     private Button mNextWaveButton;
+    private Intent intent;
+    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class EndOfRoundActivity extends AppCompatActivity {
         mNextWaveButton = (Button) findViewById(R.id.next_wave);
 
         //getWindow().setBackgroundDrawableResource(R.drawable.temp_statistics);
+
+        intent = getIntent();
+        this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
 
         mContentView =(ViewGroup) findViewById(R.id.activity_end_of_round);
 
@@ -46,6 +53,8 @@ public class EndOfRoundActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent battleIntent = new Intent(EndOfRoundActivity.this, UpgradeScreenActivity.class);
+                // Pass gameManager object to next screen
+                battleIntent.putExtra("gameManager", gameManager);
                 startActivity(battleIntent);
             }
         });
@@ -53,6 +62,8 @@ public class EndOfRoundActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent battleIntent = new Intent(EndOfRoundActivity.this, BattleScreenActivity.class);
+                // Pass gameManager object to next screen
+                battleIntent.putExtra("gameManager", gameManager);
                 startActivity(battleIntent);
             }
         });

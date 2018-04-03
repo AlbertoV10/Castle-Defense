@@ -12,6 +12,7 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
+    private ProjectileListener mListener;
     private int stopPositionX;
     private int damage;
     private int piercingValue;
@@ -24,8 +25,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     public Projectile (Context context, int color, int rawHeight)
     {
         super(context);
+        mListener = (ProjectileListener) context;
         // will need to change image
-        this.setImageResource(R.drawable.Arrow);
+        this.setImageResource(R.drawable.arrow);
         this.setColorFilter(color);
         int rawWidth = rawHeight;
 
@@ -70,7 +72,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
 
     @Override
     public void onAnimationEnd(Animator animator) {
-
+        mListener.removeProjectile(this);
     }
 
     @Override
@@ -95,5 +97,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     public int getProjectileXPosition()
     {
         return (int)getX();
+    }
+
+    public interface ProjectileListener{
+        void removeProjectile(Projectile projectile);
     }
 }

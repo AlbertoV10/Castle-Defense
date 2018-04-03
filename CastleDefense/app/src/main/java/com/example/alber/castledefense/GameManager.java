@@ -4,6 +4,8 @@ import android.text.Layout;
 
 import com.example.alber.castledefense.Enemy;
 
+import java.io.Serializable;
+
 /**
  * Created by ryan.torres097 on 3/28/18.
  */
@@ -11,11 +13,8 @@ import com.example.alber.castledefense.Enemy;
 /*  https://stackoverflow.com/questions/35168981/how-can-i-share-code-between-multiple-activities-in-android
  *  Try to allow multiple activities to access this data.
  */
-public class GameManager {
-<<<<<<< HEAD
+public class GameManager implements Serializable{
     // set defaults here?
-=======
->>>>>>> master
     private Enemy enemies[];
     private Tower towers[];
     private Town town;
@@ -25,21 +24,22 @@ public class GameManager {
     private int remainingEnemies;
     private int currentGold;
     private Layout layout;
+    private int[] towerUpgradePrice = new int[]{100,100,100};
+    private int[] townUpgradePrice = new int[]{100,100};
+    private int[] heroUpgradePrice = new int[]{100,100};
 
-<<<<<<< HEAD
-    public GameManager(Layout layout) // needed?
-=======
+    //public GameManager(Layout layout) // needed?
+
     public GameManager()
->>>>>>> master
     {
         this.layout = layout;
         //createEnemies();
         //createHero();
         //createTown();
         this.currentWave = 1;
-        this.numOfEnemies = 10;
-        this.remainingEnemies = 10;     //Mock data
-        this.currentGold = 0;
+        this.numOfEnemies = 5;
+        this.remainingEnemies = 5;     //Mock data
+        this.currentGold = 100;
     }
 
     public Enemy[] getEnemy()
@@ -81,6 +81,41 @@ public class GameManager {
     public int getCurrentGold()
     {
         return this.currentGold;
+    }
+
+    public void setCurrentGold(int newGold)
+    {
+        this.currentGold = newGold;
+    }
+
+    public int getTowerUpgradePrice(int towerNumber)
+    {
+        return towerUpgradePrice[towerNumber];
+    }
+
+    public void setTowerUpgradePrice(int towerNumber, int newPrice)
+    {
+        this.towerUpgradePrice[towerNumber] = newPrice;
+    }
+
+    public int getTownUpgradePrice(int townNumber)
+    {
+        return townUpgradePrice[townNumber];
+    }
+
+    public void setTownUpgradePrice(int townNumber, int newPrice)
+    {
+        this.townUpgradePrice[townNumber] = newPrice;
+    }
+
+    public int getHeroUpgradePrice(int heroNumber)
+    {
+        return heroUpgradePrice[heroNumber];
+    }
+
+    public void setHeroUpgradePrice(int heroNumber, int newPrice)
+    {
+        this.heroUpgradePrice[heroNumber] = newPrice;
     }
 
     public void setTowers(Tower[] tower)

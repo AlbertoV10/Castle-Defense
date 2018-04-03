@@ -6,11 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.io.Serializable;
 
 public class UpgradeScreenActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
     private Button nextScreen;
+    private Intent intent;
+    private GameManager gameManager;
+    private ImageButton upgradeTowerOne;
+    private ImageButton upgradeTowerTwo;
+    private ImageButton upgradeTowerThree;
+    private ImageButton upgradeTownOne;
+    private ImageButton upgradeTownTwo;
+    private ImageButton upgradeHeroOne;
+    private ImageButton upgradeHeroTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +31,10 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upgrade_screen);
 
         getWindow().setBackgroundDrawableResource(R.drawable.temp_upgrade);
+
+        // Get gameManager object from last screen
+        intent = getIntent();
+        this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
 
         mContentView =(ViewGroup) findViewById(R.id.activity_upgrade_screen);
 
@@ -34,7 +51,107 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent androidsolved_intent = new Intent(getApplicationContext(), BattleScreenActivity.class);
+                // Pass gameManager object to next screen
+                androidsolved_intent.putExtra("gameManager", gameManager);
                 startActivity(androidsolved_intent);
+            }
+        });
+
+        // Tower Upgrade 1
+        upgradeTowerOne=(ImageButton)findViewById(R.id.tower1);
+        upgradeTowerOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Tower Upgrade 2
+        upgradeTowerTwo=(ImageButton)findViewById(R.id.tower2);
+        upgradeTowerTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Tower Upgrade 3
+        upgradeTowerThree=(ImageButton)findViewById(R.id.tower3);
+        upgradeTowerThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Town Upgrade 1
+        upgradeTowerOne=(ImageButton)findViewById(R.id.town1);
+        upgradeTowerOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTownUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Town Upgrade 2
+        upgradeTowerTwo=(ImageButton)findViewById(R.id.town2);
+        upgradeTowerTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTownUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Hero Upgrade 1
+        upgradeHeroOne=(ImageButton)findViewById(R.id.hero1);
+        upgradeHeroOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getHeroUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Hero Upgrade 2
+        upgradeHeroTwo=(ImageButton)findViewById(R.id.hero2);
+        upgradeHeroTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getHeroUpgradePrice(0)) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
             }
         });
 

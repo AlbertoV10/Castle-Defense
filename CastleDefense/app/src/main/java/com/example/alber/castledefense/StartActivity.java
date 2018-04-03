@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.app.Activity;
 
+import java.io.Serializable;
+
 public class StartActivity
         extends AppCompatActivity {
 
     private ViewGroup mContentView;
     private Button mStartButton;
     private Button mLoadButton;
+    private GameManager gameManager = new GameManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class StartActivity
             public void onClick(View view) {
             Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
             Intent battleIntent = new Intent(StartActivity.this, BattleScreenActivity.class);
+            // Pass gameManager object to next screen
+            battleIntent.putExtra("gameManager", gameManager);
             startActivity(battleIntent);
             }
         });

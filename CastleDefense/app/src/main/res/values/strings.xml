@@ -4,4 +4,5 @@
     <string name="loading_toast">Loading</string>
     <string name="pause_button">Pause</string>
     <string name="exit_button">Exit</string>
+    <string name="not_enough_money">Not Enough Money</string>
 </resources>
