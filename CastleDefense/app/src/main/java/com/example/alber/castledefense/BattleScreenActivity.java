@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.view.ViewTreeObserver;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -36,6 +38,9 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int mWave;
     private int mEnemiesKilled;
     private int[] yPositions = new int[3];
+
+    private ArrayList enemyArray = new ArrayList<Enemy>();
+    private ArrayList heroArrowArray = new ArrayList<Projectile>();
 
 
     @Override
@@ -120,7 +125,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                     int touchX = (int)motionEvent.getX();
                     int touchY = (int)motionEvent.getY();
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
+                        Projectile arrow = new Projectile(BattleScreenActivity.this, 0x00000000, 128);
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
