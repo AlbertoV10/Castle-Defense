@@ -21,6 +21,15 @@ import java.io.Serializable;
     - Town - increase income, wall health, restore wall health to max
     - Hero - increase base damage, piercing modifier/damage
     - Tower - increase base damage, piercing modifier/damage, rate of fire
+
+    ANSWER
+    one upgrade for tower - make it globally upgrade all tower stats
+    keeps upgrade for town
+    one upgrade for hero - globally update all values
+
+    other buttons will be dummy buttons for now
+
+    store all data in game manager
  */
 
 public class GameManager extends AppCompatActivity implements Serializable{
@@ -57,7 +66,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         this.currentWave = 1;
         this.numOfEnemies = 5;
         this.remainingEnemies = 5; // Mock data
-        this.currentGold = 100;
+        this.currentGold = 0;
     }
 
     public Enemy[] getEnemy()

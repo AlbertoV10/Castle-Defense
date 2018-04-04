@@ -39,7 +39,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int[] yPositions = new int[3];
     private Intent intent;
     private GameManager gameManager;
-    private Hero hero;
+    //private Hero hero;
 
     private ArrayList enemyArray = new ArrayList<Enemy>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
@@ -63,8 +63,8 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
 
-        this.hero = new Hero(this);
-        this.gameManager.setHero(this.hero);
+        //this.hero = new Hero(this);
+        //this.gameManager.setHero(this.hero);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())

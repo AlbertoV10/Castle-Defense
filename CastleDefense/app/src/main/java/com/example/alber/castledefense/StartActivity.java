@@ -16,6 +16,7 @@ public class StartActivity extends AppCompatActivity {
     private Button mStartButton;
     private Button mLoadButton;
     private GameManager gameManager = new GameManager();
+    private Hero hero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,14 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+
+        this.hero = new Hero(this);
+        this.gameManager.setHero(this.hero);
+
         mStartButton = (Button) findViewById(R.id.start_button);
         mLoadButton = (Button) findViewById(R.id.load_button);
+
+
 
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override

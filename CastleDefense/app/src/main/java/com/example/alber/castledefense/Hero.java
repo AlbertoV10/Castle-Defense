@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
 
-public class Hero extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class Hero extends AppCompatImageView implements Serializable, Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private int damage;
     private int damageUpgradePrice;
     private int damageLevel;
