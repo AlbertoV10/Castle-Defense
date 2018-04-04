@@ -27,7 +27,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         super(context);
         mListener = (ProjectileListener) context;
         // will need to change image
-        this.setImageResource(R.drawable.Arrow);
+        this.setImageResource(R.drawable.arrow);
         this.setColorFilter(color);
         int rawWidth = rawHeight;
 
