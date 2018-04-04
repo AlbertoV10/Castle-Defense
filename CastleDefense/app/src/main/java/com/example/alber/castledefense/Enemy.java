@@ -13,6 +13,8 @@ import android.util.Log;
 
 import com.example.alber.castledefense.utils.PixelHelper;
 
+import java.io.Serializable;
+
 public class Enemy extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
 
     private ValueAnimator mAnimator;

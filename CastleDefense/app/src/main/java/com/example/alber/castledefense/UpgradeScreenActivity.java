@@ -10,11 +10,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import java.io.Serializable;
 
-// TODO
-// How are upgrades applied?
-// Are they individual upgrades? (tower 1 damage, tower 1 ROF, tower 1 pierce)
-// or does upgrading the tower upgrade the damage + ROF + pierce etc
-
 public class UpgradeScreenActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
@@ -26,6 +21,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
     private ImageButton upgradeTowerThree;
     private ImageButton upgradeTownOne;
     private ImageButton upgradeTownTwo;
+    private ImageButton upgradeTownThree;
     private ImageButton upgradeHeroOne;
     private ImageButton upgradeHeroTwo;
 
@@ -103,12 +99,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Town Upgrade 1
-        upgradeTowerOne=(ImageButton)findViewById(R.id.town1);
-        upgradeTowerOne.setOnClickListener(new View.OnClickListener() {
+        // Town Upgrade 1, Income Upgrade
+        upgradeTownOne=(ImageButton)findViewById(R.id.town1);
+        upgradeTownOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTownUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getTownIncomeUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -117,12 +113,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Town Upgrade 2
-        upgradeTowerTwo=(ImageButton)findViewById(R.id.town2);
-        upgradeTowerTwo.setOnClickListener(new View.OnClickListener() {
+        // Town Upgrade 2, Wall Upgrade
+        upgradeTownTwo=(ImageButton)findViewById(R.id.town2);
+        upgradeTownTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTownUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getTownWallUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -131,12 +127,26 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Hero Upgrade 1
+        // Town Upgrade 3, Restore Wall Health
+        upgradeTownThree=(ImageButton)findViewById(R.id.town3);
+        upgradeTownThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameManager.getCurrentGold() < gameManager.getTownRestoreHealthPrice()) {
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // TODO
+                }
+            }
+        });
+
+        // Hero Upgrade 1, Increase Base Damage
         upgradeHeroOne=(ImageButton)findViewById(R.id.hero1);
         upgradeHeroOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getHeroUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getHeroDamageUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -145,12 +155,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Hero Upgrade 2
+        // Hero Upgrade 2, Increase Piercing
         upgradeHeroTwo=(ImageButton)findViewById(R.id.hero2);
         upgradeHeroTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getHeroUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getHeroPiercingUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{

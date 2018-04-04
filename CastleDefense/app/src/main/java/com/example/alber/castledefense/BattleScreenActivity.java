@@ -26,7 +26,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private Button mExitButton;
     private Button mNextRoundButton;
     private TextView pauseText;
-    private GameManager gameManager;
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -39,7 +38,8 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int mEnemiesKilled;
     private int[] yPositions = new int[3];
     private Intent intent;
-
+    private GameManager gameManager;
+    private Hero hero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +59,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         // Get gameManager object from last screen
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
-        //this.gameManager = new GameManager();
-        //Hero hero = new Hero(this);
-        //this.gameManager.setHero(hero);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -128,7 +125,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                     int touchX = (int)motionEvent.getX();
                     int touchY = (int)motionEvent.getY();
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFFFF0000, 128);
+                        Projectile arrow = new Projectile(BattleScreenActivity.this, 0x000000, 128);
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);

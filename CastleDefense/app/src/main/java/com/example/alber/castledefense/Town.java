@@ -5,78 +5,61 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
+import java.io.Serializable;
 
 //public class Town extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
-public class Town{
+public class Town implements Serializable{
     private int income;
+    private int incomeLevel;
+    private int incomeUpgradePrice;
     private int wallHealth;
+    private int wallLevel;
+    private int wallUpgradePrice;
     private int maxWallHealth;
+    private int restoreHealthPrice;
 
     public Town() {
-        //super(context);
         // sets default values for town
         setIncome(100);
+        setIncomeLevel(1);
+        setIncomeUpgradePrice(200);
         setWallHealth(100);
+        setWallLevel(1);
+        setWallUpgradePrice(100);
         setMaxWallHealth(100);
+        setRestoreHealthPrice(getMaxWallHealth());
     }
 
-    public int getIncome(){
-        return this.income;
-    }
+    public int getIncome(){ return this.income; }
 
-    public int getWallHealth() {
-        return this.wallHealth;
-    }
+    public int getIncomeLevel(){ return this.incomeLevel;}
 
-    public int getMaxWallHealth(){
-        return this.maxWallHealth;
-    }
+    public int getIncomeUpgradePrice(){ return this.incomeUpgradePrice;}
 
-    public void setIncome(int newIncome) {
-        this.income = newIncome;
-    }
+    public int getWallHealth() { return this.wallHealth; }
 
-    public void setWallHealth(int newWallHealth) {
-        this.wallHealth = newWallHealth;
-    }
+    public int getMaxWallHealth(){ return this.maxWallHealth; }
+
+    public int getWallLevel(){ return this.wallLevel;}
+
+    public int getWallUpgradePrice(){ return this.wallUpgradePrice;}
+
+    public int getRestoreHealthPrice(){ return this.restoreHealthPrice;}
+
+    public void setIncome(int newIncome) { this.income = newIncome; }
+
+    public void setIncomeLevel(int newLevel){ this.incomeLevel = newLevel;}
+
+    public void setIncomeUpgradePrice(int newPrice){ this.incomeUpgradePrice = newPrice;}
+
+    public void setWallHealth(int newWallHealth) { this.wallHealth = newWallHealth; }
 
     public void setMaxWallHealth(int newMaxWallHealth) {this.maxWallHealth = newMaxWallHealth;}
-/*
-    @Override
-    public void onAnimationStart(Animator animator) {
-        // nothing yet
-    }
 
-    @Override
-    public void onAnimationEnd(Animator animator) {
+    public void setWallLevel(int newLevel) { this.wallLevel = newLevel;}
 
-    }
+    public void setWallUpgradePrice(int newPrice){ this.wallUpgradePrice = newPrice;}
 
-    @Override
-    public void onAnimationCancel(Animator animator) {
-        // nothing yet
-    }
+    public void setRestoreHealthPrice(int newPrice){ this.restoreHealthPrice = getMaxWallHealth();}
 
-    @Override
-    public void onAnimationRepeat(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        setX((float) valueAnimator.getAnimatedValue());
-    }
-*/
-/*
-    // Touching the enemy picture will remove it from the display
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        return  true;
-    }
-
-    // Waits for user touch
-    public interface EnemyListener{
-       //void killEnemy(Enemy enemy, boolean userTouch);
-    }
-*/
 }

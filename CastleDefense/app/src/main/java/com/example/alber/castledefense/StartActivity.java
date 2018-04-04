@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 import android.app.Activity;
-
 import java.io.Serializable;
 
-public class StartActivity
-        extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
     private Button mStartButton;

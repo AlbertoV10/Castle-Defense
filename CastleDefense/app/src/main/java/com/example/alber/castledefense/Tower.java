@@ -5,10 +5,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
-
-/**
- * Created by ryan.torres097 on 3/26/18.
- */
+import android.view.ViewGroup;
+import com.example.alber.castledefense.utils.PixelHelper;
+import java.io.Serializable;
 
 public class Tower extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private int rateOfFire;
@@ -27,6 +26,25 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
         this.upgradeCost = 100;
     }
 
+    public Tower(Context context, int color, int rawHeight)
+    {
+        super(context);
+
+        //mListener = (Enemy.EnemyListener) context;
+
+        this.setImageResource(R.drawable.temp_enemy3);
+        this.setColorFilter(color);
+
+        //int rawWidth = rawHeight / 2;
+        int rawWidth = rawHeight;
+
+        // Control size of Tower here
+        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
+        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
+
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
+        setLayoutParams(params);
+    }
 
     public double getDamagePiercing() {
         return this.damagePiercing;
@@ -95,16 +113,4 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         setX((float) valueAnimator.getAnimatedValue());
     }
-/*
-    // Touching the enemy picture will remove it from the display
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        return  true;
-    }
-
-    // Waits for user touch
-    public interface EnemyListener{
-        void killEnemy(Enemy enemy, boolean userTouch);
-    }
-*/
 }

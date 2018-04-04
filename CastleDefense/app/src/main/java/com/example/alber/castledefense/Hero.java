@@ -6,12 +6,16 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-
 import com.example.alber.castledefense.utils.PixelHelper;
+import java.io.Serializable;
 
 public class Hero extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private int damage;
+    private int damageUpgradePrice;
+    private int damageLevel;
     private double damagePiercing;
+    private int piercingUpgradePrice;
+    private int piercingLevel;
 
     public Hero(Context context) {
         super(context);
@@ -31,29 +35,67 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         //int rawWidth = rawHeight / 2;
         int rawWidth = rawHeight;
 
-        // Control size of enemy here
+        // Control size of Hero here
         int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
         int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
 
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
-    }
 
-
-    public double getDamagePiercing() {
-        return this.damagePiercing;
+        setDamage(10);
+        setDamageUpgradePrice(100);
+        setDamageLevel(1);
+        setDamagePiercing(.2);
+        setPiercingUpgradePrice(100);
+        setPiercingLevel(1);
     }
 
     public int getDamage(){
         return this.damage;
     }
 
+    public int getDamageUpgradePrice() {
+        return this.damageUpgradePrice;
+    }
+
+    public int getDamageLevel() {
+        return this.damageLevel;
+    }
+
+    public double getDamagePiercing() {
+        return this.damagePiercing;
+    }
+
+    public int getPiercingUpgradePrice() {
+        return this.piercingUpgradePrice;
+    }
+
+    public int getPiercingLevel() {
+        return this.piercingLevel;
+    }
+
     public void setDamagePiercing(double newDP) {
         this.damagePiercing = newDP;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void setDamage(int newDamage) {
+        this.damage = newDamage;
+    }
+
+    public void setDamageUpgradePrice(int newDamageUpgradePrice) {
+        this.damageUpgradePrice = newDamageUpgradePrice;
+    }
+
+    public void setDamageLevel(int newDamageLevel) {
+        this.damageLevel = newDamageLevel;
+    }
+
+    public void setPiercingUpgradePrice(int newPiercingUpgradePrice) {
+        this.piercingUpgradePrice = newPiercingUpgradePrice;
+    }
+
+    public void setPiercingLevel(int newPiercingLevel) {
+        this.piercingLevel = newPiercingLevel;
     }
 
     @Override
@@ -78,18 +120,6 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
 
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        setX((float) valueAnimator.getAnimatedValue());
+        //setX((float) valueAnimator.getAnimatedValue());
     }
-/*
-    // Touching the enemy picture will remove it from the display
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        return  true;
-    }
-
-    // Waits for user touch
-    public interface EnemyListener{
-        void killEnemy(Enemy enemy, boolean userTouch);
-    }
-*/
 }
