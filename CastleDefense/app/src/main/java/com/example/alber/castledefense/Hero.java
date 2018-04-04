@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
 
-public class Hero extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class Hero  implements java.io.Serializable/*extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener*/{
     private int damage;
     private int damageUpgradePrice;
     private int damageLevel;
@@ -18,13 +18,13 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
     private int piercingLevel;
 
     public Hero(Context context) {
-        super(context);
+        //super(context);
         // sets default values for tower
         setDamage(10);
         setDamagePiercing(.2);
     }
 
-    public Hero(Context context, int color, int rawHeight)
+   /* public Hero(Context context, int color, int rawHeight)
     {
         super(context);
 
@@ -49,7 +49,7 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         setDamagePiercing(.2);
         setPiercingUpgradePrice(100);
         setPiercingLevel(1);
-    }
+    }*/
 
     public int getDamage(){
         return this.damage;
@@ -99,7 +99,7 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         this.piercingLevel = newPiercingLevel;
     }
 
-    @Override
+/*    @Override
     public void onAnimationStart(Animator animator) {
         // nothing yet
     }
@@ -122,5 +122,5 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         //setX((float) valueAnimator.getAnimatedValue());
-    }
+    }*/
 }

@@ -26,6 +26,7 @@ import java.io.Serializable;
 public class GameManager extends AppCompatActivity implements Serializable{
     private Enemy enemies[];
     private Tower towers[];
+    private boolean waveStart;
     private Hero hero;
     private Town town;
     private int numOfEnemies;
@@ -53,6 +54,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         //createEnemies();
         //createHero();
         //hero = null;
+        waveStart = false;
         createTown();
         this.currentWave = 1;
         this.numOfEnemies = 5;
@@ -75,7 +77,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return this.hero;
     }
 
-    public boolean projectileFiled()
+    public boolean projectileFired()
     {
         boolean fired = false;
         if(playerProjectile == null)
@@ -85,13 +87,26 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return fired;
     }
 
+
     public void setPlayerProjectile(Projectile playerProjectile)
     {
         this.playerProjectile = playerProjectile;
     }
+    // Resets any flags and variables at the start of a new wave
+    public void newWave()
+    {
+        this.waveStart = false;
+    }
 
     //public void remove
-
+    public void startWave()
+    {
+        this.waveStart = true;
+    }
+    public boolean waveStarted()
+    {
+        return this.waveStart;
+    }
     public int getNumOfEnemies()
     {
         return this.numOfEnemies;
@@ -240,7 +255,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
 
     public void setHero(Hero hero)
     {
-       // this.hero = hero;
+        this.hero = hero;
     }
 
     public void setEnemies(Enemy[] enemies)
