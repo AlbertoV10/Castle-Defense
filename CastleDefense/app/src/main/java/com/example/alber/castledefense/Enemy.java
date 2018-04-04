@@ -109,6 +109,8 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
         {
             mListener.damageEnemy(this, false);
         }
+        // removing enemies on hit by arrow, will be changing to damage then removing
+        mListener.removeEnemy(this);
     }
 
     @Override
@@ -145,5 +147,6 @@ public class Enemy extends AppCompatImageView implements Animator.AnimatorListen
     // Waits for user touch
     public interface EnemyListener{
             void damageEnemy(Enemy enemy, boolean userTouch);
+            void removeEnemy(Enemy enemy);
         }
     }

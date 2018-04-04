@@ -133,12 +133,14 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
+
                     }
                 }
                 return false;
 
             }
         });
+
     }
 
     boolean togglePause()
@@ -214,6 +216,11 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         updateDisplay();
     }
 
+    public void removeEnemy(Enemy enemy) {
+        mContentView.removeView(enemy);
+        updateDisplay();
+    }
+
     private void updateDisplay() {
         // nothing yet
     }
@@ -281,4 +288,20 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, duration);
     }
+
+    public void detectCollisions(ArrayList<Enemy> enemies, ArrayList<Projectile> projectiles)
+    {
+        for(Projectile projectile: projectiles)
+        {
+            for (Enemy enemy: enemies)
+            {
+                if(projectile.getX() > enemy.getX() && Math.abs(projectile.getY()-enemy.getY()) < 50)
+                {
+                    enemies.remove(enemy);
+                    removeEnemy(enemy);
+                }
+            }
+        }
+    }
+
 }
