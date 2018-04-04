@@ -25,6 +25,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private Button mPauseButton;
     private Button mExitButton;
     private Button mNextRoundButton;
+    private Button mstartRoundButton;
     private TextView pauseText;
     private ViewGroup mContentView;
     private int mScreenWidth;
@@ -51,6 +52,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
 
         isPaused = false;
         isWaveActive = false;
+        mstartRoundButton = (Button) findViewById(R.id.start_wave);
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);
@@ -62,6 +64,10 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         // Get gameManager object from last screen
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
+
+        this.hero = new Hero(this);
+        this.gameManager.setHero(this.hero);
+        this.gameManager.newWave();
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -185,9 +191,14 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     }
 
     private void startWave(){
-        mWave++;
-        EnemyLauncher launcher = new EnemyLauncher();
-        launcher.execute(mWave);
+        if(!gameManager.waveStarted())
+        {
+            mWave++;
+            EnemyLauncher launcher = new EnemyLauncher();
+            launcher.execute(mWave);
+            gameManager.startWave();
+            mstartRoundButton.setAlpha(0);
+        }
     }
 
     public void startButtonClickHandler(View view) {
@@ -199,13 +210,14 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     public void damageEnemy(Enemy enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
         //f(userTouch){
-            //enemy.touchEvent(gameManager.getHero());
+            enemy.touchEvent(gameManager.getHero());
+
             if (enemy.isDead())
             {
                 mEnemiesKilled++;
                 mContentView.removeView(enemy);
                 //gameManager.removeEnemy(enemy);
-                //gameManager.decreaseEnemies();
+                gameManager.decreaseEnemies();
             }
        // }
         updateDisplay();

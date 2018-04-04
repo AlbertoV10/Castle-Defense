@@ -27,12 +27,14 @@ import java.util.ArrayList;
 public class GameManager extends AppCompatActivity implements Serializable{
     private Enemy enemies[];
     private Tower towers[];
+    private boolean waveStart;
     private Hero hero;
     private Town town;
     private int numOfEnemies;
     private int currentWave;
     private int remainingEnemies;
     private int currentGold;
+    private Projectile playerProjectile;
     //private Layout layout;
     private int[] towerUpgradePrice = new int[]{100,100,100};
     //private int[] tower
@@ -52,7 +54,8 @@ public class GameManager extends AppCompatActivity implements Serializable{
         //this.layout = layout;
         //createEnemies();
         //createHero();
-        hero = null;
+        //hero = null;
+        waveStart = false;
         createTown();
         this.currentWave = 1;
         this.numOfEnemies = 5;
@@ -75,6 +78,36 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return this.hero;
     }
 
+    public boolean projectileFired()
+    {
+        boolean fired = false;
+        if(playerProjectile == null)
+        {
+            fired = true;
+        }
+        return fired;
+    }
+
+
+    public void setPlayerProjectile(Projectile playerProjectile)
+    {
+        this.playerProjectile = playerProjectile;
+    }
+    // Resets any flags and variables at the start of a new wave
+    public void newWave()
+    {
+        this.waveStart = false;
+    }
+
+    //public void remove
+    public void startWave()
+    {
+        this.waveStart = true;
+    }
+    public boolean waveStarted()
+    {
+        return this.waveStart;
+    }
     public int getNumOfEnemies()
     {
         return this.numOfEnemies;
@@ -238,7 +271,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
 
     public void createHero()
     {
-        this.hero = new Hero(this, 0x0000FF, 150);
+        //this.hero = new Hero(this, 0x0000FF, 150);
     }
 
     public void removeEnemy(Enemy enemy)
