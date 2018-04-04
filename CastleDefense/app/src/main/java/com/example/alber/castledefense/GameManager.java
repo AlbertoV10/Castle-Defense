@@ -9,8 +9,10 @@ import com.example.alber.castledefense.Enemy;
  */
 
 public class GameManager {
-    private Enemy enemies[];
-    private Tower towers[];
+    //private Enemy enemies[];
+    //private Tower towers[];
+    //private Projectile towerProjectiles[];
+    //private Projectile playerProjectile;
     private Town town;
     private Hero hero;
     private int numOfEnemies;
@@ -21,6 +23,8 @@ public class GameManager {
 
     public GameManager()
     {
+        //this.towers = Tower[4];
+
         this.layout = layout;
         //createEnemies();
         //createHero();
@@ -31,27 +35,45 @@ public class GameManager {
         this.currentGold = 0;
     }
 
-    public Enemy[] getEnemy()
+    /*public Enemy[] getEnemy()
     {
         return this.enemies;
-    }
+    }*/
 
-    public Tower[] getTowers()
+    /*public Tower[] getTowers()
     {
         return this.towers;
-    }
+    }*/
 
 
-    public Hero getHero()
+    /*public Hero getHero()
     {
         return this.hero;
-    }
+    }*/
 
     /*
     public getUpgrades()
     {
 
     }*/
+
+
+    /*public Projectile getTowerProjectile(int towerNumber)
+    {
+        return towerProjectiles[towerNumber];
+    }*/
+
+    /*public Projectile getPlayerProjectile()
+    {
+        return playerProjectile;
+    }*/
+
+    /*public void removeTowerProjectile(int towerNumber)
+    {
+        towerProjectiles[towerNumber] = null;
+    }*/
+
+
 
     public int getNumOfEnemies()
     {
@@ -73,10 +95,10 @@ public class GameManager {
         return this.currentGold;
     }
 
-    public void setTowers(Tower[] tower)
+   /* public void setTowers(Tower[] tower)
     {
         this.towers = tower;
-    }
+    }*/
 
     public void increaseWave()
     {
@@ -88,22 +110,22 @@ public class GameManager {
         this.remainingEnemies--;
     }
 
-    public void setHero(Hero hero)
+    /*public void setHero(Hero hero)
     {
         this.hero = hero;
-    }
+    }*/
 
-    public void setEnemies(Enemy[] enemies)
+    /*public void setEnemies(Enemy[] enemies)
     {
         this.enemies = enemies;
-    }
+    }*/
 
     public void createTown()
     {
         this.town = new Town();
     }
 
-    public void removeEnemy(Enemy enemy)
+    /*public void removeEnemy(Enemy enemy)
     {
         for (int enemyIndex = 0; enemyIndex <  enemies.length; enemyIndex++)
         {
@@ -113,7 +135,7 @@ public class GameManager {
                 break;
             }
         }
-    }
+    }*/
 
 
 }

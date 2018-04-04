@@ -125,8 +125,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
-
-
                     }
                 }
                 return false;
