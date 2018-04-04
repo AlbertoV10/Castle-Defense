@@ -63,6 +63,9 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
 
+        this.hero = new Hero(this);
+        this.gameManager.setHero(this.hero);
+
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
         {
@@ -197,7 +200,8 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     public void damageEnemy(Enemy enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
         //f(userTouch){
-            //enemy.touchEvent(gameManager.getHero());
+            enemy.touchEvent(gameManager.getHero());
+
             if (enemy.isDead())
             {
                 mEnemiesKilled++;

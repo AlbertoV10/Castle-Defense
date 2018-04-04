@@ -51,7 +51,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         //this.layout = layout;
         //createEnemies();
         //createHero();
-        hero = null;
+        //hero = null;
         createTown();
         this.currentWave = 1;
         this.numOfEnemies = 5;
@@ -237,7 +237,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
 
     public void createHero()
     {
-        this.hero = new Hero(this, 0x0000FF, 150);
+        //this.hero = new Hero(this, 0x0000FF, 150);
     }
 
     public void removeEnemy(Enemy enemy)

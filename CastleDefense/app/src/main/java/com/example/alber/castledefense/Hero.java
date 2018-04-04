@@ -23,6 +23,7 @@ public class Hero extends AppCompatImageView implements Animator.AnimatorListene
         setDamage(10);
         setDamagePiercing(.2);
     }
+
     public Hero(Context context, int color, int rawHeight)
     {
         super(context);
