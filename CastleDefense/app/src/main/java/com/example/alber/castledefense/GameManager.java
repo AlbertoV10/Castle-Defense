@@ -32,6 +32,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
     private int currentWave;
     private int remainingEnemies;
     private int currentGold;
+    private Projectile playerProjectile;
     //private Layout layout;
     private int[] towerUpgradePrice = new int[]{100,100,100};
     //private int[] tower
@@ -73,6 +74,23 @@ public class GameManager extends AppCompatActivity implements Serializable{
     {
         return this.hero;
     }
+
+    public boolean projectileFiled()
+    {
+        boolean fired = false;
+        if(playerProjectile == null)
+        {
+            fired = true;
+        }
+        return fired;
+    }
+
+    public void setPlayerProjectile(Projectile playerProjectile)
+    {
+        this.playerProjectile = playerProjectile;
+    }
+
+    //public void remove
 
     public int getNumOfEnemies()
     {
@@ -222,7 +240,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
 
     public void setHero(Hero hero)
     {
-        this.hero = hero;
+       // this.hero = hero;
     }
 
     public void setEnemies(Enemy[] enemies)
