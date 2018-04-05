@@ -25,6 +25,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private Button mPauseButton;
     private Button mExitButton;
     private Button mNextRoundButton;
+    private Button mstartRoundButton;
     private TextView pauseText;
     private ViewGroup mContentView;
     private int mScreenWidth;
@@ -39,7 +40,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private Intent intent;
     private GameManager gameManager;
 
-    private ArrayList enemyArray = new ArrayList<Enemy>();
+    private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
 
     @Override
@@ -49,6 +50,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         isPaused = false;
         isWaveActive = false;
+        mstartRoundButton = (Button) findViewById(R.id.start_wave);
         mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);
@@ -74,6 +76,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         TowerSprite towerThree = new TowerSprite(this, 0xFFFF00, 150);
         towerThree.setTower(gameManager.getTowers()[2]);
+
+        this.gameManager.newWave();
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -145,12 +149,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
+
                     }
                 }
                 return false;
 
             }
         });
+
     }
 
     boolean togglePause()
@@ -195,9 +201,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     }
 
     private void startWave(){
-        mWave++;
-        EnemyLauncher launcher = new EnemyLauncher();
-        launcher.execute(mWave);
+        if(!gameManager.waveStarted())
+        {
+            mWave++;
+            EnemyLauncher launcher = new EnemyLauncher();
+            launcher.execute(mWave);
+            gameManager.startWave();
+            mstartRoundButton.setAlpha(0);
+        }
     }
 
     public void startButtonClickHandler(View view) {
@@ -216,7 +227,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 mEnemiesKilled++;
                 mContentView.removeView(enemy);
                 //gameManager.removeEnemy(enemy);
-                //gameManager.decreaseEnemies();
+                gameManager.decreaseEnemies();
             }
        // }
         updateDisplay();
@@ -224,6 +235,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void removeProjectile(Projectile projectile) {
         mContentView.removeView(projectile);
+        updateDisplay();
+    }
+
+    public void removeEnemy(EnemySprite enemy) {
+        mContentView.removeView(enemy);
         updateDisplay();
     }
 
@@ -294,4 +310,20 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, duration);
     }
+
+    public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
+    {
+        for(Projectile projectile: projectiles)
+        {
+            for (EnemySprite enemy: enemies)
+            {
+                if(projectile.getX() > enemy.getX() && Math.abs(projectile.getY()-enemy.getY()) < 50)
+                {
+                    enemies.remove(enemy);
+                    removeEnemy(enemy);
+                }
+            }
+        }
+    }
+
 }

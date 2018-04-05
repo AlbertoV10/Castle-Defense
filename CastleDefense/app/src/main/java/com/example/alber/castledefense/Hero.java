@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
 
-public class Hero implements Serializable{
+public class Hero implements Serializable {
     private int damage;
     private int damageUpgradePrice;
     private int damageLevel;
@@ -19,14 +19,10 @@ public class Hero implements Serializable{
 
     public Hero() {
         setDamage(10);
-        setDamageUpgradePrice(100);
-        setDamageLevel(1);
         setDamagePiercing(.2);
-        setPiercingUpgradePrice(100);
-        setPiercingLevel(1);
     }
 
-    public int getDamage(){
+    public int getDamage() {
         return this.damage;
     }
 
@@ -74,15 +70,9 @@ public class Hero implements Serializable{
         this.piercingLevel = newPiercingLevel;
     }
 
-    public void upgradeHero(){
+    public void upgradeHero() {
         // Right now it upgrades everything, this will change in later sprints
         setDamage(getDamage() + 10);
-        setDamagePiercing(getDamagePiercing()+.1);
-
-        setDamageLevel(getDamageLevel()+1);
-        setPiercingLevel(getPiercingLevel()+1);
-
-        setDamageUpgradePrice(getDamageUpgradePrice()*2);
-        setPiercingUpgradePrice(getDamageUpgradePrice()*2);
+        setDamagePiercing(getDamagePiercing() + .1);
     }
 }

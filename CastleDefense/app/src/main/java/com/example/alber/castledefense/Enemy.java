@@ -38,8 +38,7 @@ public class Enemy implements Serializable {
         return this.healthRemaining;
     }
 
-    public double getArmor()
-    {
+    public double getArmor() {
         return this.armor;
     }
 
@@ -56,4 +55,9 @@ public class Enemy implements Serializable {
         this.armor = newArmor;
     }
 
-}
+    // Waits for user touch
+    public interface EnemyListener{
+            void damageEnemy(Enemy enemy, boolean userTouch);
+            void removeEnemy(Enemy enemy);
+        }
+    }

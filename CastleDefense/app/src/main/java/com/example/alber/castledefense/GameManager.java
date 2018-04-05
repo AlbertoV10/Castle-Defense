@@ -3,10 +3,12 @@ package com.example.alber.castledefense;
 import android.text.Layout;
 import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class GameManager extends AppCompatActivity implements Serializable{
     private Enemy enemies[];
     private Tower towers[];
+    private boolean waveStart;
     private Hero hero;
     private Town town;
     private int numOfEnemies;
@@ -21,6 +23,9 @@ public class GameManager extends AppCompatActivity implements Serializable{
     {
         //this.layout = layout;
         //createEnemies();
+        //createHero();
+        //hero = null;
+        waveStart = false;
         createTown();
         this.currentWave = 1;
         this.numOfEnemies = 5;
@@ -48,7 +53,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return this.town;
     }
 
-    public boolean projectileFiled()
+    public boolean projectileFired()
     {
         boolean fired = false;
         if(playerProjectile == null)
@@ -62,9 +67,21 @@ public class GameManager extends AppCompatActivity implements Serializable{
     {
         this.playerProjectile = playerProjectile;
     }
+    // Resets any flags and variables at the start of a new wave
+    public void newWave()
+    {
+        this.waveStart = false;
+    }
 
     //public void remove
-
+    public void startWave()
+    {
+        this.waveStart = true;
+    }
+    public boolean waveStarted()
+    {
+        return this.waveStart;
+    }
     public int getNumOfEnemies()
     {
         return this.numOfEnemies;
