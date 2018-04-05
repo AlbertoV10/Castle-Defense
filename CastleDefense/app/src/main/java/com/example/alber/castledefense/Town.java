@@ -23,9 +23,11 @@ public class Town implements Serializable{
         setIncome(100);
         setIncomeLevel(1);
         setIncomeUpgradePrice(200);
+
         setWallHealth(100);
         setWallLevel(1);
         setWallUpgradePrice(100);
+
         setMaxWallHealth(100);
         setRestoreHealthPrice(getMaxWallHealth());
     }

@@ -20,6 +20,8 @@ public class Hero implements Serializable {
     public Hero() {
         setDamage(10);
         setDamagePiercing(.2);
+        setDamageUpgradePrice(100);
+        setDamageLevel(1);
     }
 
     public int getDamage() {
@@ -73,6 +75,12 @@ public class Hero implements Serializable {
     public void upgradeHero() {
         // Right now it upgrades everything, this will change in later sprints
         setDamage(getDamage() + 10);
-        setDamagePiercing(getDamagePiercing() + .1);
+        setDamagePiercing(getDamagePiercing()+.1);
+
+        setDamageLevel(getDamageLevel()+1);
+        setPiercingLevel(getPiercingLevel()+1);
+
+        setDamageUpgradePrice(getDamageUpgradePrice()*2);
+        setPiercingUpgradePrice(getDamageUpgradePrice()*2);
     }
 }
