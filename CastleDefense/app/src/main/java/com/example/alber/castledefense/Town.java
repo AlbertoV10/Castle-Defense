@@ -62,4 +62,19 @@ public class Town implements Serializable{
 
     public void setRestoreHealthPrice(int newPrice){ this.restoreHealthPrice = getMaxWallHealth();}
 
+    public void upgradeIncome(){
+        setIncome(getIncome() + 100);
+        setIncomeUpgradePrice(getIncomeUpgradePrice()*2);
+        setIncomeLevel(getIncomeLevel()+1);
+    }
+
+    public void upgradeWall(){
+        setWallHealth(getMaxWallHealth()+100);
+        setWallUpgradePrice(getWallUpgradePrice()*2);
+        setWallLevel(getWallLevel()+1);
+    }
+
+    public void restoreHealth(){
+        setWallHealth(getMaxWallHealth());
+    }
 }

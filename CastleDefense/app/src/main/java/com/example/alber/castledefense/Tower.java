@@ -9,41 +9,20 @@ import android.view.ViewGroup;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
 
-public class Tower extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class Tower implements Serializable{
     private int rateOfFire;
     private int damage;
     private double damagePiercing;
     private int upgradeLevel;
     private int upgradeCost;
 
-    public Tower(Context context) {
-        super(context);
+    public Tower() {
         // sets default values for tower
         setDamage(10);
         setRateOfFire(10);
-        setDamagePiercing(1);
-        this.upgradeLevel = 1;
-        this.upgradeCost = 100;
-    }
-
-    public Tower(Context context, int color, int rawHeight)
-    {
-        super(context);
-
-        //mListener = (Enemy.EnemyListener) context;
-
-        this.setImageResource(R.drawable.temp_enemy3);
-        this.setColorFilter(color);
-
-        //int rawWidth = rawHeight / 2;
-        int rawWidth = rawHeight;
-
-        // Control size of Tower here
-        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
-        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
-        setLayoutParams(params);
+        setDamagePiercing(.1);
+        setUpgradeLevel(1);
+        setUpgradeCost(100);
     }
 
     public double getDamagePiercing() {
@@ -66,17 +45,10 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
         return this.rateOfFire;
     }
 
-    public void upgradeTower(){
-        this.upgradeLevel++;
-
-        // Mock Values, will implemenet algorithm in later sprint
-        setRateOfFire(this.rateOfFire + 10);
-        setDamage(this.damage + 10);
-        setDamagePiercing(this.damagePiercing + 10);
-        this.upgradeCost = this.upgradeCost *2;
+    public int getUpgradeLevel() {
+        return upgradeLevel;
     }
 
-    // Name changed from setDamageReduction
     public void setDamagePiercing(double reduce) {
         this.damagePiercing = reduce;
     }
@@ -89,28 +61,21 @@ public class Tower extends AppCompatImageView implements Animator.AnimatorListen
         this.rateOfFire = rate;
     }
 
-    @Override
-    public void onAnimationStart(Animator animator) {
-        // nothing yet
+    public void setUpgradeLevel(int upgradeLevel) {
+        this.upgradeLevel = upgradeLevel;
     }
 
-    @Override
-    public void onAnimationEnd(Animator animator) {
-        // nothing yet
+    public void setUpgradeCost(int upgradeCost) {
+        this.upgradeCost = upgradeCost;
     }
 
-    @Override
-    public void onAnimationCancel(Animator animator) {
-        // nothing yet
+    public void upgradeTower(){
+        // Right now it upgrades everything, this will change in later sprints
+        setUpgradeLevel(getUpgradeLevel()+1);
+        setRateOfFire(getRateOfFire() + 1);
+        setDamage(getDamage() + 5);
+        setDamagePiercing(getDamagePiercing() + .2);
+        setUpgradeCost(getUpgradeCost()*2);
     }
 
-    @Override
-    public void onAnimationRepeat(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        setX((float) valueAnimator.getAnimatedValue());
-    }
 }

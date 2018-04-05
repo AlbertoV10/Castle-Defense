@@ -15,135 +15,45 @@ import com.example.alber.castledefense.utils.PixelHelper;
 
 import java.io.Serializable;
 
-public class Enemy extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
+public class Enemy implements Serializable {
 
-    private ValueAnimator mAnimator;
-    private EnemyListener mListener;
-    private boolean mHit;
     private double armor;
     private int healthRemaining;
     private boolean isDead;
 
-    public Enemy(Context context)
+    public Enemy()
     {
-        super(context);
-    }
-    public Enemy(Context context, int color, int rawHeight)
-    {
-        super(context);
-
-        mListener = (EnemyListener) context;
-
-        this.setImageResource(R.drawable.temp_enemy3);
-        this.setColorFilter(color);
-
-        //int rawWidth = rawHeight / 2;
-        int rawWidth = rawHeight;
-
-        // Control size of enemy here
-        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
-        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
-        setLayoutParams(params);
-
-
         this.armor = .10;
         this.healthRemaining = 30;
         this.isDead = false;
     }
 
-
-    public boolean isDead()
+    public boolean getIsDead()
     {
         return this.isDead;
     }
 
-    public int healthRemaining()
+    public int getHealthRemaining()
     {
         return this.healthRemaining;
     }
 
-    public void touchEvent(Hero hero)
+    public double getArmor()
     {
-        double damageMultiplier  = 1 - this.armor + hero.getDamagePiercing();
-        this.healthRemaining -=  damageMultiplier * hero.getDamage();
-        if (this.healthRemaining <= 0)
-        {
-            this.isDead = true;
-        }
+        return this.armor;
     }
 
-    public void projectileCollision(Projectile projectile)
+    public void setIsDead(boolean newState){
+        this.isDead = newState;
+    }
+
+    public void setHealthRemaining(int newHealth)
     {
-        double damageMultiplier  = 1 - this.armor + projectile.getPiercingValue();
-        this.healthRemaining -=  damageMultiplier * projectile.getDamage();
-        if (this.healthRemaining <= 0)
-        {
-            this.isDead = true;
-        }
+        this.healthRemaining = newHealth;
     }
 
-    // Starts the enemy at x position 0, running to screenWidth
-    // duration is the time it will take to reach the end position in milliseconds
-    public void releaseEnemy(int screenWidth, int duration){
-        mAnimator = new ValueAnimator();
-        mAnimator.setDuration(duration);
-        // mAnimator.setFloatValues(START, END);
-        mAnimator.setFloatValues(0f,screenWidth);
-        mAnimator.setInterpolator(new LinearInterpolator());
-        mAnimator.setTarget(this);
-        mAnimator.addListener(this);
-        mAnimator.addUpdateListener(this);
-        mAnimator.start();
+    public void setArmor(double newArmor){
+        this.armor = newArmor;
     }
 
-    @Override
-    public void onAnimationStart(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationEnd(Animator animator) {
-        if(!mHit)
-        {
-            mListener.damageEnemy(this, false);
-        }
-    }
-
-    @Override
-    public void onAnimationCancel(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationRepeat(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        setX((float) valueAnimator.getAnimatedValue());
-    }
-
-    // Touching the enemy picture will remove it from the display
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-
-        //if(!mHit && event.getAction() == MotionEvent.ACTION_DOWN)
-        //{
-            mListener.damageEnemy(this, true);
-           // mHit = true;
-            if(this.isDead)
-            {
-                mAnimator.cancel();
-            }
-        //}
-        return super.onTouchEvent(event);
-    }
-
-    // Waits for user touch
-    public interface EnemyListener{
-            void damageEnemy(Enemy enemy, boolean userTouch);
-        }
-    }
+}

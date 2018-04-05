@@ -5,4 +5,5 @@
     <string name="pause_button">Pause</string>
     <string name="exit_button">Exit</string>
     <string name="not_enough_money">Not Enough Money</string>
+    <string name="already_max_health">Already at max health!</string>
 </resources>

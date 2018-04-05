@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class BattleScreenActivity extends AppCompatActivity implements Enemy.EnemyListener,Projectile.ProjectileListener{
+public class BattleScreenActivity extends AppCompatActivity implements EnemySprite.EnemyListener,Projectile.ProjectileListener{
 
     private boolean isPaused;
     private boolean isWaveActive;
@@ -29,7 +29,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    private Button nextScreen;
     public static final int MIN_ANIMATION_DELAY = 500;
     public static final int MAX_ANIMATION_DELAY = 1000;
     public static final int MIN_ANIMATION_DURATION = 1000;
@@ -39,7 +38,6 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     private int[] yPositions = new int[3];
     private Intent intent;
     private GameManager gameManager;
-    //private Hero hero;
 
     private ArrayList enemyArray = new ArrayList<Enemy>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
@@ -63,8 +61,19 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
 
-        //this.hero = new Hero(this);
-        //this.gameManager.setHero(this.hero);
+        // Create local hero sprite, retrieve stats from game manager
+        HeroSprite hero = new HeroSprite(this, 0xFFFF00, 150);
+        hero.setHero(gameManager.getHero());
+
+        // Create local tower sprites, retrieve stats from game manager
+        TowerSprite towerOne = new TowerSprite(this, 0xFFFF00, 150);
+        towerOne.setTower(gameManager.getTowers()[0]);
+
+        TowerSprite towerTwo = new TowerSprite(this, 0xFFFF00, 150);
+        towerTwo.setTower(gameManager.getTowers()[1]);
+
+        TowerSprite towerThree = new TowerSprite(this, 0xFFFF00, 150);
+        towerThree.setTower(gameManager.getTowers()[2]);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -197,7 +206,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
     }
 
     //@Override
-    public void damageEnemy(Enemy enemy, boolean userTouch) {
+    public void damageEnemy(EnemySprite enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
         //f(userTouch){
             enemy.touchEvent(gameManager.getHero());
@@ -271,7 +280,7 @@ public class BattleScreenActivity extends AppCompatActivity implements Enemy.Ene
 
     private void launchEnemy(int y) {
 
-        Enemy enemy = new Enemy(this, 0xFFFF0000, 150);
+        EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150);
 
         // Set enemy vertical position and dimensions, add to container
         enemy.setX(0);

@@ -62,11 +62,15 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTowerOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    // TODO
+                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTowerUpgradePrice());
+                    for(int index = 0; index < gameManager.getTowers().length; index++)
+                    {
+                        gameManager.getTowers()[index].upgradeTower();
+                    }
                 }
             }
         });
@@ -76,7 +80,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTowerTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -90,7 +94,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTowerThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice(0)) {
+                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -104,11 +108,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTownOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTownIncomeUpgradePrice()) {
+                if(gameManager.getCurrentGold() < gameManager.getTown().getIncomeUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    // TODO
+                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getIncomeUpgradePrice());
+                    gameManager.getTown().upgradeIncome();
                 }
             }
         });
@@ -118,11 +123,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTownTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTownWallUpgradePrice()) {
+                if(gameManager.getCurrentGold() < gameManager.getTown().getWallUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    // TODO
+                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getWallUpgradePrice());
+                    gameManager.getTown().upgradeWall();
                 }
             }
         });
@@ -132,35 +138,40 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         upgradeTownThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTownRestoreHealthPrice()) {
+                if(gameManager.getCurrentGold() < gameManager.getTown().getRestoreHealthPrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
+                else if(gameManager.getTown().getWallHealth() == gameManager.getTown().getMaxWallHealth()){
+                    Toast.makeText(UpgradeScreenActivity.this, R.string.already_max_health, Toast.LENGTH_SHORT).show();
+                }
                 else{
-                    // TODO
+                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getRestoreHealthPrice());
+                    gameManager.getTown().restoreHealth();
                 }
             }
         });
 
-        // Hero Upgrade 1, Increase Base Damage
+        // Hero Upgrade 1
         upgradeHeroOne=(ImageButton)findViewById(R.id.hero1);
         upgradeHeroOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getHeroDamageUpgradePrice()) {
+                if(gameManager.getCurrentGold() < gameManager.getHero().getDamageUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    // TODO
+                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getHero().getDamageUpgradePrice());
+                    gameManager.getHero().upgradeHero();
                 }
             }
         });
 
-        // Hero Upgrade 2, Increase Piercing
+        // Hero Upgrade 2
         upgradeHeroTwo=(ImageButton)findViewById(R.id.hero2);
         upgradeHeroTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getHeroPiercingUpgradePrice()) {
+                if(gameManager.getCurrentGold() < gameManager.getHero().getDamageUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
                 }
                 else{

@@ -17,6 +17,7 @@ public class StartActivity extends AppCompatActivity {
     private Button mLoadButton;
     private GameManager gameManager = new GameManager();
     private Hero hero;
+    private Tower[] towers = new Tower[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +35,19 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-
-        this.hero = new Hero(this);
-        this.gameManager.setHero(this.hero);
-
         mStartButton = (Button) findViewById(R.id.start_button);
         mLoadButton = (Button) findViewById(R.id.load_button);
 
+        // Create Hero
+        hero = new Hero();
+        gameManager.setHero(hero);
 
+        // Create Towers
+        for(int index = 0; index < 3; index++)
+        {
+            towers[index] = new Tower();
+        }
+        gameManager.setTowers(towers);
 
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override

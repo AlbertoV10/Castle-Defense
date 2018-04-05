@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
 
-public class Hero extends AppCompatImageView implements Serializable, Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class Hero implements Serializable{
     private int damage;
     private int damageUpgradePrice;
     private int damageLevel;
@@ -17,32 +17,7 @@ public class Hero extends AppCompatImageView implements Serializable, Animator.A
     private int piercingUpgradePrice;
     private int piercingLevel;
 
-    public Hero(Context context) {
-        super(context);
-        // sets default values for tower
-        setDamage(10);
-        setDamagePiercing(.2);
-    }
-
-    public Hero(Context context, int color, int rawHeight)
-    {
-        super(context);
-
-        //mListener = (Enemy.EnemyListener) context;
-
-        this.setImageResource(R.drawable.temp_enemy3);
-        this.setColorFilter(color);
-
-        //int rawWidth = rawHeight / 2;
-        int rawWidth = rawHeight;
-
-        // Control size of Hero here
-        int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
-        int dpWidth = PixelHelper.pixelsToDp(rawWidth/2, context);
-
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
-        setLayoutParams(params);
-
+    public Hero() {
         setDamage(10);
         setDamageUpgradePrice(100);
         setDamageLevel(1);
@@ -99,28 +74,15 @@ public class Hero extends AppCompatImageView implements Serializable, Animator.A
         this.piercingLevel = newPiercingLevel;
     }
 
-    @Override
-    public void onAnimationStart(Animator animator) {
-        // nothing yet
-    }
+    public void upgradeHero(){
+        // Right now it upgrades everything, this will change in later sprints
+        setDamage(getDamage() + 10);
+        setDamagePiercing(getDamagePiercing()+.1);
 
-    @Override
-    public void onAnimationEnd(Animator animator) {
-        // nothing yet
-    }
+        setDamageLevel(getDamageLevel()+1);
+        setPiercingLevel(getPiercingLevel()+1);
 
-    @Override
-    public void onAnimationCancel(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationRepeat(Animator animator) {
-        // nothing yet
-    }
-
-    @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        //setX((float) valueAnimator.getAnimatedValue());
+        setDamageUpgradePrice(getDamageUpgradePrice()*2);
+        setPiercingUpgradePrice(getDamageUpgradePrice()*2);
     }
 }
