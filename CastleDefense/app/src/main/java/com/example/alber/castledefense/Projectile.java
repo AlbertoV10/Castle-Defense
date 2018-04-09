@@ -88,10 +88,10 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         setX((float) valueAnimator.getAnimatedValue());
-        if(!(getX() > stopPositionX))
-        {
-            mAnimator.cancel();
-        }
+//        if(!(getX() > stopPositionX))
+//        {
+//            mAnimator.cancel();
+//        }
     }
 
     public int getProjectileXPosition()
