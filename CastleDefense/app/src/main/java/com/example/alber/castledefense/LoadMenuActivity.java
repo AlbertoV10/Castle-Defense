@@ -14,7 +14,9 @@ public class LoadMenuActivity extends AppCompatActivity {
     private Button mFile2Button;
     private Button mFile3Button;
     private ViewGroup mContentView;
-
+    private GameManager gameManager = new GameManager();
+    private Hero hero;
+    private Tower[] towers = new Tower[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +34,23 @@ public class LoadMenuActivity extends AppCompatActivity {
         mFile2Button = (Button) findViewById(R.id.file_2_button);
         mFile3Button = (Button) findViewById(R.id.file_3_button);
 
+        // Create Hero
+        hero = new Hero();
+        gameManager.setHero(hero);
 
+        // Create Towers
+        for(int index = 0; index < 3; index++)
+        {
+            towers[index] = new Tower();
+        }
+        gameManager.setTowers(towers);
 
         mFile1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(LoadMenuActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
                 Intent battleIntent = new Intent(LoadMenuActivity.this, BattleScreenActivity.class);
+                battleIntent.putExtra("gameManager", gameManager);
                 startActivity(battleIntent);
             }
         });
@@ -48,6 +60,7 @@ public class LoadMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(LoadMenuActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
                 Intent battleIntent = new Intent(LoadMenuActivity.this, BattleScreenActivity.class);
+                battleIntent.putExtra("gameManager", gameManager);
                 startActivity(battleIntent);
             }
         });
@@ -57,9 +70,11 @@ public class LoadMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(LoadMenuActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
                 Intent battleIntent = new Intent(LoadMenuActivity.this, BattleScreenActivity.class);
+                battleIntent.putExtra("gameManager", gameManager);
                 startActivity(battleIntent);
             }
         });
+
     }
 
     private void setToFullScreen(){
