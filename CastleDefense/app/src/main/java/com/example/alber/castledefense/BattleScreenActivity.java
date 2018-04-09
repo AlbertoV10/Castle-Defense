@@ -39,6 +39,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private int[] yPositions = new int[3];
     private Intent intent;
     private GameManager gameManager;
+    private TextView waveDisplay, EnemyCountDisplay, moneyDisplay, scoreDisplay;
 
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
@@ -149,7 +150,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
-
                     }
                 }
                 return false;
@@ -157,6 +157,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
+        waveDisplay = (TextView) findViewById(R.id.wave_number);
+        EnemyCountDisplay = (TextView) findViewById(R.id.enemy_amount);
+        moneyDisplay = (TextView) findViewById(R.id.money_amount);
+        scoreDisplay = (TextView) findViewById(R.id.score_amount);
+        updateDisplay();
     }
 
     boolean togglePause()
@@ -244,7 +249,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     }
 
     private void updateDisplay() {
-        // nothing yet
+        waveDisplay.setText(String.valueOf(gameManager.getCurrentWave()));
+        EnemyCountDisplay.setText(String.valueOf(gameManager.getRemainingEnemies()));
+        moneyDisplay.setText(String.valueOf(gameManager.getCurrentGold()));
+        scoreDisplay.setText(String.valueOf(gameManager.getScore()));
     }
 
     private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {

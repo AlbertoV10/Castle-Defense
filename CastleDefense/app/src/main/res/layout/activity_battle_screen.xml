@@ -11,13 +11,20 @@
         android:id="@+id/round_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="46dp"
-        android:layout_marginStart="46dp"
+        android:layout_alignStart="@+id/pause_button"
         android:layout_marginTop="21dp"
-        android:text="Round:" />
+        android:text="Wave: " />
+
+    <TextView
+        android:id="@+id/wave_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_marginStart="19dp"
+        android:layout_toEndOf="@+id/round_text"
+        android:text="0" />
 
     <Button
         android:id="@+id/pause_button"
@@ -65,37 +72,59 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/round_text"
-        android:layout_alignBottom="@+id/round_text"
-        android:layout_marginEnd="49dp"
-        android:layout_marginRight="49dp"
-        android:layout_toLeftOf="@+id/pause_text"
-        android:layout_toStartOf="@+id/pause_text"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/pause_button"
         android:text="Enemies: " />
+
+    <TextView
+        android:id="@+id/enemy_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/start_wave"
+        android:text="0" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignLeft="@+id/pause_text"
+        android:layout_alignBaseline="@+id/enemy_amount"
+        android:layout_alignBottom="@+id/enemy_amount"
         android:layout_alignStart="@+id/pause_text"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
         android:text="Money:" />
+
+    <TextView
+        android:id="@+id/money_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toStartOf="@+id/textView4"
+        android:text="0" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_marginLeft="47dp"
-        android:layout_marginStart="47dp"
-        android:layout_toEndOf="@+id/textView3"
-        android:layout_toRightOf="@+id/textView3"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_marginStart="46dp"
+        android:layout_toEndOf="@+id/start_wave"
         android:text="Score:" />
+
+    <TextView
+        android:id="@+id/score_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/textView4"
+        android:text="0" />
 
     <Button
         android:id="@+id/start_wave"

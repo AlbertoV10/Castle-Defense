@@ -16,6 +16,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
     private int remainingEnemies;
     private int currentGold;
     private Projectile playerProjectile;
+    private int score;
     //private Layout layout; // needed?
     //public GameManager(Layout layout) // needed?
 
@@ -31,6 +32,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         this.numOfEnemies = 5;
         this.remainingEnemies = 5; // Mock data
         this.currentGold = 100;
+        this.score = 0;
     }
 
     public Enemy[] getEnemy()
@@ -107,6 +109,10 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return towers[0].getUpgradeCost();
     }
 
+    public int getScore(){
+        return this.score;
+    }
+
     public void setCurrentGold(int newGold)
     {
         this.currentGold = newGold;
@@ -125,6 +131,10 @@ public class GameManager extends AppCompatActivity implements Serializable{
     public void setTowers(Tower[] tower)
     {
         this.towers = tower;
+    }
+
+    public void setScore(int newScore){
+        this.score = newScore;
     }
 
     public void increaseWave()
