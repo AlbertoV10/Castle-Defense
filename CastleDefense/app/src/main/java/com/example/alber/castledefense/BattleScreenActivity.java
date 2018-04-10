@@ -2,6 +2,8 @@ package com.example.alber.castledefense;
 
 import android.os.AsyncTask;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -16,8 +18,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BattleScreenActivity extends AppCompatActivity implements EnemySprite.EnemyListener,Projectile.ProjectileListener{
+    public Handler mHandler = new Handler()
+    {
+        public void handleMessage(Message msg)
+        {
+            detectCollisions(enemyArray, heroArrowArray);
+        }
+    };
 
     private boolean isPaused;
     private boolean isWaveActive;
@@ -149,7 +160,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
+<<<<<<< HEAD
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
+=======
+                        heroArrowArray.add(arrow);
+                        arrow.fireProjectile(mScreenWidth, 800, touchX);
+
+>>>>>>> master
                     }
                 }
                 return false;
@@ -157,12 +174,47 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
+<<<<<<< HEAD
         waveDisplay = (TextView) findViewById(R.id.wave_number);
         EnemyCountDisplay = (TextView) findViewById(R.id.enemy_amount);
         moneyDisplay = (TextView) findViewById(R.id.money_amount);
         scoreDisplay = (TextView) findViewById(R.id.score_amount);
         updateDisplay();
+=======
+        startTimerForCollisions();
+
+//        new java.util.Timer().schedule(new java.util.TimerTask()
+//                                       {
+//                                           @Override
+//                                           public void run()
+//                                           {
+//                                               detectCollisions(enemyArray, heroArrowArray);
+//                                           }
+//                                       }, 1
+//        );
+
     }
+
+
+    void startTimerForCollisions()
+    {
+
+        TimerTask collisions = new TimerTask() {
+            //@Override
+            public void run() {
+                //detectCollisions(enemyArray, heroArrowArray);
+                mHandler.obtainMessage(1).sendToTarget();
+                //Toast.makeText(BattleScreenActivity.this, "Detecting", Toast.LENGTH_SHORT).show();
+
+
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(collisions, 10, 10);
+>>>>>>> master
+    }
+
 
     boolean togglePause()
     {
@@ -316,20 +368,37 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         Random random = new Random(new Date().getTime());
         //int duration = Math.max(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION - (mWave * 1000));
         int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
+        enemyArray.add(enemy);
+
         enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, duration);
     }
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
     {
-        for(Projectile projectile: projectiles)
+        for(int index = 0; index < projectiles.size(); index++)
         {
-            for (EnemySprite enemy: enemies)
+            boolean hit = false;
+            for (int jindex = 0; jindex < enemies.size(); jindex++)
             {
-                if(projectile.getX() > enemy.getX() && Math.abs(projectile.getY()-enemy.getY()) < 50)
+
+                if(Math.abs(projectiles.get(index).getX()-enemies.get(jindex).getX()) < 50 && Math.abs(projectiles.get(index).getY()-enemies.get(jindex).getY()) < 100)
                 {
-                    enemies.remove(enemy);
-                    removeEnemy(enemy);
+                    removeEnemy(enemies.get(jindex));
+                    enemies.remove(jindex);
+                    jindex--;
+                    hit = true;
+
+                    //removeProjectile(projectiles.get(jindex));
+                    //projectiles.remove(jindex);
+                    //jindex--;
                 }
+            }
+
+            if(hit || projectiles.get(index).getX() <= 0)
+            {
+                removeProjectile(projectiles.get(index));
+                projectiles.remove(index);
+                index--;
             }
         }
     }
