@@ -3,14 +3,24 @@ package com.example.alber.castledefense;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import com.example.alber.castledefense.utils.PixelHelper;
 import java.io.Serializable;
+import  android.graphics.Paint.Style;
+import android.graphics.Color;
 
 public class HeroSprite extends AppCompatImageView implements Serializable, Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
     private Hero hero;
+
+
+
 
     public HeroSprite(Context context) {
         super(context);
@@ -24,6 +34,7 @@ public class HeroSprite extends AppCompatImageView implements Serializable, Anim
 
         this.setImageResource(R.drawable.temp_enemy3);
         this.setColorFilter(color);
+
 
         //int rawWidth = rawHeight / 2;
         int rawWidth = rawHeight;
