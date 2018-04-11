@@ -281,6 +281,31 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         updateDisplay();
     }
 
+    public void damageWall(EnemySprite enemy) {
+        // TODO
+        // get ROF of enemy, set a timer to repeat every ROF to damage enemy
+        // first check if enemy is dead, if so then stop repeating
+        // otherwise, move to applying enemy damage to wall
+        // once wall hits 0, go to end wave screen (make a new end round that can't proceed anymore?)
+
+        // ALSO MAKE ENEMY SPEED UNIFORM INSTEAD OF RANDOM
+
+        TimerTask damage = new TimerTask() {
+            //@Override
+            public void run() {
+                //detectCollisions(enemyArray, heroArrowArray);
+                mHandler.obtainMessage(1).sendToTarget();
+                //Toast.makeText(BattleScreenActivity.this, "Detecting", Toast.LENGTH_SHORT).show();
+
+
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(damage, 10, 10);
+        updateDisplay();
+    }
+
     public void removeProjectile(Projectile projectile) {
         mContentView.removeView(projectile);
         updateDisplay();

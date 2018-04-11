@@ -108,10 +108,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     @Override
     public void onAnimationEnd(Animator animator) {
+        // TODO needed?
         if(!mHit)
         {
             mListener.damageEnemy(this, false);
         }
+        mListener.damageWall(this);
     }
 
     @Override
@@ -148,5 +150,6 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     // Waits for user touch
     public interface EnemyListener{
         void damageEnemy(EnemySprite enemy, boolean userTouch);
+        void damageWall(EnemySprite enemy);
     }
 }
