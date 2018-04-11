@@ -275,6 +275,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 mContentView.removeView(enemy);
                 //gameManager.removeEnemy(enemy);
                 gameManager.decreaseEnemies();
+                gameManager.setCurrentGold(gameManager.getCurrentGold() + 10);
             }
        // }
         updateDisplay();
@@ -379,7 +380,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     {
                         enemies.remove(jindex);
                         jindex--;
-
                     }
                     hit = true;
 
