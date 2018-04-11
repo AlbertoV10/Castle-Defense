@@ -1,6 +1,7 @@
 package com.example.alber.castledefense;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +23,9 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     private boolean mHit;
     private Enemy enemy;
 
+    private ImageView imageView;
+    private AnimationDrawable animationDrawable;
+
     public EnemySprite(Context context)
     {
         super(context);
@@ -32,7 +36,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         mListener = (EnemyListener) context;
 
-        this.setImageResource(R.drawable.temp_enemy3);
+        //this.setImageResource(R.drawable.temp_enemy3);
+
+        this.setBackgroundResource(R.drawable.dark_mage_movement);
+        animationDrawable = (AnimationDrawable) this.getBackground();
+        animationDrawable.start();
+
         this.setColorFilter(color);
 
         //int rawWidth = rawHeight / 2;

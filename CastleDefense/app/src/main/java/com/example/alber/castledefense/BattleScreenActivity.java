@@ -365,21 +365,21 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
     {
-        for(int index = 0; index < projectiles.size(); index++)
+        for(int currentProjectile = 0; currentProjectile < projectiles.size(); currentProjectile++)
         {
             boolean hit = false;
-            for (int jindex = 0; jindex < enemies.size(); jindex++)
+            for (int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
             {
 
-                if(Math.abs(projectiles.get(index).getX()-enemies.get(jindex).getX()) < 50 && Math.abs(projectiles.get(index).getY()-enemies.get(jindex).getY()) < 100)
+                if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
                     //removeEnemy(enemies.get(jindex));
-                    damageEnemy(enemies.get(jindex),true);
-                    if (enemies.get((jindex)).isDead())
+                    damageEnemy(enemies.get(currentEnemy),true);
+                    if (enemies.get((currentEnemy)).isDead())
                     {
-                        enemies.remove(jindex);
+                        enemies.remove(currentEnemy);
                     }
-                    jindex--;
+                    currentEnemy--;
                     hit = true;
 
                     //removeProjectile(projectiles.get(jindex));
@@ -388,11 +388,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 }
             }
 
-            if(hit || projectiles.get(index).getX() <= 0)
+            if(hit || projectiles.get(currentProjectile).getX() <= 0)
             {
-                removeProjectile(projectiles.get(index));
-                projectiles.remove(index);
-                index--;
+                removeProjectile(projectiles.get(currentProjectile));
+                projectiles.remove(currentProjectile);
+                currentProjectile--;
             }
         }
     }
