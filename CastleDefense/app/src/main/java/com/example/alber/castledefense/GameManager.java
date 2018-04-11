@@ -17,6 +17,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
     private int currentGold;
     private Projectile playerProjectile;
     private int score;
+    private int enemiesKilled;
     //private Layout layout; // needed?
     //public GameManager(Layout layout) // needed?
 
@@ -113,6 +114,8 @@ public class GameManager extends AppCompatActivity implements Serializable{
         return this.score;
     }
 
+    public int getEnemiesKilled() { return this.enemiesKilled; }
+
     public void setCurrentGold(int newGold)
     {
         this.currentGold = newGold;
@@ -136,6 +139,8 @@ public class GameManager extends AppCompatActivity implements Serializable{
     public void setScore(int newScore){
         this.score = newScore;
     }
+
+    public void setEnemiesKilled(int newEnemiesKilled){ this.enemiesKilled = newEnemiesKilled; }
 
     public void increaseWave()
     {

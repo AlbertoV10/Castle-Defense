@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 public class EndOfRoundActivity extends AppCompatActivity {
 
     private ViewGroup mContentView;
@@ -17,6 +15,7 @@ public class EndOfRoundActivity extends AppCompatActivity {
     private Button mNextWaveButton;
     private Intent intent;
     private GameManager gameManager;
+    private TextView damageDisplay, killsDisplay, moneyDisplay, HPDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,21 @@ public class EndOfRoundActivity extends AppCompatActivity {
                 startActivity(battleIntent);
             }
         });
+
+        damageDisplay = (TextView) findViewById(R.id.damage_text);
+        killsDisplay = (TextView) findViewById(R.id.enemies_text);
+        moneyDisplay = (TextView) findViewById(R.id.money_text);
+        HPDisplay = (TextView) findViewById(R.id.hp_text);
+        updateDisplay();
     }
+
+    private void updateDisplay() {
+        damageDisplay.setText("Damage Done: ???");
+        killsDisplay.setText("Kills: " + String.valueOf(gameManager.getEnemiesKilled()));
+        moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
+        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" +String.valueOf(gameManager.getTown().getMaxWallHealth()));
+    }
+
     // Provides Fullscreen functionality, hiding menu bars at the top
     private void setToFullScreen(){
         ViewGroup statisticsScreen = (ViewGroup) findViewById(R.id.activity_end_of_round);

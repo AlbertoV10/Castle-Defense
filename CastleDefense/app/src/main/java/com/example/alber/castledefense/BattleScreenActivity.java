@@ -11,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.app.Activity;
 import android.view.ViewTreeObserver;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -46,7 +44,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     public static final int MIN_ANIMATION_DURATION = 1000;
     public static final int MAX_ANIMATION_DURATION = 4000;
     private int mWave;
-    private int mEnemiesKilled;
     private int[] yPositions = new int[3];
     private Intent intent;
     private GameManager gameManager;
@@ -160,13 +157,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
-<<<<<<< HEAD
                         arrow.fireProjectile(mScreenWidth, 500, touchX);
-=======
                         heroArrowArray.add(arrow);
                         arrow.fireProjectile(mScreenWidth, 800, touchX);
-
->>>>>>> master
                     }
                 }
                 return false;
@@ -174,13 +167,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
-<<<<<<< HEAD
-        waveDisplay = (TextView) findViewById(R.id.wave_number);
-        EnemyCountDisplay = (TextView) findViewById(R.id.enemy_amount);
-        moneyDisplay = (TextView) findViewById(R.id.money_amount);
-        scoreDisplay = (TextView) findViewById(R.id.score_amount);
+        waveDisplay = (TextView) findViewById(R.id.wave_text);
+        EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
+        moneyDisplay = (TextView) findViewById(R.id.money_text);
+        scoreDisplay = (TextView) findViewById(R.id.score_text);
         updateDisplay();
-=======
         startTimerForCollisions();
 
 //        new java.util.Timer().schedule(new java.util.TimerTask()
@@ -198,7 +189,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     void startTimerForCollisions()
     {
-
         TimerTask collisions = new TimerTask() {
             //@Override
             public void run() {
@@ -212,7 +202,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         Timer timer = new Timer();
         timer.schedule(collisions, 10, 10);
->>>>>>> master
     }
 
 
@@ -281,7 +270,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             if (enemy.isDead())
             {
-                mEnemiesKilled++;
+                gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
                 mContentView.removeView(enemy);
                 //gameManager.removeEnemy(enemy);
                 gameManager.decreaseEnemies();
@@ -301,10 +290,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     }
 
     private void updateDisplay() {
-        waveDisplay.setText(String.valueOf(gameManager.getCurrentWave()));
-        EnemyCountDisplay.setText(String.valueOf(gameManager.getRemainingEnemies()));
-        moneyDisplay.setText(String.valueOf(gameManager.getCurrentGold()));
-        scoreDisplay.setText(String.valueOf(gameManager.getScore()));
+        waveDisplay.setText("Wave: " + String.valueOf(gameManager.getCurrentWave()));
+        EnemyCountDisplay.setText("Enemies: " + String.valueOf(gameManager.getRemainingEnemies()));
+        moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
+        scoreDisplay.setText("Score: " + String.valueOf(gameManager.getScore()));
     }
 
     private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {

@@ -10,18 +10,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="41dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/enemies_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="91dp"
-            android:layout_marginRight="91dp"
-            android:layout_marginTop="138dp"
+            android:layout_marginEnd="183dp"
+            android:layout_marginTop="136dp"
             android:text="Kills: 13"
             android:textAlignment="center"
             android:textColor="@android:color/background_dark"
@@ -29,24 +28,22 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/hp_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="28dp"
+            android:layout_alignStart="@+id/enemies_text"
+            android:layout_centerVertical="true"
             android:text="HP: 23/30"
             android:textColor="@android:color/background_dark"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/damage_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignBaseline="@+id/enemies_text"
+            android:layout_alignBottom="@+id/enemies_text"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="44dp"
@@ -58,12 +55,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/money_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_alignStart="@+id/textView4"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="87dp"
             android:text="Money: 230"
             android:textAlignment="center"
             android:textColor="@android:color/background_dark"
@@ -74,9 +71,9 @@
             android:id="@+id/to_upgrade_button"
             android:layout_width="125dp"
             android:layout_height="75dp"
-            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignLeft="@+id/hp_text"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/textView3"
+            android:layout_alignStart="@+id/hp_text"
             android:layout_marginBottom="14dp"
             android:text="Upgrade" />
 
@@ -84,8 +81,8 @@
             android:id="@+id/next_wave"
             android:layout_width="125dp"
             android:layout_height="75dp"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_alignStart="@+id/textView5"
+            android:layout_alignLeft="@+id/money_text"
+            android:layout_alignStart="@+id/money_text"
             android:layout_alignTop="@+id/to_upgrade_button"
             android:text="Next Wave" />
     </RelativeLayout>
