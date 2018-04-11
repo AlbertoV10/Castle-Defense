@@ -76,13 +76,13 @@
         android:text="Money:" />
 
     <TextView
-        android:id="@+id/score_text"
+        android:id="@+id/HP_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/wave_text"
         android:layout_marginEnd="194dp"
-        android:text="Score:" />
+        android:text="HP" />
 
     <Button
         android:id="@+id/start_wave"
