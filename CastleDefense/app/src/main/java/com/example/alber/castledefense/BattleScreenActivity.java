@@ -47,7 +47,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private int[] yPositions = new int[3];
     private Intent intent;
     private GameManager gameManager;
-    private TextView waveDisplay, EnemyCountDisplay, moneyDisplay, scoreDisplay;
+    private TextView waveDisplay, EnemyCountDisplay, moneyDisplay, HPDisplay;
 
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
@@ -170,7 +170,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         waveDisplay = (TextView) findViewById(R.id.wave_text);
         EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
-        scoreDisplay = (TextView) findViewById(R.id.score_text);
+        HPDisplay = (TextView) findViewById(R.id.HP_text);
         updateDisplay();
         startTimerForCollisions();
 
@@ -275,6 +275,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 mContentView.removeView(enemy);
                 //gameManager.removeEnemy(enemy);
                 gameManager.decreaseEnemies();
+                gameManager.setCurrentGold(gameManager.getCurrentGold() + 10);
             }
        // }
         updateDisplay();
@@ -294,7 +295,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         waveDisplay.setText("Wave: " + String.valueOf(gameManager.getCurrentWave()));
         EnemyCountDisplay.setText("Enemies: " + String.valueOf(gameManager.getRemainingEnemies()));
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
-        scoreDisplay.setText("Score: " + String.valueOf(gameManager.getScore()));
+        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" + String.valueOf(gameManager.getTown().getMaxWallHealth()));
     }
 
     private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {
@@ -377,9 +378,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     damageEnemy(enemies.get(currentEnemy),true);
                     if (enemies.get((currentEnemy)).isDead())
                     {
-                        enemies.remove(currentEnemy);
+                        jindex--;
+                        enemies.remove(jindex);
                     }
-                    currentEnemy--;
                     hit = true;
 
                     //removeProjectile(projectiles.get(jindex));
@@ -388,7 +389,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 }
             }
 
-            if(hit || projectiles.get(currentProjectile).getX() <= 0)
+            if(hit || projectiles.get(index).getX() <= 0)
             {
                 removeProjectile(projectiles.get(currentProjectile));
                 projectiles.remove(currentProjectile);
