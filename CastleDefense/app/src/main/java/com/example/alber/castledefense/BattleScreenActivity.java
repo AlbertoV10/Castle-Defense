@@ -378,8 +378,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     damageEnemy(enemies.get(currentEnemy),true);
                     if (enemies.get((currentEnemy)).isDead())
                     {
-                        jindex--;
-                        enemies.remove(jindex);
+                        enemies.remove(currentEnemy);
+                        currentEnemy--;
+
                     }
                     hit = true;
 
@@ -389,7 +390,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 }
             }
 
-            if(hit || projectiles.get(index).getX() <= 0)
+            if(hit || projectiles.get(currentProjectile).getX() <= 0)
             {
                 removeProjectile(projectiles.get(currentProjectile));
                 projectiles.remove(currentProjectile);
