@@ -67,6 +67,9 @@ public class EndOfRoundActivity extends AppCompatActivity {
             }
         });
 
+        gameManager.setCurrentGold(gameManager.getCurrentGold() + gameManager.getTown().getIncome());
+        gameManager.setRemainingEnemies(gameManager.getNumOfEnemies());
+
         damageDisplay = (TextView) findViewById(R.id.damage_text);
         killsDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);

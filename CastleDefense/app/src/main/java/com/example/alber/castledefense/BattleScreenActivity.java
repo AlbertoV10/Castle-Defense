@@ -317,7 +317,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             yPositions[0] = mScreenHeight/8;
             yPositions[1] = 3*mScreenHeight/8;
             yPositions[2] = 5*mScreenHeight/8;
-            while (enemiesLaunched < 5) {
+            while (enemiesLaunched < gameManager.getNumOfEnemies()) {
                 // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
                 //int yPosition = random.nextInt(mScreenHeight/3)+mScreenHeight/4;
