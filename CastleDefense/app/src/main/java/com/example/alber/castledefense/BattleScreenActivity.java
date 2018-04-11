@@ -268,7 +268,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         //f(userTouch){
         int startingHealth = enemy.healthRemaining();
         enemy.touchEvent(gameManager.getHero());
-
+        enemy.updateHealthbar();
             if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
                 gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
