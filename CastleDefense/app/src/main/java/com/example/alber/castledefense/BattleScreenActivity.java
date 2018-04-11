@@ -266,9 +266,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     public void damageEnemy(EnemySprite enemy, boolean userTouch) {
         //mContentView.removeView(enemy);
         //f(userTouch){
-            enemy.touchEvent(gameManager.getHero());
+        int startingHealth = enemy.healthRemaining();
+        enemy.touchEvent(gameManager.getHero());
 
-            if (enemy.isDead())
+            if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
                 gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
                 mContentView.removeView(enemy);
@@ -372,8 +373,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 if(Math.abs(projectiles.get(index).getX()-enemies.get(jindex).getX()) < 50 && Math.abs(projectiles.get(index).getY()-enemies.get(jindex).getY()) < 100)
                 {
-                    removeEnemy(enemies.get(jindex));
-                    enemies.remove(jindex);
+                    //removeEnemy(enemies.get(jindex));
+                    damageEnemy(enemies.get(jindex),true);
+                    if (enemies.get((jindex)).isDead())
+                    {
+                        enemies.remove(jindex);
+                    }
                     jindex--;
                     hit = true;
 
