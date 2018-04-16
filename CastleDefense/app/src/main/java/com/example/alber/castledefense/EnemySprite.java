@@ -36,12 +36,10 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         mListener = (EnemyListener) context;
 
-        //this.setImageResource(R.drawable.temp_enemy3);
-
         this.setBackgroundResource(R.drawable.dark_mage_movement);
         animationDrawable = (AnimationDrawable) this.getBackground();
         animationDrawable.start();
-
+        //this.setImageResource(R.drawable.temp_enemy3);
         this.setColorFilter(color);
 
         //int rawWidth = rawHeight / 2;
@@ -53,9 +51,10 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
-
+        //this.setTooltipText("testing");
         // Create and store new enemy object for stats
         enemy = new Enemy();
+        updateHealthbar();
     }
 
     public Enemy getEnemy(){
@@ -110,6 +109,19 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         mAnimator.start();
     }
 
+    public void updateHealthbar()
+    {
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.temp_enemy4).copy(Bitmap.Config.ARGB_8888, true);
+
+        Paint paint = new Paint();
+        // paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(50);
+        Canvas canvas = new Canvas(bm);
+        canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 0,bm.getHeight(),paint);
+        this.setImageBitmap(new BitmapDrawable(bm).getBitmap());
+    }
+
     @Override
     public void onAnimationStart(Animator animator) {
         // nothing yet
@@ -135,6 +147,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     @Override
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
+
+
         setX((float) valueAnimator.getAnimatedValue());
     }
 
