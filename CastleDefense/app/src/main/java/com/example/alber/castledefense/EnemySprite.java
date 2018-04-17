@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.animation.Animator;
@@ -173,6 +174,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             isWalking = false;
             attackAnimation.start();
             isAttacking = true;
+        }
 
 
     }
@@ -182,8 +184,15 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         //TODO Adam : call this inside of the battle screen timer function
         if(!isWalking)
         {
-            if (isAttacking  && !attackAnimation.isRunning())
+            Log.d("debug", "1234");
+            if(attackAnimation.isRunning())
             {
+                Log.d("debug", "attack animation running");
+            }
+            if (isAttacking  && attackAnimation.getFrame(5).equals(attackAnimation.getCurrent()))
+            {
+                Log.d("debug", "retract");
+
                 isAttacking=false;
                 this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
                 attackRetractAnimation = (AnimationDrawable) this.getBackground();
@@ -191,16 +200,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
                 attackRetractAnimation.start();
 
 
-                } else if (!isAttacking && !attackRetractAnimation.isRunning()) {
-                    isAttacking = true;
-                    this.setBackgroundResource(R.drawable.dark_mage_attack);
-                    attackAnimation = (AnimationDrawable) this.getBackground();
-                    attackAnimation.setOneShot(true);
-                    attackAnimation.start();
-                }
             }
-            else if(!isAttacking && !attackRetractAnimation.isRunning())
+
+            else if(!isAttacking && attackRetractAnimation.getFrame(5).equals(attackRetractAnimation.getCurrent()))
             {
+                Log.d("debug", "attack again");
+
                 isAttacking=true;
                 this.setBackgroundResource(R.drawable.dark_mage_attack);
                 attackAnimation = (AnimationDrawable) this.getBackground();
@@ -212,7 +217,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         return false;
 
-        }
+
     }
 
     public boolean isAttacking()
