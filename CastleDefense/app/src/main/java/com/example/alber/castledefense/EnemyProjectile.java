@@ -14,7 +14,7 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class EnemyProjectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
-    private EnemyProjectileListener mListener;
+   //private EnemyProjectileListener mListener;
     private int stopPositionX;
     private int damage;
     private int piercingValue;
@@ -27,9 +27,9 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
     public EnemyProjectile(Context context, int color, int rawHeight)
     {
         super(context);
-        mListener = (EnemyProjectileListener) context;
+        //mListener = (EnemyProjectileListener) context;
         // will need to change image
-        this.setImageResource(R.drawable.arrow);
+        this.setImageResource(R.drawable.acid_bullet);
         this.setColorFilter(color);
         int rawWidth = rawHeight;
 
@@ -54,12 +54,11 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
         return  this.piercingValue;
     }
 
-    public void fireProjectile(int screenWidth, int duration, int stopPositionX)
+    public void fireProjectile(int screenWidth, int duration, float startingPoint)
     {
-        this.stopPositionX = stopPositionX;
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
-        mAnimator.setFloatValues(0f,screenWidth);
+        mAnimator.setFloatValues(startingPoint,screenWidth);
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.setTarget(this);
         mAnimator.addListener(this);
@@ -74,7 +73,7 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
 
     @Override
     public void onAnimationEnd(Animator animator) {
-        mListener.removeEnemyProjectile(this);
+        //mListener.removeEnemyProjectile(this);
     }
 
     @Override
