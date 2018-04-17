@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.ViewTreeObserver;
+import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +65,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
 
+    // Create local hero sprite, retrieve stats from game manager
+    private HeroSprite hero;
+    // Create local tower sprites, retrieve stats from game manager
+    private TowerSprite towerOne;
+    private TowerSprite towerTwo;
+    private TowerSprite towerThree;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,20 +91,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         // Get gameManager object from last screen
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
-
-        // Create local hero sprite, retrieve stats from game manager
-        HeroSprite hero = new HeroSprite(this, 0xFFFF00, 150);
-        hero.setHero(gameManager.getHero());
-
-        // Create local tower sprites, retrieve stats from game manager
-        TowerSprite towerOne = new TowerSprite(this, 0xFFFF00, 150);
-        towerOne.setTower(gameManager.getTowers()[0]);
-
-        TowerSprite towerTwo = new TowerSprite(this, 0xFFFF00, 150);
-        towerTwo.setTower(gameManager.getTowers()[1]);
-
-        TowerSprite towerThree = new TowerSprite(this, 0xFFFF00, 150);
-        towerThree.setTower(gameManager.getTowers()[2]);
 
         this.gameManager.newWave();
 
@@ -179,15 +173,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
+        spawnTowers();
         waveDisplay = (TextView) findViewById(R.id.wave_text);
         EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
         HPDisplay = (TextView) findViewById(R.id.HP_text);
         updateDisplay();
         startTimerForCollisions();
-
     }
-
 
     void startTimerForCollisions()
     {
@@ -290,32 +283,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
        // }
         updateDisplay();
     }
-/*
-    public void damageWall(EnemySprite enemy) {
-        // TODO
-        // get ROF of enemy, set a timer to repeat every ROF to damage enemy
-        // first check if enemy is dead, if so then stop repeating
-        // otherwise, move to applying enemy damage to wall
-        // once wall hits 0, go to end wave screen (make a new end round that can't proceed anymore?)
 
-        // ALSO MAKE ENEMY SPEED UNIFORM INSTEAD OF RANDOM
-
-        TimerTask damage = new TimerTask() {
-            //@Override
-            public void run() {
-                //detectCollisions(enemyArray, heroArrowArray);
-                mHandler.obtainMessage(1).sendToTarget();
-                //Toast.makeText(BattleScreenActivity.this, "Detecting", Toast.LENGTH_SHORT).show();
-
-
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(damage, 10, 10);
-        updateDisplay();
-    }
-*/
     public void removeProjectile(Projectile projectile) {
         mContentView.removeView(projectile);
         updateDisplay();
@@ -350,9 +318,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             //int minDelay = maxDelay / 2;
             int minDelay = MIN_ANIMATION_DELAY;
             int enemiesLaunched = 0;
-            yPositions[0] = mScreenHeight/8;
-            yPositions[1] = 3*mScreenHeight/8;
-            yPositions[2] = 5*mScreenHeight/8;
+            yPositions[0] = 2*mScreenHeight/10;
+            yPositions[1] = 4*mScreenHeight/10;
+            yPositions[2] = 6*mScreenHeight/10;
             while (enemiesLaunched < gameManager.getNumOfEnemies()) {
                 // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
@@ -378,6 +346,40 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             int yPosition = values[0];
             launchEnemy(yPosition);
         }
+    }
+
+    private void spawnTowers()
+    {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        // Create local hero sprite, retrieve stats from game manager
+        hero = new HeroSprite(this, 0xFFFF00, 150);
+        hero.setHero(gameManager.getHero());
+
+        // Create local tower sprites, retrieve stats from game manager
+        towerOne = new TowerSprite(this, 0xFFFF00, 150);
+        towerOne.setTower(gameManager.getTowers()[0]);
+
+        towerTwo = new TowerSprite(this, 0xFFFF00, 150);
+        towerTwo.setTower(gameManager.getTowers()[1]);
+
+        towerThree = new TowerSprite(this, 0xFFFF00, 150);
+        towerThree.setTower(gameManager.getTowers()[2]);
+
+        // set tower positions
+        towerOne.setX(width - 2*width/10);
+        towerOne.setY(2*height/10);
+        towerTwo.setX(width - 2*width/10);
+        towerTwo.setY(4*height/10);
+        towerThree.setX(width - 2*width/10);
+        towerThree.setY(6*height/10);
+
+        // spawn towers
+        mContentView.addView(towerOne);
+        mContentView.addView(towerTwo);
+        mContentView.addView(towerThree);
     }
 
     private void launchEnemy(int y) {
