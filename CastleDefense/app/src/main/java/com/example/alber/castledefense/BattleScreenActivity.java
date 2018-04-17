@@ -25,8 +25,19 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         public void handleMessage(Message msg)
         {
             detectCollisions(enemyArray, heroArrowArray);
+            isEnemyAttacking(enemyArray);
         }
     };
+
+    /*
+    public Handler mBulletHandler = new Handler()
+    {
+        public void handleMessage(Message msg)
+        {
+        //
+        }
+    };
+    */
 
     private boolean isPaused;
     private boolean isWaveActive;
@@ -157,7 +168,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
-                        arrow.fireProjectile(mScreenWidth, 500, touchX);
+                        //arrow.fireProjectile(mScreenWidth, 500, touchX);
                         heroArrowArray.add(arrow);
                         arrow.fireProjectile(mScreenWidth, 800, touchX);
                     }
@@ -174,16 +185,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         updateDisplay();
         startTimerForCollisions();
 
-//        new java.util.Timer().schedule(new java.util.TimerTask()
-//                                       {
-//                                           @Override
-//                                           public void run()
-//                                           {
-//                                               detectCollisions(enemyArray, heroArrowArray);
-//                                           }
-//                                       }, 1
-//        );
-
     }
 
 
@@ -192,17 +193,25 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         TimerTask collisions = new TimerTask() {
             //@Override
             public void run() {
-                //detectCollisions(enemyArray, heroArrowArray);
                 mHandler.obtainMessage(1).sendToTarget();
-                //Toast.makeText(BattleScreenActivity.this, "Detecting", Toast.LENGTH_SHORT).show();
-
-
             }
         };
 
         Timer timer = new Timer();
         timer.schedule(collisions, 10, 10);
     }
+
+    /*
+    void timerForEnemyBullets()
+    {
+        TimerTask bullets = new TimerTask() {
+            //@Override
+            public void run() {
+                mBulletHandler.obtainMessage(1).sendToTarget();
+            }
+        };
+    }
+    */
 
 
     boolean togglePause()
@@ -268,7 +277,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         //f(userTouch){
         int startingHealth = enemy.healthRemaining();
         enemy.touchEvent(gameManager.getHero());
-
+        enemy.updateHealthbar();
             if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
                 gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
@@ -372,7 +381,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private void launchEnemy(int y) {
 
-        EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150);
+        EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150, mScreenWidth);
 
         // Set enemy vertical position and dimensions, add to container
         enemy.setX(0);
@@ -382,7 +391,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         // Move enemies
         Random random = new Random(new Date().getTime());
-        //int duration = Math.max(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION - (mWave * 1000));
         int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemyArray.add(enemy);
 
@@ -391,33 +399,42 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
     {
-        for(int index = 0; index < projectiles.size(); index++)
+        for(int currentProjectile = 0; currentProjectile < projectiles.size(); currentProjectile++)
         {
             boolean hit = false;
-            for (int jindex = 0; jindex < enemies.size(); jindex++)
+            for (int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
             {
 
-                if(Math.abs(projectiles.get(index).getX()-enemies.get(jindex).getX()) < 50 && Math.abs(projectiles.get(index).getY()-enemies.get(jindex).getY()) < 100)
+                if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
-                    //removeEnemy(enemies.get(jindex));
-                    damageEnemy(enemies.get(jindex),true);
-                    if (enemies.get((jindex)).isDead())
+                    damageEnemy(enemies.get(currentEnemy),true);
+                    if (enemies.get((currentEnemy)).isDead())
                     {
-                        enemies.remove(jindex);
-                        jindex--;
+                        enemies.remove(currentEnemy);
+                        currentEnemy--;
+
                     }
                     hit = true;
 
-                    //removeProjectile(projectiles.get(jindex));
-                    //projectiles.remove(jindex);
-                    //jindex--;
                 }
             }
-            if(hit  || projectiles.get(index).getX() <= 0)
+
+            if(hit || projectiles.get(currentProjectile).getX() <= 0)
             {
-                removeProjectile(projectiles.get(index));
-                projectiles.remove(index);
-                index--;
+                removeProjectile(projectiles.get(currentProjectile));
+                projectiles.remove(currentProjectile);
+                currentProjectile--;
+            }
+        }
+    }
+
+    public void isEnemyAttacking(ArrayList<EnemySprite>enemies)
+    {
+        for(int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
+        {
+            if(enemies.get(currentEnemy).checkForAttack())
+            {
+                //TODO Adam create bullet here
             }
         }
     }

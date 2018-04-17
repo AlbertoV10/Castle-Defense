@@ -7,25 +7,27 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 
+import com.example.alber.castledefense.Projectile;
+import com.example.alber.castledefense.R;
 import com.example.alber.castledefense.utils.PixelHelper;
 
-public class Projectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
+public class EnemyProjectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
-    private ProjectileListener mListener;
+    private EnemyProjectileListener mListener;
     private int stopPositionX;
     private int damage;
     private int piercingValue;
 
-    public Projectile(Context context)
+    public EnemyProjectile(Context context)
     {
         super(context);
     }
 
-    public Projectile (Context context, int color, int rawHeight)
+    public EnemyProjectile(Context context, int color, int rawHeight)
     {
         super(context);
-        mListener = (ProjectileListener) context;
+        mListener = (EnemyProjectileListener) context;
         // will need to change image
         this.setImageResource(R.drawable.arrow);
         this.setColorFilter(color);
@@ -57,7 +59,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         this.stopPositionX = stopPositionX;
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
-        mAnimator.setFloatValues(screenWidth,0f);
+        mAnimator.setFloatValues(0f,screenWidth);
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.setTarget(this);
         mAnimator.addListener(this);
@@ -72,7 +74,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
 
     @Override
     public void onAnimationEnd(Animator animator) {
-        mListener.removeProjectile(this);
+        mListener.removeEnemyProjectile(this);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
 //        if(!(getX() > stopPositionX))
 //        {
 //            mAnimator.cancel();
- //       }
+        //       }
     }
 
     public int getProjectileXPosition()
@@ -99,7 +101,7 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         return (int)getX();
     }
 
-    public interface ProjectileListener{
-        void removeProjectile(Projectile projectile);
+    public interface EnemyProjectileListener{
+        void removeEnemyProjectile(EnemyProjectile ep);
     }
 }
