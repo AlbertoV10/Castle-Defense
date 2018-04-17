@@ -25,16 +25,19 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         public void handleMessage(Message msg)
         {
             detectCollisions(enemyArray, heroArrowArray);
+            isEnemyAttacking(enemyArray);
         }
     };
 
+    /*
     public Handler mBulletHandler = new Handler()
     {
         public void handleMessage(Message msg)
         {
-            isEnemyAttacking(enemyArray);
+        //
         }
     };
+    */
 
     private boolean isPaused;
     private boolean isWaveActive;
@@ -198,6 +201,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         timer.schedule(collisions, 10, 10);
     }
 
+    /*
     void timerForEnemyBullets()
     {
         TimerTask bullets = new TimerTask() {
@@ -207,6 +211,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         };
     }
+    */
 
 
     boolean togglePause()
@@ -402,9 +407,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     {
         for(int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
         {
-            if(enemies.get(currentEnemy).isAttacking())
+            if(enemies.get(currentEnemy).checkForAttack())
             {
-
+                //TODO Adam create bullet here
             }
         }
     }

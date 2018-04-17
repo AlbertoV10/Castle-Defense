@@ -158,7 +158,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     }
 
     @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+    public void onAnimationUpdate(ValueAnimator valueAnimator)
+    {
 
 
         setX((float) valueAnimator.getAnimatedValue());
@@ -174,7 +175,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             isAttacking=true;
         }
 
-        //TODO move this to a separate method and call it inside of the battle screen timer function
+
+    }
+
+    public boolean checkForAttack()
+    {
+        //TODO Adam : call this inside of the battle screen timer function
         if(!isWalking)
         {
             if (isAttacking  && !attackAnimation.isRunning())
@@ -194,9 +200,11 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
                 attackAnimation = (AnimationDrawable) this.getBackground();
                 attackAnimation.setOneShot(true);
                 attackAnimation.start();
+                return true;
             }
         }
 
+        return false;
 
     }
 
