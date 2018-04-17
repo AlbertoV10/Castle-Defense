@@ -42,6 +42,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private boolean isPaused;
     private boolean isWaveActive;
+    // need more that 2 states for shooting, beginning (waits for wave to start), shooting, end wave (stop shooting)
+    private int isShooting = 0;
 
     private Button mPauseButton;
     private Button mExitButton;
@@ -180,6 +182,47 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         HPDisplay = (TextView) findViewById(R.id.HP_text);
         updateDisplay();
         startTimerForCollisions();
+
+/*
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                // stuff that updates ui
+                //if(shootTowers)
+                //{
+                    //startTower(towerOne);
+                    //startTower(towerTwo);
+                    //startTower(towerThree);
+                //}
+                final Timer timer = new Timer();
+
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run()
+                    {
+                        if(isShooting == 1) {
+                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
+                            arrow.setX(mScreenWidth);
+                            arrow.setY(mScreenHeight);
+                            mContentView.addView(arrow);
+
+                            // change to a different array later?
+                            heroArrowArray.add(arrow);
+                            arrow.fireProjectile(mScreenWidth, 800, 0);
+                        }
+                        else if(isShooting == 2)
+                        {
+                            timer.cancel();
+                            timer.purge();
+                        }
+                    }
+                }, towerOne.getTower().getRateOfFire(), 1);
+
+                //final Timer timer = new Timer();
+            }
+        });
+       */
     }
 
     void startTimerForCollisions()
@@ -257,6 +300,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             launcher.execute(mWave);
             gameManager.startWave();
             mstartRoundButton.setAlpha(0);
+
+            // start tower shooting
+            isShooting = 1;
+            startTower(towerOne);
+            startTower(towerTwo);
+            startTower(towerThree);
         }
     }
 
@@ -337,6 +386,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     e.printStackTrace();
                 }
             }
+            isShooting = 2;
             return null;
         }
 
@@ -350,10 +400,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private void spawnTowers()
     {
+        // For some reason, the mScreenWidth and mScreenHeight didn't work, so just use another method
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
+
         // Create local hero sprite, retrieve stats from game manager
         hero = new HeroSprite(this, 0xFFFF00, 150);
         hero.setHero(gameManager.getHero());
@@ -380,6 +432,63 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mContentView.addView(towerOne);
         mContentView.addView(towerTwo);
         mContentView.addView(towerThree);
+    }
+
+    private void startTower(TowerSprite tower)
+    {
+        final TowerSprite tempTower = tower;
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run()
+            {
+                if(isShooting == 1) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //stuff that updates ui
+                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
+                            arrow.setX(mScreenWidth);
+                            arrow.setY(mScreenHeight);
+                            mContentView.addView(arrow);
+
+                            // change to a different array later?
+                            heroArrowArray.add(arrow);
+                            arrow.fireProjectile(mScreenWidth, 800, 0);
+                        }
+                    });
+                }
+                else if(isShooting == 2)
+                {
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        }, tempTower.getTower().getRateOfFire(), 1);
+        /*
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run()
+            {
+                if(isShooting == 1) {
+                    Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
+                    arrow.setX(mScreenWidth);
+                    arrow.setY(mScreenHeight);
+                    mContentView.addView(arrow);
+
+                    // change to a different array later?
+                    heroArrowArray.add(arrow);
+                    arrow.fireProjectile(mScreenWidth, 800, 0);
+                }
+                else if(isShooting == 2)
+                {
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        }, tower.getTower().getRateOfFire(), 1);
+        */
     }
 
     private void launchEnemy(int y) {
