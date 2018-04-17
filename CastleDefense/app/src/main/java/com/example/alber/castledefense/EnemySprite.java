@@ -1,6 +1,5 @@
 package com.example.alber.castledefense;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.Bitmap;
@@ -10,32 +9,30 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.util.Log;
 
 import com.example.alber.castledefense.utils.PixelHelper;
 
-import java.io.Serializable;
-
 public class EnemySprite extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener {
 
-    private ValueAnimator mAnimator;
+    private ValueAnimator movementAnimator;
     private EnemyListener mListener;
     private boolean mHit;
     private boolean isAttacking;
+    private boolean isWalking;
     private Enemy enemy;
     private int screenWidth;
     private int rangedAttackDistance = 750;
 
     private ImageView imageView;
-    private AnimationDrawable animationDrawableWalking;
-    private AnimationDrawable animationDrawableAttacking;
+    private AnimationDrawable walkingAnimation;
+    private AnimationDrawable attackAnimation;
+    private AnimationDrawable attackRetractAnimation;
 
     public EnemySprite(Context context)
     {
@@ -49,11 +46,11 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         this.screenWidth = screenWidth;
 
         this.setBackgroundResource(R.drawable.dark_mage_movement);
-        animationDrawableWalking = (AnimationDrawable) this.getBackground();
-        animationDrawableWalking.start();
+        walkingAnimation = (AnimationDrawable) this.getBackground();
+        walkingAnimation.start();
         isAttacking = false;
+        isWalking=true;
         //this.setImageResource(R.drawable.temp_enemy3);
-        createAttackAnimation();
 
         this.setColorFilter(color);
 
@@ -113,15 +110,15 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     // Starts the enemy at x position 0, running to screenWidth
     // duration is the time it will take to reach the end position in milliseconds
     public void releaseEnemy(int screenWidth, int duration){
-        mAnimator = new ValueAnimator();
-        mAnimator.setDuration(duration);
-        // mAnimator.setFloatValues(START, END);
-        mAnimator.setFloatValues(0f,screenWidth);
-        mAnimator.setInterpolator(new LinearInterpolator());
-        mAnimator.setTarget(this);
-        mAnimator.addListener(this);
-        mAnimator.addUpdateListener(this);
-        mAnimator.start();
+        movementAnimator = new ValueAnimator();
+        movementAnimator.setDuration(duration);
+        // movementAnimator.setFloatValues(START, END);
+        movementAnimator.setFloatValues(0f,screenWidth);
+        movementAnimator.setInterpolator(new LinearInterpolator());
+        movementAnimator.setTarget(this);
+        movementAnimator.addListener(this);
+        movementAnimator.addUpdateListener(this);
+        movementAnimator.start();
     }
 
     public void updateHealthbar()
@@ -165,22 +162,42 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
-        if(Math.abs(getX()- screenWidth) < rangedAttackDistance && !isAttacking)
+        if(isWalking && Math.abs(getX()- screenWidth) < rangedAttackDistance  )
         {
-            animationDrawableWalking.stop();
+            walkingAnimation.stop();
             this.setBackgroundResource(R.drawable.dark_mage_attack);
-            //animationDrawableAttacking = (AnimationDrawable) this.getBackground();
-            mAnimator.pause();
-            animationDrawableAttacking.start();
-            //isAttacking = true;
-
+            attackAnimation = (AnimationDrawable) this.getBackground();
+            attackAnimation.setOneShot(true);
+            movementAnimator.pause();
+            isWalking=false;
+            attackAnimation.start();
+            isAttacking=true;
         }
-    }
 
-    public void createAttackAnimation()
-    {
-        animationDrawableAttacking = (AnimationDrawable) this.getBackground();
-        animationDrawableAttacking.setOneShot(true);
+        //TODO move this to a separate method and call it inside of the battle screen timer function
+        if(!isWalking)
+        {
+            if (isAttacking  && !attackAnimation.isRunning())
+            {
+                isAttacking=false;
+                this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
+                attackRetractAnimation = (AnimationDrawable) this.getBackground();
+                attackRetractAnimation.setOneShot(true);
+                attackRetractAnimation.start();
+
+
+            }
+            else if(!isAttacking && !attackRetractAnimation.isRunning())
+            {
+                isAttacking=true;
+                this.setBackgroundResource(R.drawable.dark_mage_attack);
+                attackAnimation = (AnimationDrawable) this.getBackground();
+                attackAnimation.setOneShot(true);
+                attackAnimation.start();
+            }
+        }
+
+
     }
 
     public boolean isAttacking()
@@ -198,7 +215,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         // mHit = true;
         if(this.enemy.getIsDead())
         {
-            mAnimator.cancel();
+            movementAnimator.cancel();
         }
         //}
         return super.onTouchEvent(event);
