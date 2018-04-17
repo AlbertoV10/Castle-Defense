@@ -15,7 +15,7 @@ public class Tower implements Serializable
         // sets default values for tower
         towerType=0;
         setDamage(10);
-        setRateOfFire(1000);
+        setRateOfFire(2000);
         setArmorPiercing(.1);
         setUpgradeLevel(1);
         setUpgradeCost(100);

@@ -53,7 +53,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    private static final int BASE_ENEMY_SPEED = 4000;
+    private static final int BASE_ENEMY_SPEED = 5000;
     public static final int MIN_ANIMATION_DELAY = 500;
     public static final int MAX_ANIMATION_DELAY = 1000;
     public static final int MIN_ANIMATION_DURATION = 1000;
@@ -303,9 +303,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             // start tower shooting
             isShooting = 1;
-            //startTower(towerOne);
-            //startTower(towerTwo);
-            //startTower(towerThree);
+            startTower(towerOne,2*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerTwo,4*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerThree,6*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
         }
     }
 
@@ -434,26 +434,33 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mContentView.addView(towerThree);
     }
 
-    private void startTower(TowerSprite tower)
+    private void startTower(TowerSprite tower, int height, int width)
     {
+        final TowerSprite innerTower = tower;
+        final int innerHeight = height;
+        final int innerWidth = width;
         final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
             @Override
             public void run()
             {
-                if(isShooting == 1) {
-                    runOnUiThread(new Runnable() {
+                if(isShooting == 1)
+                {
+                    runOnUiThread(new Runnable()
+                    {
                         @Override
-                        public void run() {
+                        public void run()
+                        {
                             //stuff that updates ui
-                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
-                            arrow.setX(mScreenWidth);
-                            arrow.setY(mScreenHeight);
+                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0xADFF2F, 128);
+                            arrow.setX(innerWidth);
+                            arrow.setY(innerHeight);
                             mContentView.addView(arrow);
 
                             // change to a different array later?
                             heroArrowArray.add(arrow);
-                            arrow.fireProjectile(mScreenWidth, 800, 0);
+                            arrow.fireProjectile(mScreenWidth, 2000, 0);
                         }
                     });
                 }
@@ -463,31 +470,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     timer.purge();
                 }
             }
-        }, tower.getTower().getRateOfFire(), 1);
-        /*
-        final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run()
-            {
-                if(isShooting == 1) {
-                    Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
-                    arrow.setX(mScreenWidth);
-                    arrow.setY(mScreenHeight);
-                    mContentView.addView(arrow);
-
-                    // change to a different array later?
-                    heroArrowArray.add(arrow);
-                    arrow.fireProjectile(mScreenWidth, 800, 0);
-                }
-                else if(isShooting == 2)
-                {
-                    timer.cancel();
-                    timer.purge();
-                }
-            }
-        }, tower.getTower().getRateOfFire(), 1);
-        */
+        }, tower.getTower().getRateOfFire(), tower.getTower().getRateOfFire());
     }
 
     private void launchEnemy(int y) {
