@@ -22,7 +22,7 @@ public class TowerSprite extends AppCompatImageView implements Animator.Animator
 
         //mListener = (Enemy.EnemyListener) context;
 
-        this.setImageResource(R.drawable.temp_enemy3);
+        this.setImageResource(R.drawable.tower);
         this.setColorFilter(color);
 
         //int rawWidth = rawHeight / 2;
