@@ -163,41 +163,37 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
-        if(isWalking && Math.abs(getX()- screenWidth) < rangedAttackDistance  )
-        {
+        if (isWalking && Math.abs(getX() - screenWidth) < rangedAttackDistance) {
             walkingAnimation.stop();
             this.setBackgroundResource(R.drawable.dark_mage_attack);
             attackAnimation = (AnimationDrawable) this.getBackground();
             attackAnimation.setOneShot(true);
             movementAnimator.pause();
-            isWalking=false;
+            isWalking = false;
             attackAnimation.start();
-            isAttacking=true;
+            isAttacking = true;
 
-        //TODO move this to a separate method and call it inside of the battle screen timer function
-        if(!isWalking)
-        {
-            if (isAttacking  && !attackAnimation.isRunning())
-            {
-                isAttacking=false;
-                this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
-                attackRetractAnimation = (AnimationDrawable) this.getBackground();
-                attackRetractAnimation.setOneShot(true);
-                attackRetractAnimation.start();
+            //TODO move this to a separate method and call it inside of the battle screen timer function
+            if (!isWalking) {
+                if (isAttacking && !attackAnimation.isRunning()) {
+                    isAttacking = false;
+                    this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
+                    attackRetractAnimation = (AnimationDrawable) this.getBackground();
+                    attackRetractAnimation.setOneShot(true);
+                    attackRetractAnimation.start();
 
 
+                } else if (!isAttacking && !attackRetractAnimation.isRunning()) {
+                    isAttacking = true;
+                    this.setBackgroundResource(R.drawable.dark_mage_attack);
+                    attackAnimation = (AnimationDrawable) this.getBackground();
+                    attackAnimation.setOneShot(true);
+                    attackAnimation.start();
+                }
             }
-            else if(!isAttacking && !attackRetractAnimation.isRunning())
-            {
-                isAttacking=true;
-                this.setBackgroundResource(R.drawable.dark_mage_attack);
-                attackAnimation = (AnimationDrawable) this.getBackground();
-                attackAnimation.setOneShot(true);
-                attackAnimation.start();
-            }
+
+
         }
-
-
     }
 
     public boolean isAttacking()
