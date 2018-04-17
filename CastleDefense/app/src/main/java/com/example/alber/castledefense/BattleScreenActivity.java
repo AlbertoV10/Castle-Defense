@@ -28,6 +28,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
     };
 
+    public Handler mBulletHandler = new Handler()
+    {
+        public void handleMessage(Message msg)
+        {
+            isEnemyAttacking(enemyArray);
+        }
+    };
+
     private boolean isPaused;
     private boolean isWaveActive;
 
@@ -157,7 +165,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY());
                         mContentView.addView(arrow);
-                        arrow.fireProjectile(mScreenWidth, 500, touchX);
+                        //arrow.fireProjectile(mScreenWidth, 500, touchX);
                         heroArrowArray.add(arrow);
                         arrow.fireProjectile(mScreenWidth, 800, touchX);
                     }
@@ -174,16 +182,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         updateDisplay();
         startTimerForCollisions();
 
-//        new java.util.Timer().schedule(new java.util.TimerTask()
-//                                       {
-//                                           @Override
-//                                           public void run()
-//                                           {
-//                                               detectCollisions(enemyArray, heroArrowArray);
-//                                           }
-//                                       }, 1
-//        );
-
     }
 
 
@@ -192,16 +190,22 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         TimerTask collisions = new TimerTask() {
             //@Override
             public void run() {
-                //detectCollisions(enemyArray, heroArrowArray);
                 mHandler.obtainMessage(1).sendToTarget();
-                //Toast.makeText(BattleScreenActivity.this, "Detecting", Toast.LENGTH_SHORT).show();
-
-
             }
         };
 
         Timer timer = new Timer();
         timer.schedule(collisions, 10, 10);
+    }
+
+    void timerForEnemyBullets()
+    {
+        TimerTask bullets = new TimerTask() {
+            //@Override
+            public void run() {
+                mBulletHandler.obtainMessage(1).sendToTarget();
+            }
+        };
     }
 
 
@@ -347,7 +351,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private void launchEnemy(int y) {
 
-        EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150);
+        EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150, mScreenWidth);
 
         // Set enemy vertical position and dimensions, add to container
         enemy.setX(0);
@@ -357,7 +361,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         // Move enemies
         Random random = new Random(new Date().getTime());
-        //int duration = Math.max(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION - (mWave * 1000));
         int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemyArray.add(enemy);
 
@@ -374,7 +377,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
-                    //removeEnemy(enemies.get(jindex));
                     damageEnemy(enemies.get(currentEnemy),true);
                     if (enemies.get((currentEnemy)).isDead())
                     {
@@ -384,9 +386,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     }
                     hit = true;
 
-                    //removeProjectile(projectiles.get(jindex));
-                    //projectiles.remove(jindex);
-                    //jindex--;
                 }
             }
 
@@ -397,6 +396,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 currentProjectile--;
             }
         }
+    }
+
+    public void isEnemyAttacking(ArrayList<EnemySprite>enemies)
+    {
+
     }
 
 }

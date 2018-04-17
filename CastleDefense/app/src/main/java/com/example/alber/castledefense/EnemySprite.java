@@ -1,7 +1,14 @@
 package com.example.alber.castledefense;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,24 +28,30 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     private ValueAnimator mAnimator;
     private EnemyListener mListener;
     private boolean mHit;
+    private boolean isAttacking;
     private Enemy enemy;
+    private int screenWidth;
+    private int rangedAttackDistance = 750;
 
     private ImageView imageView;
-    private AnimationDrawable animationDrawable;
+    private AnimationDrawable animationDrawableWalking;
+    private AnimationDrawable animationDrawableAttacking;
 
     public EnemySprite(Context context)
     {
         super(context);
     }
-    public EnemySprite(Context context, int color, int rawHeight)
+    public EnemySprite(Context context, int color, int rawHeight, int screenWidth)
     {
         super(context);
 
         mListener = (EnemyListener) context;
+        this.screenWidth = screenWidth;
 
         this.setBackgroundResource(R.drawable.dark_mage_movement);
-        animationDrawable = (AnimationDrawable) this.getBackground();
-        animationDrawable.start();
+        animationDrawableWalking = (AnimationDrawable) this.getBackground();
+        animationDrawableWalking.start();
+        isAttacking = false;
         //this.setImageResource(R.drawable.temp_enemy3);
         this.setColorFilter(color);
 
@@ -150,6 +163,21 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
+        if(Math.abs(getX()- screenWidth) < rangedAttackDistance)
+        {
+            animationDrawableWalking.stop();
+            this.setBackgroundResource(R.drawable.dark_mage_attack);
+            animationDrawableAttacking = (AnimationDrawable) this.getBackground();
+            mAnimator.pause();
+            animationDrawableAttacking.start();
+            isAttacking = true;
+
+        }
+    }
+
+    public boolean isAttacking()
+    {
+        return isAttacking;
     }
 
     // Touching the enemy picture will remove it from the display
