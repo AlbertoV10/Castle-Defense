@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -172,7 +173,6 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             isWalking=false;
             attackAnimation.start();
             isAttacking=true;
-        }
 
         //TODO move this to a separate method and call it inside of the battle screen timer function
         if(!isWalking)
