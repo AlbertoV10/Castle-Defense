@@ -410,6 +410,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             if(enemies.get(currentEnemy).checkForAttack())
             {
                 //TODO Adam create bullet here
+                EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
+                mContentView.addView(acidBullet);
+                acidBullet.setX(enemies.get(currentEnemy).getX());
+                acidBullet.setY(enemies.get(currentEnemy).getY());
+                //arrow.fireProjectile(mScreenWidth, 500, touchX);
+                acidBullet.fireProjectile(mScreenWidth, 800, enemies.get(currentEnemy).getX());
             }
         }
     }
