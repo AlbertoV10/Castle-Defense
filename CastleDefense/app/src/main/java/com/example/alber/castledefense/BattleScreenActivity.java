@@ -50,6 +50,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
+    private static final int BASE_ENEMY_SPEED = 4000;
     public static final int MIN_ANIMATION_DELAY = 500;
     public static final int MAX_ANIMATION_DELAY = 1000;
     public static final int MIN_ANIMATION_DURATION = 1000;
@@ -289,7 +290,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
        // }
         updateDisplay();
     }
-
+/*
     public void damageWall(EnemySprite enemy) {
         // TODO
         // get ROF of enemy, set a timer to repeat every ROF to damage enemy
@@ -314,7 +315,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         timer.schedule(damage, 10, 10);
         updateDisplay();
     }
-
+*/
     public void removeProjectile(Projectile projectile) {
         mContentView.removeView(projectile);
         updateDisplay();
@@ -391,10 +392,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         // Move enemies
         Random random = new Random(new Date().getTime());
-        int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
+        // Uniform speed
+        //int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemyArray.add(enemy);
 
-        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, duration);
+        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, BASE_ENEMY_SPEED);
     }
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
