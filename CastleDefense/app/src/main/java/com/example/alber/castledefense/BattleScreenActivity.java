@@ -303,9 +303,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             // start tower shooting
             isShooting = 1;
-            startTower(towerOne);
-            startTower(towerTwo);
-            startTower(towerThree);
+            //startTower(towerOne);
+            //startTower(towerTwo);
+            //startTower(towerThree);
         }
     }
 
@@ -436,7 +436,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private void startTower(TowerSprite tower)
     {
-        final TowerSprite tempTower = tower;
         final Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -464,7 +463,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     timer.purge();
                 }
             }
-        }, tempTower.getTower().getRateOfFire(), 1);
+        }, tower.getTower().getRateOfFire(), 1);
         /*
         final Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
