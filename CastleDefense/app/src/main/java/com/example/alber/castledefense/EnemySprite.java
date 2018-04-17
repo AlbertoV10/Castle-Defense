@@ -159,7 +159,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     }
 
     @Override
-    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+    public void onAnimationUpdate(ValueAnimator valueAnimator)
+    {
 
 
         setX((float) valueAnimator.getAnimatedValue());
@@ -173,14 +174,21 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             attackAnimation.start();
             isAttacking = true;
 
-            //TODO move this to a separate method and call it inside of the battle screen timer function
-            if (!isWalking) {
-                if (isAttacking && !attackAnimation.isRunning()) {
-                    isAttacking = false;
-                    this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
-                    attackRetractAnimation = (AnimationDrawable) this.getBackground();
-                    attackRetractAnimation.setOneShot(true);
-                    attackRetractAnimation.start();
+
+    }
+
+    public boolean checkForAttack()
+    {
+        //TODO Adam : call this inside of the battle screen timer function
+        if(!isWalking)
+        {
+            if (isAttacking  && !attackAnimation.isRunning())
+            {
+                isAttacking=false;
+                this.setBackgroundResource(R.drawable.dark_mage_retract_attack);
+                attackRetractAnimation = (AnimationDrawable) this.getBackground();
+                attackRetractAnimation.setOneShot(true);
+                attackRetractAnimation.start();
 
 
                 } else if (!isAttacking && !attackRetractAnimation.isRunning()) {
@@ -191,7 +199,18 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
                     attackAnimation.start();
                 }
             }
+            else if(!isAttacking && !attackRetractAnimation.isRunning())
+            {
+                isAttacking=true;
+                this.setBackgroundResource(R.drawable.dark_mage_attack);
+                attackAnimation = (AnimationDrawable) this.getBackground();
+                attackAnimation.setOneShot(true);
+                attackAnimation.start();
+                return true;
+            }
+        }
 
+        return false;
 
         }
     }
