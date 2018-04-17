@@ -400,7 +400,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void isEnemyAttacking(ArrayList<EnemySprite>enemies)
     {
+        for(int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
+        {
+            if(enemies.get(currentEnemy).isAttacking())
+            {
 
+            }
+        }
     }
 
 }

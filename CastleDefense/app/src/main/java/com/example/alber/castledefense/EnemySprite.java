@@ -53,6 +53,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         animationDrawableWalking.start();
         isAttacking = false;
         //this.setImageResource(R.drawable.temp_enemy3);
+        createAttackAnimation();
+
         this.setColorFilter(color);
 
         //int rawWidth = rawHeight / 2;
@@ -163,16 +165,22 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
-        if(Math.abs(getX()- screenWidth) < rangedAttackDistance)
+        if(Math.abs(getX()- screenWidth) < rangedAttackDistance && !isAttacking)
         {
             animationDrawableWalking.stop();
             this.setBackgroundResource(R.drawable.dark_mage_attack);
-            animationDrawableAttacking = (AnimationDrawable) this.getBackground();
+            //animationDrawableAttacking = (AnimationDrawable) this.getBackground();
             mAnimator.pause();
             animationDrawableAttacking.start();
-            isAttacking = true;
+            //isAttacking = true;
 
         }
+    }
+
+    public void createAttackAnimation()
+    {
+        animationDrawableAttacking = (AnimationDrawable) this.getBackground();
+        animationDrawableAttacking.setOneShot(true);
     }
 
     public boolean isAttacking()
