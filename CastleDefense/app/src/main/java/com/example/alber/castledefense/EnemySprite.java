@@ -227,7 +227,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     // Touching the enemy picture will remove it from the display
     @Override
     public boolean onTouchEvent(MotionEvent event){
-
+/*
         //if(!mHit && event.getAction() == MotionEvent.ACTION_DOWN)
         //{
         mListener.damageEnemy(this, true);
@@ -238,6 +238,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         }
         //}
         return super.onTouchEvent(event);
+*/
+        return false;
     }
 
     // Waits for user touch

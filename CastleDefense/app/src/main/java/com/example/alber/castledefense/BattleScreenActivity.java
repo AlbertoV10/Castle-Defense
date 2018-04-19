@@ -195,8 +195,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         };
 
         Timer timer = new Timer();
-        //timer.schedule(collisions, 10, 10);
-        timer.schedule(collisions, 10, 50);
+        timer.schedule(collisions, 10, 10);
     }
 
     /*
