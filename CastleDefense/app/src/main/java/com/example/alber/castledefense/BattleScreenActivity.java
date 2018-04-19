@@ -417,7 +417,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         public void run()
                         {
                             //stuff that updates ui
-                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0xADFF2F, 128);
+                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFF606060, 128);
                             arrow.setX(innerWidth);
                             arrow.setY(innerHeight);
                             mContentView.addView(arrow);
