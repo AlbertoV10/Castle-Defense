@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.animation.Animator;
@@ -46,12 +47,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         mListener = (EnemyListener) context;
         this.screenWidth = screenWidth;
 
-        this.setBackgroundResource(R.drawable.dark_mage_movement);
-        walkingAnimation = (AnimationDrawable) this.getBackground();
-        walkingAnimation.start();
+        //this.setBackgroundResource(R.drawable.dark_mage_movement);
+        //walkingAnimation = (AnimationDrawable) this.getBackground();
+        //walkingAnimation.start();
         isAttacking = false;
         isWalking=true;
-        //this.setImageResource(R.drawable.temp_enemy3);
+        this.setImageResource(R.drawable.temp_enemy4);
 
         this.setColorFilter(color);
 
@@ -131,8 +132,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         paint.setColor(Color.BLACK);
         paint.setTextSize(50);
         Canvas canvas = new Canvas(bm);
-        canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 0,bm.getHeight(),paint);
-        this.setImageBitmap(new BitmapDrawable(bm).getBitmap());
+        //canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 0, bm.getHeight(), paint);
+        canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 30, bm.getHeight()-25, paint);
+        //this.setImageBitmap(new BitmapDrawable(bm).getBitmap());
+        BitmapDrawable background = new BitmapDrawable(getResources(), bm);
+        background.setGravity(Gravity.TOP);
+        this.setBackgroundDrawable(background);
     }
 
     @Override
@@ -142,10 +147,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     @Override
     public void onAnimationEnd(Animator animator) {
-        if(!mHit)
-        {
-            mListener.damageEnemy(this, false);
-        }
+        // nothing yet
     }
 
     @Override
@@ -164,6 +166,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
+/*
         if (isWalking && Math.abs(getX() - screenWidth) < rangedAttackDistance) {
             walkingAnimation.stop();
             this.setBackgroundResource(R.drawable.dark_mage_attack);
@@ -174,6 +177,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             attackAnimation.start();
             isAttacking = true;
         }
+*/
 
 
     }
@@ -227,7 +231,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     // Touching the enemy picture will remove it from the display
     @Override
     public boolean onTouchEvent(MotionEvent event){
-
+/*
         //if(!mHit && event.getAction() == MotionEvent.ACTION_DOWN)
         //{
         mListener.damageEnemy(this, true);
@@ -238,6 +242,8 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         }
         //}
         return super.onTouchEvent(event);
+*/
+        return false;
     }
 
     // Waits for user touch

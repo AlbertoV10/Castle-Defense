@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.ViewTreeObserver;
+import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private boolean isPaused;
     private boolean isWaveActive;
+    // need more that 2 states for shooting, beginning (waits for wave to start), shooting, end wave (stop shooting)
+    private int isShooting = 0;
 
     private Button mPauseButton;
     private Button mExitButton;
@@ -50,10 +53,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    public static final int MIN_ANIMATION_DELAY = 500;
-    public static final int MAX_ANIMATION_DELAY = 1000;
-    public static final int MIN_ANIMATION_DURATION = 1000;
-    public static final int MAX_ANIMATION_DURATION = 4000;
+    private int BASE_ENEMY_SPEED = 5000; // milliseconds seconds to travel across the screen
+    private int ENEMY_SPAWN_RATE = 1000; // milliseconds between spawns
     private int mWave;
     private int[] yPositions = new int[3];
     private Intent intent;
@@ -62,6 +63,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
+
+    // Create local hero sprite, retrieve stats from game manager
+    private HeroSprite hero;
+    // Create local tower sprites, retrieve stats from game manager
+    private TowerSprite towerOne;
+    private TowerSprite towerTwo;
+    private TowerSprite towerThree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,20 +90,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         // Get gameManager object from last screen
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
-
-        // Create local hero sprite, retrieve stats from game manager
-        HeroSprite hero = new HeroSprite(this, 0xFFFF00, 150);
-        hero.setHero(gameManager.getHero());
-
-        // Create local tower sprites, retrieve stats from game manager
-        TowerSprite towerOne = new TowerSprite(this, 0xFFFF00, 150);
-        towerOne.setTower(gameManager.getTowers()[0]);
-
-        TowerSprite towerTwo = new TowerSprite(this, 0xFFFF00, 150);
-        towerTwo.setTower(gameManager.getTowers()[1]);
-
-        TowerSprite towerThree = new TowerSprite(this, 0xFFFF00, 150);
-        towerThree.setTower(gameManager.getTowers()[2]);
 
         this.gameManager.newWave();
 
@@ -178,15 +172,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
+        spawnTowers();
         waveDisplay = (TextView) findViewById(R.id.wave_text);
         EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
         HPDisplay = (TextView) findViewById(R.id.HP_text);
         updateDisplay();
         startTimerForCollisions();
-
     }
-
 
     void startTimerForCollisions()
     {
@@ -263,6 +256,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             launcher.execute(mWave);
             gameManager.startWave();
             mstartRoundButton.setAlpha(0);
+
+            // start tower shooting
+            isShooting = 1;
+            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
         }
     }
 
@@ -305,6 +304,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         EnemyCountDisplay.setText("Enemies: " + String.valueOf(gameManager.getRemainingEnemies()));
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
         HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" + String.valueOf(gameManager.getTown().getMaxWallHealth()));
+        if(gameManager.getRemainingEnemies() == 0)
+        {
+            isShooting = 2;
+        }
     }
 
     private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {
@@ -317,16 +320,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         "Expected 1 param for current level");
             }
 
-            int level = params[0];
-            //int maxDelay = Math.max(MIN_ANIMATION_DELAY,
-            //        (MAX_ANIMATION_DELAY - ((level - 1) * 500)));
-            int maxDelay = MAX_ANIMATION_DELAY;
-            //int minDelay = maxDelay / 2;
-            int minDelay = MIN_ANIMATION_DELAY;
+            int level = params[0]; // needed?
             int enemiesLaunched = 0;
-            yPositions[0] = mScreenHeight/8;
-            yPositions[1] = 3*mScreenHeight/8;
-            yPositions[2] = 5*mScreenHeight/8;
+            yPositions[0] = 2*mScreenHeight/10;
+            yPositions[1] = 4*mScreenHeight/10;
+            yPositions[2] = 6*mScreenHeight/10;
             while (enemiesLaunched < gameManager.getNumOfEnemies()) {
                 // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
@@ -335,10 +333,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 publishProgress(yPositions[yPosition]);
                 enemiesLaunched++;
 
-                // Wait a random number of milliseconds before looping
-                int delay = random.nextInt(maxDelay) + minDelay;
+                //// Wait a random number of milliseconds before looping
+                //int delay = random.nextInt(maxDelay) + minDelay;
+                int delay = ENEMY_SPAWN_RATE;
                 try {
-                    Thread.sleep(delay);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -354,6 +353,81 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
     }
 
+    private void spawnTowers()
+    {
+        // For some reason, the mScreenWidth and mScreenHeight didn't work, so just use another method
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        // Create local hero sprite, retrieve stats from game manager
+        hero = new HeroSprite(this, 0xFFFF00, 150);
+        hero.setHero(gameManager.getHero());
+
+        // Create local tower sprites, retrieve stats from game manager
+        towerOne = new TowerSprite(this, 0xFFFF00, 150);
+        towerOne.setTower(gameManager.getTowers()[0]);
+
+        towerTwo = new TowerSprite(this, 0xFFFF00, 150);
+        towerTwo.setTower(gameManager.getTowers()[1]);
+
+        towerThree = new TowerSprite(this, 0xFFFF00, 150);
+        towerThree.setTower(gameManager.getTowers()[2]);
+
+        // set tower positions
+        towerOne.setX(width - 2*width/10);
+        towerOne.setY(2*height/10);
+        towerTwo.setX(width - 2*width/10);
+        towerTwo.setY(4*height/10);
+        towerThree.setX(width - 2*width/10);
+        towerThree.setY(6*height/10);
+
+        // spawn towers
+        mContentView.addView(towerOne);
+        mContentView.addView(towerTwo);
+        mContentView.addView(towerThree);
+    }
+
+    private void startTower(TowerSprite tower, int height, int width)
+    {
+        final TowerSprite innerTower = tower;
+        final int innerHeight = height;
+        final int innerWidth = width;
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                if(isShooting == 1)
+                {
+                    runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            //stuff that updates ui
+                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFF606060, 128);
+                            arrow.setX(innerWidth);
+                            arrow.setY(innerHeight);
+                            mContentView.addView(arrow);
+
+                            // change to a different array later?
+                            heroArrowArray.add(arrow);
+                            arrow.fireProjectile(innerWidth, 2000, 0);
+                        }
+                    });
+                }
+                else if(isShooting == 2)
+                {
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        }, 100, tower.getTower().getRateOfFire());
+    }
+
     private void launchEnemy(int y) {
 
         EnemySprite enemy = new EnemySprite(this, 0xFFFF0000, 150, mScreenWidth);
@@ -366,10 +440,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         // Move enemies
         Random random = new Random(new Date().getTime());
-        int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
+        // Uniform speed
+        //int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemyArray.add(enemy);
 
-        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, duration);
+        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, BASE_ENEMY_SPEED);
     }
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)

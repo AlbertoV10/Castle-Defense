@@ -15,7 +15,7 @@ public class Tower implements Serializable
         // sets default values for tower
         towerType=0;
         setDamage(10);
-        setRateOfFire(10);
+        setRateOfFire(2000);
         setArmorPiercing(.1);
         setUpgradeLevel(1);
         setUpgradeCost(100);
@@ -69,12 +69,9 @@ public class Tower implements Serializable
     {
         // Right now it upgrades everything, this will change in later sprints
         setUpgradeLevel(getUpgradeLevel()+1);
-        setRateOfFire(getRateOfFire() + 1);
+        setRateOfFire(getRateOfFire() + 100);
         setDamage(getDamage() + 5);
         setArmorPiercing(getArmorPiercing() + .2);
         setUpgradeCost(getUpgradeCost()*2);
     }
-
-
-
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class GameManager extends AppCompatActivity implements Serializable{
     private Enemy enemies[];
-    private Tower towers[];
+    private Tower towers[] = new Tower[3];
     private boolean waveStart;
     private Hero hero;
     private Town town;
@@ -34,6 +34,10 @@ public class GameManager extends AppCompatActivity implements Serializable{
         this.remainingEnemies = 5; // Mock data
         this.currentGold = 100;
         this.score = 0;
+        for(int index = 0; index < towers.length; index++)
+        {
+            towers[index] = new Tower();
+        }
     }
 
     public Enemy[] getEnemy()
