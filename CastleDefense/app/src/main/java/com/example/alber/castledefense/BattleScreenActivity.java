@@ -53,12 +53,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    private int BASE_ENEMY_SPEED = 5000; // enemy takes 5 seconds to travel across the screen
-    private int ENEMY_SPAWN_RATE = 1500; // 1.5 seconds between spawns
-    public static final int MIN_ANIMATION_DELAY = 500;
-    public static final int MAX_ANIMATION_DELAY = 1000;
-    public static final int MIN_ANIMATION_DURATION = 1000;
-    public static final int MAX_ANIMATION_DURATION = 4000;
+    private int BASE_ENEMY_SPEED = 5000; // milliseconds seconds to travel across the screen
+    private int ENEMY_SPAWN_RATE = 1000; // milliseconds between spawns
     private int mWave;
     private int[] yPositions = new int[3];
     private Intent intent;
@@ -324,12 +320,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         "Expected 1 param for current level");
             }
 
-            int level = params[0];
-            //int maxDelay = Math.max(MIN_ANIMATION_DELAY,
-            //        (MAX_ANIMATION_DELAY - ((level - 1) * 500)));
-            int maxDelay = MAX_ANIMATION_DELAY;
-            //int minDelay = maxDelay / 2;
-            int minDelay = MIN_ANIMATION_DELAY;
+            int level = params[0]; // needed?
             int enemiesLaunched = 0;
             yPositions[0] = 2*mScreenHeight/10;
             yPositions[1] = 4*mScreenHeight/10;

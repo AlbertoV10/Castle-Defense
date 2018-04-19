@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.animation.Animator;
@@ -51,7 +52,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         //walkingAnimation.start();
         isAttacking = false;
         isWalking=true;
-        this.setImageResource(R.drawable.temp_enemy3);
+        this.setImageResource(R.drawable.temp_enemy4);
 
         this.setColorFilter(color);
 
@@ -131,8 +132,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         paint.setColor(Color.BLACK);
         paint.setTextSize(50);
         Canvas canvas = new Canvas(bm);
-        canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 0,bm.getHeight(),paint);
-        this.setImageBitmap(new BitmapDrawable(bm).getBitmap());
+        //canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 0, bm.getHeight(), paint);
+        canvas.drawText(Integer.toString(this.enemy.getHealthRemaining()), 30, bm.getHeight()-25, paint);
+        //this.setImageBitmap(new BitmapDrawable(bm).getBitmap());
+        BitmapDrawable background = new BitmapDrawable(getResources(), bm);
+        background.setGravity(Gravity.TOP);
+        this.setBackgroundDrawable(background);
     }
 
     @Override
