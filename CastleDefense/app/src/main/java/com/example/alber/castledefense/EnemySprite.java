@@ -47,12 +47,12 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
         mListener = (EnemyListener) context;
         this.screenWidth = screenWidth;
 
-        this.setBackgroundResource(R.drawable.dark_mage_movement);
-        walkingAnimation = (AnimationDrawable) this.getBackground();
-        walkingAnimation.start();
+        //this.setBackgroundResource(R.drawable.dark_mage_movement);
+        //walkingAnimation = (AnimationDrawable) this.getBackground();
+        //walkingAnimation.start();
         isAttacking = false;
         isWalking=true;
-        //this.setImageResource(R.drawable.temp_enemy3);
+        this.setImageResource(R.drawable.temp_enemy3);
 
         this.setColorFilter(color);
 
@@ -162,6 +162,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
 
         setX((float) valueAnimator.getAnimatedValue());
+/*
         if (isWalking && Math.abs(getX() - screenWidth) < rangedAttackDistance) {
             walkingAnimation.stop();
             this.setBackgroundResource(R.drawable.dark_mage_attack);
@@ -172,6 +173,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
             attackAnimation.start();
             isAttacking = true;
         }
+*/
 
 
     }

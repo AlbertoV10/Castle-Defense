@@ -53,7 +53,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    private static final int BASE_ENEMY_SPEED = 5000;
+    private int BASE_ENEMY_SPEED = 5000; // enemy takes 5 seconds to travel across the screen
+    private int ENEMY_SPAWN_RATE = 1500; // 1.5 seconds between spawns
     public static final int MIN_ANIMATION_DELAY = 500;
     public static final int MAX_ANIMATION_DELAY = 1000;
     public static final int MIN_ANIMATION_DURATION = 1000;
@@ -182,47 +183,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         HPDisplay = (TextView) findViewById(R.id.HP_text);
         updateDisplay();
         startTimerForCollisions();
-
-/*
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                // stuff that updates ui
-                //if(shootTowers)
-                //{
-                    //startTower(towerOne);
-                    //startTower(towerTwo);
-                    //startTower(towerThree);
-                //}
-                final Timer timer = new Timer();
-
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run()
-                    {
-                        if(isShooting == 1) {
-                            Projectile arrow = new Projectile(BattleScreenActivity.this, 0x6B8E23, 128);
-                            arrow.setX(mScreenWidth);
-                            arrow.setY(mScreenHeight);
-                            mContentView.addView(arrow);
-
-                            // change to a different array later?
-                            heroArrowArray.add(arrow);
-                            arrow.fireProjectile(mScreenWidth, 800, 0);
-                        }
-                        else if(isShooting == 2)
-                        {
-                            timer.cancel();
-                            timer.purge();
-                        }
-                    }
-                }, towerOne.getTower().getRateOfFire(), 1);
-
-                //final Timer timer = new Timer();
-            }
-        });
-       */
     }
 
     void startTimerForCollisions()
@@ -235,7 +195,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         };
 
         Timer timer = new Timer();
-        timer.schedule(collisions, 10, 10);
+        //timer.schedule(collisions, 10, 10);
+        timer.schedule(collisions, 10, 50);
     }
 
     /*
@@ -303,9 +264,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             // start tower shooting
             isShooting = 1;
-            startTower(towerOne,2*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerTwo,4*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerThree,6*mScreenHeight/10,(mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
         }
     }
 
@@ -348,6 +309,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         EnemyCountDisplay.setText("Enemies: " + String.valueOf(gameManager.getRemainingEnemies()));
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
         HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" + String.valueOf(gameManager.getTown().getMaxWallHealth()));
+        if(gameManager.getRemainingEnemies() == 0)
+        {
+            isShooting = 2;
+        }
     }
 
     private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {
@@ -378,15 +343,15 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 publishProgress(yPositions[yPosition]);
                 enemiesLaunched++;
 
-                // Wait a random number of milliseconds before looping
-                int delay = random.nextInt(maxDelay) + minDelay;
+                //// Wait a random number of milliseconds before looping
+                //int delay = random.nextInt(maxDelay) + minDelay;
+                int delay = ENEMY_SPAWN_RATE;
                 try {
-                    Thread.sleep(delay);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            isShooting = 2;
             return null;
         }
 
@@ -460,7 +425,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                             // change to a different array later?
                             heroArrowArray.add(arrow);
-                            arrow.fireProjectile(mScreenWidth, 2000, 0);
+                            arrow.fireProjectile(innerWidth, 2000, 0);
                         }
                     });
                 }
@@ -470,7 +435,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     timer.purge();
                 }
             }
-        }, tower.getTower().getRateOfFire(), tower.getTower().getRateOfFire());
+        }, 100, tower.getTower().getRateOfFire());
     }
 
     private void launchEnemy(int y) {
