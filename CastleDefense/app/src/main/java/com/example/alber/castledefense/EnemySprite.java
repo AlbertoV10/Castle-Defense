@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -125,7 +124,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     public void updateHealthbar()
     {
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.temp_enemy4).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.transparent_enemy).copy(Bitmap.Config.ARGB_8888, true);
 
         Paint paint = new Paint();
         // paint.setStyle(Paint.Style.FILL);
