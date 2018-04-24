@@ -15,7 +15,8 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
     private ProjectileListener mListener;
     private int stopPositionX;
     private int damage;
-    private int piercingValue;
+    private double piercingValue;
+    private int projectileType = 0;
 
     public Projectile(Context context)
     {
@@ -37,9 +38,9 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
 
-        this.damage = 5;   // Mock Data
-        this.piercingValue = 10; // Mock data
-
+        setDamage(5);
+        setPiercingValue(.2);
+        setProjectileType(0);
     }
 
     public int getDamage()
@@ -47,10 +48,18 @@ public class Projectile extends AppCompatImageView implements Animator.AnimatorL
         return this.damage;
     }
 
-    public int getPiercingValue()
+    public double getPiercingValue()
     {
         return  this.piercingValue;
     }
+
+    public int getProjectileType() { return this.projectileType; }
+
+    public void setDamage(int newDamage){ this.damage = newDamage; }
+
+    public void setPiercingValue(double newValue) { this.piercingValue = newValue; }
+
+    public void setProjectileType(int newType) {this.projectileType = newType;}
 
     public void fireProjectile(int screenWidth, int duration, int stopPositionX)
     {

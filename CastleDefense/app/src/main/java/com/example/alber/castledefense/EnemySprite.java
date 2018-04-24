@@ -101,7 +101,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     public void projectileCollision(Projectile projectile)
     {
-        double damageMultiplier  = this.enemy.getArmor() + projectile.getPiercingValue();
+        double damageMultiplier  = 1 - this.enemy.getArmor() + projectile.getPiercingValue();
         this.enemy.setHealthRemaining(healthRemaining() - (int) (damageMultiplier * projectile.getDamage()));
         if (healthRemaining() <= 0)
         {
@@ -248,6 +248,6 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
     // Waits for user touch
     public interface EnemyListener{
-        void damageEnemy(EnemySprite enemy, boolean userTouch);
+        void damageEnemy(EnemySprite enemy, Projectile projectile);
     }
 }

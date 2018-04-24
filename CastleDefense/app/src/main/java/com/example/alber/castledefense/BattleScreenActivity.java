@@ -271,11 +271,18 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     }
 
     //@Override
-    public void damageEnemy(EnemySprite enemy, boolean userTouch) {
+    public void damageEnemy(EnemySprite enemy, Projectile projectile) {
         //mContentView.removeView(enemy);
         //f(userTouch){
         int startingHealth = enemy.healthRemaining();
-        enemy.touchEvent(gameManager.getHero());
+        if(projectile.getProjectileType() == 0)
+        {
+            enemy.touchEvent(gameManager.getHero()); // do hero arrow damage
+        }
+        else
+        {
+            enemy.projectileCollision(projectile); // do tower arrow damage
+        }
         enemy.updateHealthbar();
             if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
@@ -389,7 +396,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mContentView.addView(towerThree);
     }
 
-    private void startTower(TowerSprite tower, int height, int width)
+    private void startTower(final TowerSprite tower, int height, int width)
     {
         final TowerSprite innerTower = tower;
         final int innerHeight = height;
@@ -407,13 +414,16 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         @Override
                         public void run()
                         {
-                            //stuff that updates ui
+                            // stuff that updates ui
                             Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFF606060, 128);
                             arrow.setX(innerWidth);
                             arrow.setY(innerHeight);
-                            mContentView.addView(arrow);
+                            // retrieve tower arrow damage from the tower
+                            arrow.setPiercingValue(innerTower.getTower().getArmorPiercing());
+                            arrow.setDamage(innerTower.getTower().getDamage());
+                            arrow.setProjectileType(1);
 
-                            // change to a different array later?
+                            mContentView.addView(arrow);
                             heroArrowArray.add(arrow);
                             arrow.fireProjectile(innerWidth, 2000, 0);
                         }
@@ -457,12 +467,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
-                    damageEnemy(enemies.get(currentEnemy),true);
+                    damageEnemy(enemies.get(currentEnemy),projectiles.get(currentProjectile));
                     if (enemies.get((currentEnemy)).isDead())
                     {
                         enemies.remove(currentEnemy);
                         currentEnemy--;
-
                     }
                     hit = true;
 
