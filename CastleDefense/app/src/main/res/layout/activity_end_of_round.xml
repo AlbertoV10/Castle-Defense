@@ -7,94 +7,115 @@
     android:layout_height="match_parent"
     android:screenOrientation="landscape">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/enemies_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Kills: 13"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="41dp">
+        app:layout_constraintVertical_bias="0.254" />
 
-        <TextView
-            android:id="@+id/enemies_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="183dp"
-            android:layout_marginTop="136dp"
-            android:text="Kills: 13"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/hp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/enemies_text"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="HP: 23/30"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.392" />
 
-        <TextView
-            android:id="@+id/hp_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/enemies_text"
-            android:layout_centerVertical="true"
-            android:text="HP: 23/30"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/to_upgrade_button"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_alignLeft="@+id/hp_text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/hp_text"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Upgrade"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.894" />
 
-        <TextView
-            android:id="@+id/damage_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/enemies_text"
-            android:layout_alignBottom="@+id/enemies_text"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="44dp"
-            android:layout_marginStart="44dp"
-            android:text="Damage Done: 2000"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/money_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/damage_text"
+        android:layout_alignTop="@+id/hp_text"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Money: 230"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.546" />
 
-        <TextView
-            android:id="@+id/money_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="87dp"
-            android:text="Money: 230"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/to_upgrade_button"
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:layout_alignLeft="@+id/hp_text"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/hp_text"
-            android:layout_marginBottom="14dp"
-            android:text="Upgrade" />
-
-        <Button
-            android:id="@+id/next_wave"
-            android:layout_width="125dp"
-            android:layout_height="75dp"
-            android:layout_alignLeft="@+id/money_text"
-            android:layout_alignStart="@+id/money_text"
-            android:layout_alignTop="@+id/to_upgrade_button"
-            android:text="Next Wave" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/next_wave"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_alignLeft="@+id/money_text"
+        android:layout_alignStart="@+id/money_text"
+        android:layout_alignTop="@+id/to_upgrade_button"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Next Wave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.894" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="222dp"
         android:layout_height="57dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Battle Statistics"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="37dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
+
 </android.support.constraint.ConstraintLayout>

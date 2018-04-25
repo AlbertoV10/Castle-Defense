@@ -180,5 +180,4 @@ public class GameManager extends AppCompatActivity implements Serializable{
         }
     }
 
-
 }
