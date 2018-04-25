@@ -148,13 +148,13 @@ public class UpgradeScreenActivity extends AppCompatActivity {
 
     private void updateDisplay() {
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
-        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" +String.valueOf(gameManager.getTown().getMaxWallHealth()));
+        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" + String.valueOf(gameManager.getTown().getMaxWallHealth()));
 
         towerOneLevel.setText("Level: " + String.valueOf(gameManager.getTowers()[0].getUpgradeLevel()));
         towerOnePrice.setText("Cost: " + String.valueOf(gameManager.getTowers()[0].getUpgradeCost()));
 
-        townOneLevel.setText("Level: " + String.valueOf(gameManager.getTown().getIncomeLevel()));
-        townOnePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getIncomeUpgradePrice()));
+        townOneLevel.setText("Level: " + String.valueOf(gameManager.getTown().getWallLevel()));
+        townOnePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getWallUpgradePrice()));
 
         heroOneLevel.setText("Level: " + String.valueOf(gameManager.getHero().getDamageLevel()));
         heroOnePrice.setText("Cost: " + String.valueOf(gameManager.getHero().getDamageUpgradePrice()));
