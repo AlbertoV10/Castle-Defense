@@ -29,7 +29,7 @@ public class GameManager extends AppCompatActivity implements Serializable{
         //hero = null;
         waveStart = false;
         createTown();
-        this.currentWave = 1;
+        this.currentWave = 0;
         this.numOfEnemies = 5;
         this.remainingEnemies = 5; // Mock data
         this.currentGold = 100;

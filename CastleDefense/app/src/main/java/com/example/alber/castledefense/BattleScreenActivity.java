@@ -92,6 +92,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         // Get gameManager object from last screen
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
+        gameManager.increaseWave();
 
         this.gameManager.newWave();
 
@@ -176,6 +177,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         spawnTowers();
         waveDisplay = (TextView) findViewById(R.id.wave_text);
+        waveDisplay.setText("Wave: " + gameManager.getCurrentWave());
         EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
         HPDisplay = (TextView) findViewById(R.id.HP_text);
