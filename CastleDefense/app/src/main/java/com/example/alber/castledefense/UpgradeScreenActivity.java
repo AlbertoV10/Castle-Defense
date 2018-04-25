@@ -68,7 +68,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Tower Upgrade 1
+        // Towers Upgrade
         upgradeTowerOne=(ImageButton)findViewById(R.id.tower1);
         upgradeTowerOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,55 +87,9 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Tower Upgrade 2
-        upgradeTowerTwo=(ImageButton)findViewById(R.id.tower2);
-        upgradeTowerTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    // TODO
-                    updateDisplay();
-                }
-            }
-        });
-
-        // Tower Upgrade 3
-        upgradeTowerThree=(ImageButton)findViewById(R.id.tower3);
-        upgradeTowerThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    // TODO
-                    updateDisplay();
-                }
-            }
-        });
-
-        // Town Upgrade 1, Income Upgrade
+        // Town Upgrade, Upgrade Wall HP
         upgradeTownOne=(ImageButton)findViewById(R.id.town1);
         upgradeTownOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTown().getIncomeUpgradePrice()) {
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getIncomeUpgradePrice());
-                    gameManager.getTown().upgradeIncome();
-                    updateDisplay();
-                }
-            }
-        });
-
-        // Town Upgrade 2, Wall Upgrade
-        upgradeTownTwo=(ImageButton)findViewById(R.id.town2);
-        upgradeTownTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(gameManager.getCurrentGold() < gameManager.getTown().getWallUpgradePrice()) {
@@ -149,26 +103,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Town Upgrade 3, Restore Wall Health
-        upgradeTownThree=(ImageButton)findViewById(R.id.town3);
-        upgradeTownThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getTown().getRestoreHealthPrice()) {
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
-                }
-                else if(gameManager.getTown().getWallHealth() == gameManager.getTown().getMaxWallHealth()){
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.already_max_health, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getRestoreHealthPrice());
-                    gameManager.getTown().restoreHealth();
-                    updateDisplay();
-                }
-            }
-        });
-
-        // Hero Upgrade 1
+        // Hero Damage Upgrade
         upgradeHeroOne=(ImageButton)findViewById(R.id.hero1);
         upgradeHeroOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,20 +119,6 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Hero Upgrade 2
-        upgradeHeroTwo=(ImageButton)findViewById(R.id.hero2);
-        upgradeHeroTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameManager.getCurrentGold() < gameManager.getHero().getDamageUpgradePrice()) {
-                    Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    // TODO
-                    updateDisplay();
-                }
-            }
-        });
 
         // assign TextViews
         moneyDisplay = (TextView) findViewById(R.id.money_text);
@@ -205,22 +126,22 @@ public class UpgradeScreenActivity extends AppCompatActivity {
 
         towerOneLevel = (TextView) findViewById(R.id.textView6);
         towerOnePrice = (TextView) findViewById(R.id.textView7);
-        towerTwoLevel = (TextView) findViewById(R.id.textView10);
-        towerTwoPrice = (TextView) findViewById(R.id.textView12);
-        towerThreeLevel = (TextView) findViewById(R.id.textView13);
-        towerThreePrice = (TextView) findViewById(R.id.textView14);
+        //towerTwoLevel = (TextView) findViewById(R.id.textView10);
+        //towerTwoPrice = (TextView) findViewById(R.id.textView12);
+        //towerThreeLevel = (TextView) findViewById(R.id.textView13);
+        //towerThreePrice = (TextView) findViewById(R.id.textView14);
 
         townOneLevel = (TextView) findViewById(R.id.textView15);
         townOnePrice = (TextView) findViewById(R.id.textView16);
-        townTwoLevel = (TextView) findViewById(R.id.textView17);
-        townTwoPrice = (TextView) findViewById(R.id.textView18);
-        townThreeLevel = (TextView) findViewById(R.id.textView8);
-        townThreePrice = (TextView) findViewById(R.id.textView9);
+//        townTwoLevel = (TextView) findViewById(R.id.textView17);
+//        townTwoPrice = (TextView) findViewById(R.id.textView18);
+//        townThreeLevel = (TextView) findViewById(R.id.textView8);
+//        townThreePrice = (TextView) findViewById(R.id.textView9);
 
         heroOneLevel = (TextView) findViewById(R.id.textView19);
         heroOnePrice = (TextView) findViewById(R.id.textView20);
-        heroTwoLevel = (TextView) findViewById(R.id.textView21);
-        heroTwoPrice = (TextView) findViewById(R.id.textView22);
+//        heroTwoLevel = (TextView) findViewById(R.id.textView21);
+//        heroTwoPrice = (TextView) findViewById(R.id.textView22);
 
         updateDisplay();
     }

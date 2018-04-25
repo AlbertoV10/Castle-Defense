@@ -51,6 +51,7 @@ public class EndOfRoundActivity extends AppCompatActivity {
         mUpgradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gameManager.getTown().restoreHealth();
                 Intent battleIntent = new Intent(EndOfRoundActivity.this, UpgradeScreenActivity.class);
                 // Pass gameManager object to next screen
                 battleIntent.putExtra("gameManager", gameManager);
@@ -60,6 +61,7 @@ public class EndOfRoundActivity extends AppCompatActivity {
         mNextWaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gameManager.getTown().restoreHealth();
                 Intent battleIntent = new Intent(EndOfRoundActivity.this, BattleScreenActivity.class);
                 // Pass gameManager object to next screen
                 battleIntent.putExtra("gameManager", gameManager);

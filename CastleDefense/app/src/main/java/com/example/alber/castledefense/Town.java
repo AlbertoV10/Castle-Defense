@@ -20,7 +20,7 @@ public class Town implements Serializable{
 
     public Town() {
         // sets default values for town
-        setIncome(100);
+        setIncome(400);
         setIncomeLevel(1);
         setIncomeUpgradePrice(200);
 
@@ -71,9 +71,10 @@ public class Town implements Serializable{
     }
 
     public void upgradeWall(){
-        setWallHealth(getMaxWallHealth()+100);
+        setWallHealth(getMaxWallHealth() + 25);
         setWallUpgradePrice(getWallUpgradePrice()*2);
         setWallLevel(getWallLevel()+1);
+        restoreHealth();
     }
 
     public void restoreHealth(){
