@@ -7,16 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.alber.castledefense.StartActivity">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:text="Castle Defense"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="36sp"
+        android:background="@drawable/badlogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,27 +24,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="Start" />
+        android:layout_marginTop="10dp"
+        android:text="New Game" />
 
     <Button
         android:id="@+id/load_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/start_button"
-        android:layout_alignStart="@+id/start_button"
         android:layout_below="@+id/start_button"
-        android:layout_marginTop="27dp"
-        android:text="Load" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Resume Game" />
 
     <Button
         android:id="@+id/tutorial_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/load_button"
-        android:layout_alignStart="@+id/load_button"
         android:layout_below="@+id/load_button"
-        android:layout_marginTop="24dp"
-        android:text="Tutorial" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:text="Help" />
 
 </RelativeLayout>
