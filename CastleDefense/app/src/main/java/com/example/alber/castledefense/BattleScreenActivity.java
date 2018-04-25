@@ -283,7 +283,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             enemy.projectileCollision(projectile); // do tower arrow damage
         }
-        enemy.updateHealthbar();
+        //enemy.updateHealthbar();
             if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
                 gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
