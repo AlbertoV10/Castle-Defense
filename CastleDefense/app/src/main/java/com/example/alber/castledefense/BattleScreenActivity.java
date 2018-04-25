@@ -53,7 +53,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
-    private int BASE_ENEMY_SPEED = 5000; // milliseconds seconds to travel across the screen
+    private int BASE_ENEMY_SPEED = 3000; // milliseconds seconds to travel across the screen
     private int ENEMY_SPAWN_RATE = 1000; // milliseconds between spawns
     private int mWave;
     private int[] yPositions = new int[3];
@@ -283,7 +283,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             enemy.projectileCollision(projectile); // do tower arrow damage
         }
-        enemy.updateHealthbar();
+        //enemy.updateHealthbar();
             if (enemy.isDead() && startingHealth > 0 && enemy.healthRemaining() <= 0)
             {
                 gameManager.setEnemiesKilled(gameManager.getEnemiesKilled()+1);
