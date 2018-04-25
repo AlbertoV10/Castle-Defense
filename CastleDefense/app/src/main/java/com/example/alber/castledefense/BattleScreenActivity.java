@@ -27,6 +27,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             detectCollisions(enemyArray, heroArrowArray);
             isEnemyAttacking(enemyArray);
+            damageCastle(acidBulletsArray);
         }
     };
 
@@ -63,6 +64,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
+    private ArrayList acidBulletsArray = new ArrayList<EnemyProjectile>();
 
     // Create local hero sprite, retrieve stats from game manager
     private HeroSprite hero;
@@ -310,6 +312,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         updateDisplay();
     }
 
+    public void removeEnemyBullet(EnemyProjectile enemyProjectile)
+    {
+        enemyProjectile.cancelAnimation();
+        mContentView.removeView(enemyProjectile);
+        updateDisplay();
+    }
+
     private void updateDisplay() {
         waveDisplay.setText("Wave: " + String.valueOf(gameManager.getCurrentWave()));
         EnemyCountDisplay.setText("Enemies: " + String.valueOf(gameManager.getRemainingEnemies()));
@@ -493,7 +502,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
     }
 
-    public void isEnemyAttacking(ArrayList<EnemySprite>enemies)
+    public void isEnemyAttacking(ArrayList<EnemySprite> enemies)
     {
         for(int currentEnemy = 0; currentEnemy < enemies.size(); currentEnemy++)
         {
@@ -501,11 +510,26 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             {
                 //TODO Adam create bullet here
                 EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
-                mContentView.addView(acidBullet);
                 acidBullet.setX(enemies.get(currentEnemy).getX());
                 acidBullet.setY(enemies.get(currentEnemy).getY());
+                mContentView.addView(acidBullet);
                 //arrow.fireProjectile(mScreenWidth, 500, touchX);
+                acidBulletsArray.add(acidBullet);
                 acidBullet.fireProjectile(mScreenWidth, 800, enemies.get(currentEnemy).getX());
+            }
+        }
+    }
+
+    public void damageCastle(ArrayList<EnemyProjectile> acidBullets)
+    {
+        for(int currentBullet = 0; currentBullet < acidBullets.size(); currentBullet++)
+        {
+            if(acidBullets.get(currentBullet).getX() >= (mScreenWidth - 300))
+            {
+                gameManager.getTown().setWallHealth(gameManager.getTown().getWallHealth() - acidBullets.get(currentBullet).getDamage());
+                removeEnemyBullet(acidBullets.get(currentBullet));
+                acidBullets.remove(currentBullet);
+                currentBullet--;
             }
         }
     }
