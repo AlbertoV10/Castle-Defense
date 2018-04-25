@@ -18,23 +18,13 @@ public class UpgradeScreenActivity extends AppCompatActivity {
     private Intent intent;
     private GameManager gameManager;
     private ImageButton upgradeTowerOne;
-    private ImageButton upgradeTowerTwo;
-    private ImageButton upgradeTowerThree;
     private ImageButton upgradeTownOne;
-    private ImageButton upgradeTownTwo;
-    private ImageButton upgradeTownThree;
     private ImageButton upgradeHeroOne;
-    private ImageButton upgradeHeroTwo;
 
     private TextView HPDisplay, moneyDisplay;
     private TextView towerOneLevel, towerOnePrice;
-    private TextView towerTwoLevel, towerTwoPrice;
-    private TextView towerThreeLevel, towerThreePrice;
     private TextView townOneLevel, townOnePrice;
-    private TextView townTwoLevel, townTwoPrice;
-    private TextView townThreeLevel, townThreePrice;
     private TextView heroOneLevel, heroOnePrice;
-    private TextView heroTwoLevel, heroTwoPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,35 +116,25 @@ public class UpgradeScreenActivity extends AppCompatActivity {
 
         towerOneLevel = (TextView) findViewById(R.id.textView6);
         towerOnePrice = (TextView) findViewById(R.id.textView7);
-        //towerTwoLevel = (TextView) findViewById(R.id.textView10);
-        //towerTwoPrice = (TextView) findViewById(R.id.textView12);
-        //towerThreeLevel = (TextView) findViewById(R.id.textView13);
-        //towerThreePrice = (TextView) findViewById(R.id.textView14);
 
         townOneLevel = (TextView) findViewById(R.id.textView15);
         townOnePrice = (TextView) findViewById(R.id.textView16);
-//        townTwoLevel = (TextView) findViewById(R.id.textView17);
-//        townTwoPrice = (TextView) findViewById(R.id.textView18);
-//        townThreeLevel = (TextView) findViewById(R.id.textView8);
-//        townThreePrice = (TextView) findViewById(R.id.textView9);
 
         heroOneLevel = (TextView) findViewById(R.id.textView19);
         heroOnePrice = (TextView) findViewById(R.id.textView20);
-//        heroTwoLevel = (TextView) findViewById(R.id.textView21);
-//        heroTwoPrice = (TextView) findViewById(R.id.textView22);
 
         updateDisplay();
     }
 
     private void updateDisplay() {
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
-        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" +String.valueOf(gameManager.getTown().getMaxWallHealth()));
+        HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" + String.valueOf(gameManager.getTown().getMaxWallHealth()));
 
         towerOneLevel.setText("Level: " + String.valueOf(gameManager.getTowers()[0].getUpgradeLevel()));
         towerOnePrice.setText("Cost: " + String.valueOf(gameManager.getTowers()[0].getUpgradeCost()));
 
-        townOneLevel.setText("Level: " + String.valueOf(gameManager.getTown().getIncomeLevel()));
-        townOnePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getIncomeUpgradePrice()));
+        townOneLevel.setText("Level: " + String.valueOf(gameManager.getTown().getWallLevel()));
+        townOnePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getWallUpgradePrice()));
 
         heroOneLevel.setText("Level: " + String.valueOf(gameManager.getHero().getDamageLevel()));
         heroOnePrice.setText("Cost: " + String.valueOf(gameManager.getHero().getDamageUpgradePrice()));
