@@ -11,6 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="200dp"
         android:layout_height="150dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/badlogo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="19dp"
         android:text="Resume Game" />
 
     <Button
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/load_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="17dp"
         android:text="Help" />
 
 </RelativeLayout>
