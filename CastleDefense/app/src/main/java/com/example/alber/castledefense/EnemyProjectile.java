@@ -14,7 +14,7 @@ import com.example.alber.castledefense.utils.PixelHelper;
 public class EnemyProjectile extends AppCompatImageView implements Animator.AnimatorListener, ValueAnimator.AnimatorUpdateListener{
 
     private ValueAnimator mAnimator;
-   //private EnemyProjectileListener mListener;
+    private EnemyProjectileListener mListener;
     private int stopPositionX;
     private int damage;
     private int piercingValue;
@@ -39,7 +39,7 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dpWidth,dpHeight);
         setLayoutParams(params);
 
-        this.damage = 5;   // Mock Data
+        this.damage = 3;   // Mock Data
         this.piercingValue = 10; // Mock data
 
     }
@@ -47,6 +47,11 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
     public int getDamage()
     {
         return this.damage;
+    }
+
+    public void setDamage(int newDamage)
+    {
+        this.damage = newDamage;
     }
 
     public int getPiercingValue()
@@ -73,12 +78,12 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
 
     @Override
     public void onAnimationEnd(Animator animator) {
-        //mListener.removeEnemyProjectile(this);
+
     }
 
     @Override
     public void onAnimationCancel(Animator animator) {
-
+        //mListener.removeEnemyProjectile(this);
     }
 
     @Override
@@ -102,5 +107,10 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
 
     public interface EnemyProjectileListener{
         void removeEnemyProjectile(EnemyProjectile ep);
+    }
+
+    public void cancelAnimation()
+    {
+        mAnimator.cancel();
     }
 }
