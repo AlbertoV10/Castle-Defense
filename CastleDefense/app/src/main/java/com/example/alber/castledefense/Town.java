@@ -71,7 +71,7 @@ public class Town implements Serializable{
     }
 
     public void upgradeWall(){
-        setWallHealth(getMaxWallHealth() + 25);
+        setMaxWallHealth(getWallHealth() + 25);
         setWallUpgradePrice(getWallUpgradePrice()*2);
         setWallLevel(getWallLevel()+1);
         restoreHealth();
