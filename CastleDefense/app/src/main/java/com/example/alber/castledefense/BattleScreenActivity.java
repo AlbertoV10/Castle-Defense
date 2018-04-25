@@ -70,6 +70,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private TowerSprite towerOne;
     private TowerSprite towerTwo;
     private TowerSprite towerThree;
+    private boolean roundWon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         setToFullScreen();
+        this.roundWon = false;
 
         // Get gameManager object from last screen
         intent = getIntent();
@@ -262,6 +264,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
             startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
             startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            mPauseButton.setClickable(true);
+            mPauseButton.setAlpha(1);
         }
     }
 
@@ -314,6 +318,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         if(gameManager.getRemainingEnemies() == 0)
         {
             isShooting = 2;
+
         }
     }
 
@@ -433,6 +438,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 {
                     timer.cancel();
                     timer.purge();
+                    endRound();
                 }
             }
         }, 100, tower.getTower().getRateOfFire());
@@ -502,6 +508,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 acidBullet.fireProjectile(mScreenWidth, 800, enemies.get(currentEnemy).getX());
             }
         }
+    }
+
+    private void endRound()
+    {
+        mNextRoundButton.setAlpha(1);
+        mNextRoundButton.setClickable(true);
+        mExitButton.setAlpha(1);
+        mExitButton.setClickable(true);
     }
 
 }
