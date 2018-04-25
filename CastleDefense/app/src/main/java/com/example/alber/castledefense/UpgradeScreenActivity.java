@@ -231,32 +231,12 @@ public class UpgradeScreenActivity extends AppCompatActivity {
 
         towerOneLevel.setText("Level: " + String.valueOf(gameManager.getTowers()[0].getUpgradeLevel()));
         towerOnePrice.setText("Cost: " + String.valueOf(gameManager.getTowers()[0].getUpgradeCost()));
-        // IMPLEMENT LATER
-        //towerTwoLevel.setText("Level: " + String.valueOf(gameManager.getTowers()[1].getUpgradeLevel()));
-        //towerTwoPrice.setText("Cost: " + String.valueOf(gameManager.getTowers()[1].getUpgradeCost()));
-        //towerThreeLevel.setText("Level: " + String.valueOf(gameManager.getTowers()[2].getUpgradeLevel()));
-        //towerThreePrice.setText("Cost: " + String.valueOf(gameManager.getTowers()[2].getUpgradeCost()));
-        // PLACEHOLDER
-        towerTwoLevel.setText("Level: ?");
-        towerTwoPrice.setText("Cost: ?");
-        towerThreeLevel.setText("Level: ?");
-        towerThreePrice.setText("Cost: ?");
 
         townOneLevel.setText("Level: " + String.valueOf(gameManager.getTown().getIncomeLevel()));
         townOnePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getIncomeUpgradePrice()));
-        townTwoLevel.setText("Level: " + String.valueOf(gameManager.getTown().getWallLevel()));
-        townTwoPrice.setText("Cost: " + String.valueOf(gameManager.getTown().getWallUpgradePrice()));
-        townThreeLevel.setText("Level: N/A");
-        townThreePrice.setText("Cost: " + String.valueOf(gameManager.getTown().getRestoreHealthPrice()));
 
         heroOneLevel.setText("Level: " + String.valueOf(gameManager.getHero().getDamageLevel()));
         heroOnePrice.setText("Cost: " + String.valueOf(gameManager.getHero().getDamageUpgradePrice()));
-        // IMPLEMENT LATER
-        //heroTwoLevel.setText("Level: " + String.valueOf(gameManager.getHero().getDamageLevel()));
-        //heroTwoPrice.setText("Cost: " + String.valueOf(gameManager.getHero().getDamageUpgradePrice()));
-        // PLACEHOLDER
-        heroTwoLevel.setText("Level: ?");
-        heroTwoPrice.setText("Cost: ?");
     }
 
     // Provides Fullscreen functionality, hiding menu bars at the top
