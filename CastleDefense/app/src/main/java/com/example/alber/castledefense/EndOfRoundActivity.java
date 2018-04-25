@@ -15,7 +15,7 @@ public class EndOfRoundActivity extends AppCompatActivity {
     private Button mNextWaveButton;
     private Intent intent;
     private GameManager gameManager;
-    private TextView damageDisplay, killsDisplay, moneyDisplay, HPDisplay;
+    private TextView killsDisplay, moneyDisplay, HPDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,6 @@ public class EndOfRoundActivity extends AppCompatActivity {
         gameManager.setCurrentGold(gameManager.getCurrentGold() + gameManager.getTown().getIncome());
         gameManager.setRemainingEnemies(gameManager.getNumOfEnemies());
 
-        damageDisplay = (TextView) findViewById(R.id.damage_text);
         killsDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
         HPDisplay = (TextView) findViewById(R.id.hp_text);
@@ -80,7 +79,6 @@ public class EndOfRoundActivity extends AppCompatActivity {
     }
 
     private void updateDisplay() {
-        damageDisplay.setText("Damage Done: ???");
         killsDisplay.setText("Kills: " + String.valueOf(gameManager.getEnemiesKilled()));
         moneyDisplay.setText("Money: " + String.valueOf(gameManager.getCurrentGold()));
         HPDisplay.setText("HP: " + String.valueOf(gameManager.getTown().getWallHealth()) + "/" +String.valueOf(gameManager.getTown().getMaxWallHealth()));
