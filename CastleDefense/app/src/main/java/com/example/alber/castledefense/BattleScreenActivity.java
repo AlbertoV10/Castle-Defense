@@ -165,7 +165,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         Projectile arrow = new Projectile(BattleScreenActivity.this, 0x000000, 128);
                         arrow.setX(mScreenWidth);
-                        arrow.setY(motionEvent.getY());
+                        arrow.setY(motionEvent.getY()-128);
                         mContentView.addView(arrow);
                         //arrow.fireProjectile(mScreenWidth, 500, touchX);
                         heroArrowArray.add(arrow);
