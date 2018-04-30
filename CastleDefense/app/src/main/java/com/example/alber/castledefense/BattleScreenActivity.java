@@ -95,7 +95,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         intent = getIntent();
         this.gameManager = (GameManager) intent.getSerializableExtra("gameManager");
         gameManager.increaseWave();
-
+        gameManager.setRemainingEnemies(5 + (3 * gameManager.getCurrentWave()) );
+        gameManager.setNumOfEnemies(5 + (3 * gameManager.getCurrentWave()) );
         this.gameManager.newWave();
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
@@ -329,7 +330,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         if(gameManager.getRemainingEnemies() == 0)
         {
             isShooting = 2;
-
         }
     }
 
@@ -463,6 +463,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         enemy.setX(0);
         //enemy.setY(mScreenHeight + enemy.getHeight());
         enemy.setY(y);
+        enemy.getEnemy().setHealthRemaining(20 + (20 * gameManager.getCurrentWave()) );
+        enemy.getEnemy().setArmor(.1 + (.1 * (gameManager.getCurrentWave()/4)) );
         mContentView.addView(enemy);
 
         // Move enemies
@@ -470,8 +472,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         // Uniform speed
         //int duration = random.nextInt(MAX_ANIMATION_DURATION-MIN_ANIMATION_DURATION) + MIN_ANIMATION_DURATION;
         enemyArray.add(enemy);
-
-        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, BASE_ENEMY_SPEED);
+        int travelTime = BASE_ENEMY_SPEED - (100 * gameManager.getCurrentWave());
+        if(travelTime < 1000)
+        {
+            travelTime = 1000;
+        }
+        enemy.releaseEnemy(mScreenWidth - mScreenWidth/4, travelTime);
     }
 
     public void detectCollisions(ArrayList<EnemySprite> enemies, ArrayList<Projectile> projectiles)
@@ -510,10 +516,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             if(enemies.get(currentEnemy).checkForAttack())
             {
-                //TODO Adam create bullet here
                 EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
                 acidBullet.setX(enemies.get(currentEnemy).getX());
                 acidBullet.setY(enemies.get(currentEnemy).getY());
+                acidBullet.setDamage(3 + (3 * gameManager.getCurrentWave()/2));
                 mContentView.addView(acidBullet);
                 //arrow.fireProjectile(mScreenWidth, 500, touchX);
                 acidBulletsArray.add(acidBullet);

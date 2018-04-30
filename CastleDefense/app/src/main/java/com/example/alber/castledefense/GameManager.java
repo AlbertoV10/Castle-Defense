@@ -120,6 +120,8 @@ public class GameManager extends AppCompatActivity implements Serializable{
 
     public int getEnemiesKilled() { return this.enemiesKilled; }
 
+    public void setNumOfEnemies(int enemyCount ){ this.numOfEnemies = enemyCount; }
+
     public void setRemainingEnemies(int newEnemies){ this.remainingEnemies = newEnemies; }
 
     public void setCurrentGold(int newGold)

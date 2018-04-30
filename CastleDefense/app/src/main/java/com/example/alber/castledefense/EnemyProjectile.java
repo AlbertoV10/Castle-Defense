@@ -40,7 +40,7 @@ public class EnemyProjectile extends AppCompatImageView implements Animator.Anim
         setLayoutParams(params);
 
         this.damage = 3;   // Mock Data
-        this.piercingValue = 10; // Mock data
+        this.piercingValue = 1; // Mock data
 
     }
 
