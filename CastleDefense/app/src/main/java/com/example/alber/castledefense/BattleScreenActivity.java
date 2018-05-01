@@ -75,6 +75,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private TowerSprite towerThree;
     private boolean roundWon;
     MediaPlayer arrowSound;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +91,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
-        arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
+        arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
         setToFullScreen();
         this.roundWon = false;
 
@@ -362,7 +364,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 //// Wait a random number of milliseconds before looping
                 //int delay = random.nextInt(maxDelay) + minDelay;
-                int delay = ENEMY_SPAWN_RATE;
+                int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500;
+                //int delay = ENEMY_SPAWN_RATE;
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -539,7 +542,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             if(acidBullets.get(currentBullet).getX() >= (mScreenWidth - 300))
             {
-                MediaPlayer punch = MediaPlayer.create(BattleScreenActivity.this,R.raw.punch);
+                MediaPlayer punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
                 punch.start();
                 gameManager.getTown().setWallHealth(gameManager.getTown().getWallHealth() - acidBullets.get(currentBullet).getDamage());
                 removeEnemyBullet(acidBullets.get(currentBullet));
@@ -552,7 +555,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private void endRound()
     {
         //arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
-        MediaPlayer applause = MediaPlayer.create(BattleScreenActivity.this,R.raw.applause);
+        MediaPlayer applause = MediaPlayer.create(BattleScreenActivity.this, R.raw.applause);
         applause.start();
         mNextRoundButton.setAlpha(1);
         mNextRoundButton.setClickable(true);
