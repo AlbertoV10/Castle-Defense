@@ -6,4 +6,5 @@
     <string name="exit_button">Exit</string>
     <string name="not_enough_money">Not Enough Money</string>
     <string name="already_max_health">Already at max health!</string>
+    <string name="help_desc1">Oh no! An neighboring nation declared war on us!</string>
 </resources>
