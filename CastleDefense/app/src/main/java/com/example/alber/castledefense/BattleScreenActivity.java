@@ -66,6 +66,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
     private ArrayList acidBulletsArray = new ArrayList<EnemyProjectile>();
+    MediaPlayer arrowSound;
+    MediaPlayer punch;
 
     // Create local hero sprite, retrieve stats from game manager
     private HeroSprite hero;
@@ -74,7 +76,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private TowerSprite towerTwo;
     private TowerSprite towerThree;
     private boolean roundWon;
-    MediaPlayer arrowSound;
 
 
     @Override
@@ -92,6 +93,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
+        punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
         setToFullScreen();
         this.roundWon = false;
 
@@ -169,7 +171,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     int touchY = (int)motionEvent.getY();
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         Projectile arrow = new Projectile(BattleScreenActivity.this, 0x000000, 128);
-                        arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
                         arrowSound.start();
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY()-128);
@@ -421,6 +422,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private void startTower(final TowerSprite tower, int height, int width)
     {
+
         final TowerSprite innerTower = tower;
         final int innerHeight = height;
         final int innerWidth = width;
@@ -439,14 +441,13 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         {
                             // stuff that updates ui
                             Projectile arrow = new Projectile(BattleScreenActivity.this, 0xFF606060, 128);
-                            arrowSound.start();
                             arrow.setX(innerWidth);
                             arrow.setY(innerHeight);
                             // retrieve tower arrow damage from the tower
                             arrow.setPiercingValue(innerTower.getTower().getArmorPiercing());
                             arrow.setDamage(innerTower.getTower().getDamage());
                             arrow.setProjectileType(1);
-
+                            arrowSound.start();
                             mContentView.addView(arrow);
                             heroArrowArray.add(arrow);
                             arrow.fireProjectile(innerWidth, 2000, 0);
@@ -499,6 +500,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
                     damageEnemy(enemies.get(currentEnemy),projectiles.get(currentProjectile));
+                    punch.start();
                     if (enemies.get((currentEnemy)).isDead())
                     {
                         enemies.remove(currentEnemy);
@@ -542,8 +544,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         {
             if(acidBullets.get(currentBullet).getX() >= (mScreenWidth - 300))
             {
-                MediaPlayer punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
-                punch.start();
                 gameManager.getTown().setWallHealth(gameManager.getTown().getWallHealth() - acidBullets.get(currentBullet).getDamage());
                 removeEnemyBullet(acidBullets.get(currentBullet));
                 acidBullets.remove(currentBullet);
