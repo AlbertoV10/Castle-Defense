@@ -42,16 +42,16 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     };
     */
 
-    private boolean isPaused;
+    //private boolean isPaused;
     private boolean isWaveActive;
     // need more that 2 states for shooting, beginning (waits for wave to start), shooting, end wave (stop shooting)
     private int isShooting = 0;
 
-    private Button mPauseButton;
+    //private Button mPauseButton;
     private Button mExitButton;
     private Button mNextRoundButton;
     private Button mstartRoundButton;
-    private TextView pauseText;
+    //private TextView pauseText;
     private ViewGroup mContentView;
     private int mScreenWidth;
     private int mScreenHeight;
@@ -76,19 +76,21 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private boolean roundWon;
     MediaPlayer arrowSound;
 
+    private TextView lossText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_screen);
 
-        isPaused = false;
+        //isPaused = false;
         isWaveActive = false;
         mstartRoundButton = (Button) findViewById(R.id.start_wave);
-        mPauseButton = (Button) findViewById(R.id.pause_button);
+        //mPauseButton = (Button) findViewById(R.id.pause_button);
         mExitButton = (Button) findViewById(R.id.exit_button);
         mNextRoundButton = (Button) findViewById(R.id.next_round);
-        pauseText = (TextView) findViewById(R.id.pause_text);
+        //pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
         arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
@@ -123,24 +125,24 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             }
         });
 
-        mPauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                togglePause();
-
-                if(isPaused)
-                {
-                    pauseText.setAlpha(1);
-                    mPauseButton.setText("Resume");
-                }
-                else
-                {
-                    pauseText.setAlpha(0);
-                    mPauseButton.setText("Pause");
-                }
-            }
-        });
+//        mPauseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                togglePause();
+//
+//                if(isPaused)
+//                {
+//                    pauseText.setAlpha(1);
+//                    mPauseButton.setText("Resume");
+//                }
+//                else
+//                {
+//                    pauseText.setAlpha(0);
+//                    mPauseButton.setText("Pause");
+//                }
+//            }
+//        });
 
         mExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +174,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
                         arrowSound.start();
                         arrow.setX(mScreenWidth);
-                        arrow.setY(motionEvent.getY()-128);
+                        arrow.setY(motionEvent.getY()-64);
                         mContentView.addView(arrow);
                         //arrow.fireProjectile(mScreenWidth, 500, touchX);
                         heroArrowArray.add(arrow);
@@ -190,6 +192,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         EnemyCountDisplay = (TextView) findViewById(R.id.enemies_text);
         moneyDisplay = (TextView) findViewById(R.id.money_text);
         HPDisplay = (TextView) findViewById(R.id.HP_text);
+
+        lossText = (TextView) findViewById(R.id.loss_text);
+
         updateDisplay();
         startTimerForCollisions();
     }
@@ -220,21 +225,21 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     */
 
 
-    boolean togglePause()
-    {
-        if(!isPaused)
-        {
-            isPaused = true;
-            isWaveActive = false;
-        }
-        else
-        {
-            isPaused = false;
-            isWaveActive = true;
-        }
-
-        return isPaused;
-    }
+//    boolean togglePause()
+//    {
+//        if(!isPaused)
+//        {
+//            isPaused = true;
+//            isWaveActive = false;
+//        }
+//        else
+//        {
+//            isPaused = false;
+//            isWaveActive = true;
+//        }
+//
+//        return isPaused;
+//    }
 
     // Provides Fullscreen functionality, hiding menu bars at the top
     private void setToFullScreen(){
@@ -275,8 +280,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
             startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
             startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
-            mPauseButton.setClickable(true);
-            mPauseButton.setAlpha(1);
+            //mPauseButton.setClickable(true);
+            //mPauseButton.setAlpha(1);
         }
     }
 
@@ -545,6 +550,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 MediaPlayer punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
                 punch.start();
                 gameManager.getTown().setWallHealth(gameManager.getTown().getWallHealth() - acidBullets.get(currentBullet).getDamage());
+                if(gameManager.getTown().getWallHealth() <= 0)
+
+                {
+                    youLose();
+                }
+
                 removeEnemyBullet(acidBullets.get(currentBullet));
                 acidBullets.remove(currentBullet);
                 currentBullet--;
@@ -562,5 +573,32 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mExitButton.setAlpha(1);
         mExitButton.setClickable(true);
     }
+
+    public void youLose()
+
+    {
+
+        isWaveActive = false;
+
+        isShooting = 2;
+
+        gameManager.getTown().setWallHealth(0);
+
+        gameManager.setCurrentGold(gameManager.getCurrentGold());
+
+        mExitButton.setAlpha(1);
+
+        mExitButton.setClickable(true);
+
+        mNextRoundButton.setAlpha(0);
+
+        lossText.setAlpha(1);
+
+        lossText.bringToFront();
+
+
+
+    }
+
 
 }
