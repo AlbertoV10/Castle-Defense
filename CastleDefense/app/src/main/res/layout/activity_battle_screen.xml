@@ -69,9 +69,9 @@
         android:id="@+id/enemies_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/wave_text"
-        android:layout_marginStart="171dp"
+        android:layout_alignBaseline="@+id/exit_button"
+        android:layout_alignBottom="@+id/exit_button"
+        android:layout_alignStart="@+id/imageView"
         android:text="Enemies: " />
 
     <TextView
@@ -107,5 +107,6 @@
         android:layout_alignBottom="@+id/next_round"
         android:layout_marginStart="25dp"
         android:layout_toEndOf="@+id/pause_button"
-        android:src="@drawable/castle_perspective" />
+        android:src="@drawable/castle_perspective"
+        android:id="@+id/imageView" />
 </RelativeLayout>
