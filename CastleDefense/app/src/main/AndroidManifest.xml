@@ -31,6 +31,9 @@
         <activity
             android:name=".LoadMenuActivity"
             android:screenOrientation="userLandscape"/>
+        <activity
+            android:name=".HelpActivity"
+            android:screenOrientation="userLandscape"/>
     </application>
 
 </manifest>

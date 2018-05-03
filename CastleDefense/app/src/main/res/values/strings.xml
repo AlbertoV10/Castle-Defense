@@ -7,4 +7,10 @@
     <string name="not_enough_money">Not Enough Money</string>
     <string name="already_max_health">Already at max health!</string>
     <string name="help_desc1">Oh no! An neighboring nation declared war on us!</string>
+    <string name="help_desc2">What seems to be endless waves of troops are attacking our capital! </string>
+    <string name="help_desc3">On the battlefield, our castle towers will automatically shoot at the enemy.</string>
+    <string name="help_desc4">However, we cannot hold the walls without your help!</string>
+    <string name="help_desc5">Tap the screen to shoot an arrow out manually.</string>
+    <string name="help_desc6">Earn money by defeating enemies and clearing waves.</string>
+    <string name="help_desc7">Upgrade your defenses and try to hold out as long as you can!</string>
 </resources>
