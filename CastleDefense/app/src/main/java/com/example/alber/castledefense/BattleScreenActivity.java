@@ -176,6 +176,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                         arrowSound.start();
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY()-64);
+                        arrow.setImageResource(R.drawable.arrow_hero);
                         mContentView.addView(arrow);
                         //arrow.fireProjectile(mScreenWidth, 500, touchX);
                         heroArrowArray.add(arrow);
@@ -452,6 +453,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                             arrow.setPiercingValue(innerTower.getTower().getArmorPiercing());
                             arrow.setDamage(innerTower.getTower().getDamage());
                             arrow.setProjectileType(1);
+                            arrow.setImageResource(R.drawable.arrow_tower);
                             arrowSound.start();
                             mContentView.addView(arrow);
                             heroArrowArray.add(arrow);
