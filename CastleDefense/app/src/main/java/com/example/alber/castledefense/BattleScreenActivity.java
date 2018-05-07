@@ -353,10 +353,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
     }
 
-    private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {
+    private class EnemyLauncher extends AsyncTask<Integer, Integer, Void>
+    {
 
         @Override
-        protected Void doInBackground(Integer... params) {
+        protected Void doInBackground(Integer... params)
+        {
 
             if (params.length != 1) {
                 throw new AssertionError(
@@ -368,7 +370,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             yPositions[0] = 2*mScreenHeight/10;
             yPositions[1] = 4*mScreenHeight/10;
             yPositions[2] = 6*mScreenHeight/10;
-            while (enemiesLaunched < gameManager.getNumOfEnemies()) {
+            while (enemiesLaunched < gameManager.getNumOfEnemies())
+            {
                 // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
                 //int yPosition = random.nextInt(mScreenHeight/3)+mScreenHeight/4;
@@ -378,11 +381,17 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 //// Wait a random number of milliseconds before looping
                 //int delay = random.nextInt(maxDelay) + minDelay;
-                int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500;
-                //int delay = ENEMY_SPAWN_RATE;
-                try {
+                int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500-(level*100);
+                if(delay<0)
+                {
+                    delay=0;
+                }
+                //TODO: create mob spawning
+                try
+                {
                     Thread.sleep(delay);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -390,7 +399,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(Integer... values)
+        {
             super.onProgressUpdate(values);
             int yPosition = values[0];
             launchEnemy(yPosition);

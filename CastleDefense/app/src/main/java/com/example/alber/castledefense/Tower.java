@@ -72,7 +72,7 @@ public class Tower implements Serializable
         //setRateOfFire(getRateOfFire() + 100);
         if(getRateOfFire() > 1000)
         {
-            setRateOfFire(getRateOfFire() - 100);
+            setRateOfFire(getRateOfFire() - 250);
         }
         setDamage(getDamage() + 5);
         setArmorPiercing(getArmorPiercing() + .2);
