@@ -153,6 +153,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 startActivity(battleIntent);
             }
         });
+        mExitButton.setClickable(false);
 
         mNextRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +164,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 startActivity(battleEndIntent);
             }
         });
+        mNextRoundButton.setClickable(false);
 
         // create a projectile on touch
         mContentView.setOnTouchListener(new View.OnTouchListener() {
