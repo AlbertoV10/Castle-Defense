@@ -65,6 +65,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(gameManager.getCurrentGold() < gameManager.getTowerUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                    upgradeTowerOne.setClickable(false);
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTowerUpgradePrice());
@@ -84,6 +85,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(gameManager.getCurrentGold() < gameManager.getTown().getWallUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                    upgradeTownOne.setClickable(false);
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getWallUpgradePrice());
@@ -100,6 +102,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(gameManager.getCurrentGold() < gameManager.getHero().getDamageUpgradePrice()) {
                     Toast.makeText(UpgradeScreenActivity.this, R.string.not_enough_money, Toast.LENGTH_SHORT).show();
+                    upgradeHeroOne.setClickable(false);
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getHero().getDamageUpgradePrice());
