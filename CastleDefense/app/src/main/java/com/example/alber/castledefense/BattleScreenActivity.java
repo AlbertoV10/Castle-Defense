@@ -94,8 +94,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         //pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
+
         arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
         punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
+
         setToFullScreen();
         this.roundWon = false;
 
@@ -284,9 +286,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             // start tower shooting
             isShooting = 1;
-            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
+            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
+            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
             //mPauseButton.setClickable(true);
             //mPauseButton.setAlpha(1);
         }
@@ -422,10 +424,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         towerOne.setX(width - width/3);//340);//1080
         towerOne.setY(2*height/10);
         //towerTwo.setX(width - 2*width/10);
-        towerTwo.setX(width - 340);
+        towerTwo.setX(width - width/3);
         towerTwo.setY(4*height/10);
         //towerThree.setX(width - 2*width/10);
-        towerThree.setX(width - 340);
+        towerThree.setX(width - width/3);
         towerThree.setY(6*height/10);
 
         // spawn towers
@@ -543,7 +545,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             {
                 EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
                 acidBullet.setX(enemies.get(currentEnemy).getX());
-                acidBullet.setY(enemies.get(currentEnemy).getY());
+                acidBullet.setY(enemies.get(currentEnemy).getY()+enemies.get(currentEnemy).getHight()/2);
                 acidBullet.setDamage(3 + (3 * gameManager.getCurrentWave()/2));
                 mContentView.addView(acidBullet);
                 //arrow.fireProjectile(mScreenWidth, 500, touchX);
