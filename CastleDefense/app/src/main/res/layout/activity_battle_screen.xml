@@ -27,7 +27,9 @@
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
         android:alpha="0"
-        android:text="Pause" />
+        android:background="@drawable/bricktexture"
+        android:text="Pause"
+        android:textColor="@android:color/background_light" />
 
     <Button
         android:id="@+id/exit_button"
@@ -37,9 +39,11 @@
         android:layout_alignBottom="@+id/wave_text"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:clickable="true"
         android:alpha="0"
-        android:text="Exit" />
+        android:background="@drawable/bricktexture"
+        android:clickable="true"
+        android:text="Exit"
+        android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/loss_text"
@@ -61,9 +65,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:clickable="false"
         android:alpha="0"
-        android:text="Continue" />
+        android:background="@drawable/bricktexture"
+        android:clickable="false"
+        android:text="Continue"
+        android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/enemies_text"
@@ -98,8 +104,10 @@
         android:layout_alignBaseline="@+id/pause_button"
         android:layout_alignBottom="@+id/pause_button"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/bricktexture"
+        android:onClick="startButtonClickHandler"
         android:text="Start Wave"
-        android:onClick="startButtonClickHandler"/>
+        android:textColor="@android:color/background_light" />
 
     <ImageView
         android:layout_width="wrap_content"
