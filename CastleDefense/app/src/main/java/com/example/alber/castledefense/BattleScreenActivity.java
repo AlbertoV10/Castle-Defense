@@ -374,7 +374,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500;
                 //int delay = ENEMY_SPAWN_RATE;
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
