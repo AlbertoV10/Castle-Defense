@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.logging.Logger;
 
 /**
@@ -26,15 +27,28 @@ public class SaveInformation extends AppCompatActivity implements Serializable
     Tower towers[];
     Hero hero;
     Town town;
+    int currentWave;
+    int currentMoney;
 
 
 
-    SaveInformation(Tower towers[],Hero hero, Town town)
+    SaveInformation(Tower towers[],Hero hero, Town town,int currentWave, int money)
     {
         this.towers=towers;
         this.hero=hero;
         this.town=town;
+        this.currentWave=currentWave;
+        this.currentMoney=money;
 
+    }
+
+    SaveInformation()
+    {
+
+        towers=new Tower[3];
+        hero=new Hero();
+        town=new Town();
+        Load();
     }
 
     public void Save()
@@ -45,7 +59,8 @@ public class SaveInformation extends AppCompatActivity implements Serializable
     public void Save(String fileName)
     {
         try {
-            FileOutputStream writingToFile = openFileOutput(fileName, Context.MODE_PRIVATE);
+            FileOutputStream writingToFile = new FileOutputStream(fileName);//this is needed to initialize
+            writingToFile=openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream objectWriter= new ObjectOutputStream(writingToFile);
             objectWriter.writeObject(this);
             objectWriter.close();
@@ -73,12 +88,15 @@ public class SaveInformation extends AppCompatActivity implements Serializable
     public void Load(String fileName)
     {
         try {
-            FileInputStream readingFromFile = openFileInput(fileName);
+            FileInputStream readingFromFile = new FileInputStream(fileName);//need to initialize
+            readingFromFile=openFileInput(fileName);
             ObjectInputStream objectReader= new ObjectInputStream(readingFromFile);
             SaveInformation loading=(SaveInformation)objectReader.readObject();
             this.town=loading.town;
             this.hero=loading.hero;
             this.towers=loading.towers;
+            this.currentMoney=loading.currentMoney;
+            this.currentWave=loading.currentWave;
             objectReader.close();
             readingFromFile.close();
 
@@ -114,6 +132,10 @@ public class SaveInformation extends AppCompatActivity implements Serializable
     {
         return this.town;
     }
+
+    public int getLoadedMoney(){return this.currentMoney;}
+
+    public int getLoadedWave(){return this.currentWave;}
 
 
 }
