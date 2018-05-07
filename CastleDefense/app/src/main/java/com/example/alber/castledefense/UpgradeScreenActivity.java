@@ -31,7 +31,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade_screen);
 
-        getWindow().setBackgroundDrawableResource(R.drawable.temp_upgrade);
+        //getWindow().setBackgroundDrawableResource(R.drawable.temp_upgrade);
 
         // Get gameManager object from last screen
         intent = getIntent();
