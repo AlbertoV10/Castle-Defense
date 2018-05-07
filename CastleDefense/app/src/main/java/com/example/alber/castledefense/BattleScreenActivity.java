@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.ViewTreeObserver;
 import android.util.DisplayMetrics;
@@ -79,7 +80,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     private TextView lossText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +126,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 setToFullScreen();
             }
         });
+
 
 //        mPauseButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -278,6 +279,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             launcher.execute(mWave);
             gameManager.startWave();
             mstartRoundButton.setAlpha(0);
+            mNextRoundButton.setClickable(false);
+            mExitButton.setClickable(false);
 
             // start tower shooting
             isShooting = 1;
@@ -415,11 +418,14 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         towerThree.setTower(gameManager.getTowers()[2]);
 
         // set tower positions
-        towerOne.setX(width - 2*width/10);
+        //towerOne.setX(width - 2*width/10);
+        towerOne.setX(width - 340);
         towerOne.setY(2*height/10);
-        towerTwo.setX(width - 2*width/10);
+        //towerTwo.setX(width - 2*width/10);
+        towerTwo.setX(width - 340);
         towerTwo.setY(4*height/10);
-        towerThree.setX(width - 2*width/10);
+        //towerThree.setX(width - 2*width/10);
+        towerThree.setX(width - 340);
         towerThree.setY(6*height/10);
 
         // spawn towers
@@ -428,7 +434,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mContentView.addView(towerThree);
     }
 
-    private void startTower(final TowerSprite tower, int height, int width)
+    private void startTower(final TowerSprite tower, int height, final int width)
     {
 
         final TowerSprite innerTower = tower;
@@ -581,7 +587,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     }
 
     public void youLose()
-
     {
 
         isWaveActive = false;
@@ -597,6 +602,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mExitButton.setClickable(true);
 
         mNextRoundButton.setAlpha(0);
+
+        mNextRoundButton.setClickable(false);
 
         lossText.setAlpha(1);
 
