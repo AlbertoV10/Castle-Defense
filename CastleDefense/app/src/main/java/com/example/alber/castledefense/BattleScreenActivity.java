@@ -419,7 +419,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
         // set tower positions
         //towerOne.setX(width - 2*width/10);
-        towerOne.setX(width - 340);
+        towerOne.setX(width - width/3);//340);//1080
         towerOne.setY(2*height/10);
         //towerTwo.setX(width - 2*width/10);
         towerTwo.setX(width - 340);
