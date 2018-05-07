@@ -53,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(StartActivity.this, R.string.loading_toast, Toast.LENGTH_SHORT).show();
             Intent battleIntent = new Intent(StartActivity.this, BattleScreenActivity.class);
             // Pass gameManager object to next screen
             battleIntent.putExtra("gameManager", gameManager);
