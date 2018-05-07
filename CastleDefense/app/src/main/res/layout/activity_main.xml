@@ -27,29 +27,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/bricktexture"
-        android:text="New Game"
-        android:textColor="@android:color/background_light" />
-
-    <Button
-        android:id="@+id/load_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/start_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bricktexture"
-        android:text="Resume Game"
+        android:text="Start Game"
         android:textColor="@android:color/background_light" />
 
     <Button
         android:id="@+id/tutorial_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/load_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/start_button"
+        android:layout_below="@+id/start_button"
+        android:layout_marginTop="26dp"
         android:background="@drawable/bricktexture"
         android:text="Help"
         android:textColor="@android:color/background_light" />

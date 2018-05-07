@@ -37,7 +37,6 @@ public class StartActivity extends AppCompatActivity {
         });
 
         mStartButton = (Button) findViewById(R.id.start_button);
-        mLoadButton = (Button) findViewById(R.id.load_button);
         mHelpButton = (Button) findViewById(R.id.tutorial_button);
 
         // Create Hero
@@ -62,13 +61,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        mLoadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent loadIntent = new Intent(StartActivity.this, LoadMenuActivity.class);
-                startActivity(loadIntent);
-            }
-        });
 
         mHelpButton.setOnClickListener(new View.OnClickListener() {
             @Override
