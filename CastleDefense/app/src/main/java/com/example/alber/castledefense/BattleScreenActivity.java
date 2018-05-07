@@ -571,9 +571,11 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     {
         //arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
         MediaPlayer applause = MediaPlayer.create(BattleScreenActivity.this, R.raw.applause);
-        applause.start();
-        mNextRoundButton.setAlpha(1);
-        mNextRoundButton.setClickable(true);
+        if(gameManager.getRemainingEnemies() <= 0){
+            applause.start();
+            mNextRoundButton.setAlpha(1);
+            mNextRoundButton.setClickable(true);
+        }
         mExitButton.setAlpha(1);
         mExitButton.setClickable(true);
     }
