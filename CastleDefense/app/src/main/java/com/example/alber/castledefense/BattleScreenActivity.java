@@ -94,8 +94,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         //pauseText = (TextView) findViewById(R.id.pause_text);
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
+
         arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
         punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
+
         setToFullScreen();
         this.roundWon = false;
 
@@ -284,9 +286,9 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
             // start tower shooting
             isShooting = 1;
-            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
-            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - 2*mScreenWidth/10));
+            startTower(towerOne,2*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
+            startTower(towerTwo,4*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
+            startTower(towerThree,6*mScreenHeight/10, (mScreenWidth - mScreenWidth/3));
             //mPauseButton.setClickable(true);
             //mPauseButton.setAlpha(1);
         }
@@ -351,10 +353,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
     }
 
-    private class EnemyLauncher extends AsyncTask<Integer, Integer, Void> {
+    private class EnemyLauncher extends AsyncTask<Integer, Integer, Void>
+    {
 
         @Override
-        protected Void doInBackground(Integer... params) {
+        protected Void doInBackground(Integer... params)
+        {
 
             if (params.length != 1) {
                 throw new AssertionError(
@@ -366,7 +370,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             yPositions[0] = 2*mScreenHeight/10;
             yPositions[1] = 4*mScreenHeight/10;
             yPositions[2] = 6*mScreenHeight/10;
-            while (enemiesLaunched < gameManager.getNumOfEnemies()) {
+            while (enemiesLaunched < gameManager.getNumOfEnemies())
+            {
                 // Get a random vertical position for the next enemy
                 Random random = new Random(new Date().getTime());
                 //int yPosition = random.nextInt(mScreenHeight/3)+mScreenHeight/4;
@@ -376,11 +381,17 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
                 //// Wait a random number of milliseconds before looping
                 //int delay = random.nextInt(maxDelay) + minDelay;
-                int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500;
-                //int delay = ENEMY_SPAWN_RATE;
-                try {
+                int delay = random.nextInt(ENEMY_SPAWN_RATE) + 500-(level*100);
+                if(delay<0)
+                {
+                    delay=0;
+                }
+                //TODO: create mob spawning
+                try
+                {
                     Thread.sleep(delay);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -388,7 +399,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(Integer... values)
+        {
             super.onProgressUpdate(values);
             int yPosition = values[0];
             launchEnemy(yPosition);
@@ -422,10 +434,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         towerOne.setX(width - width/3);//340);//1080
         towerOne.setY(2*height/10);
         //towerTwo.setX(width - 2*width/10);
-        towerTwo.setX(width - 340);
+        towerTwo.setX(width - width/3);
         towerTwo.setY(4*height/10);
         //towerThree.setX(width - 2*width/10);
-        towerThree.setX(width - 340);
+        towerThree.setX(width - width/3);
         towerThree.setY(6*height/10);
 
         // spawn towers
@@ -543,7 +555,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             {
                 EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
                 acidBullet.setX(enemies.get(currentEnemy).getX());
-                acidBullet.setY(enemies.get(currentEnemy).getY());
+                acidBullet.setY(enemies.get(currentEnemy).getY()+enemies.get(currentEnemy).getHight()/2);
                 acidBullet.setDamage(3 + (3 * gameManager.getCurrentWave()/2));
                 mContentView.addView(acidBullet);
                 //arrow.fireProjectile(mScreenWidth, 500, touchX);

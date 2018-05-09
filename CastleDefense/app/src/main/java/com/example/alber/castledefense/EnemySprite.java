@@ -29,12 +29,13 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     private boolean isWalking;
     private Enemy enemy;
     private int screenWidth;
-    private int rangedAttackDistance = 750;
+    private int rangedAttackDistance;
 
     private ImageView imageView;
     private AnimationDrawable walkingAnimation;
     private AnimationDrawable attackAnimation;
     private AnimationDrawable attackRetractAnimation;
+    private int imageHight;
 
     public EnemySprite(Context context)
     {
@@ -46,6 +47,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         mListener = (EnemyListener) context;
         this.screenWidth = screenWidth;
+        rangedAttackDistance=screenWidth/2;
 
         this.setBackgroundResource(R.drawable.dark_mage_movement);
         walkingAnimation = (AnimationDrawable) this.getBackground();
@@ -59,6 +61,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
 
         //int rawWidth = rawHeight / 2;
         int rawWidth = rawHeight;
+        imageHight=rawHeight;
 
         // Control size of enemy here
         int dpHeight = PixelHelper.pixelsToDp(rawHeight/2, context);
@@ -201,6 +204,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
                 attackRetractAnimation = (AnimationDrawable) this.getBackground();
                 attackRetractAnimation.setOneShot(true);
                 attackRetractAnimation.start();
+                return true;
 
 
             }
@@ -214,7 +218,7 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
                 attackAnimation = (AnimationDrawable) this.getBackground();
                 attackAnimation.setOneShot(true);
                 attackAnimation.start();
-                return true;
+                //return true;
             }
         }
 
@@ -249,5 +253,10 @@ public class EnemySprite extends AppCompatImageView implements Animator.Animator
     // Waits for user touch
     public interface EnemyListener{
         void damageEnemy(EnemySprite enemy, Projectile projectile);
+    }
+
+    public int getHight()
+    {
+        return imageHight;
     }
 }
