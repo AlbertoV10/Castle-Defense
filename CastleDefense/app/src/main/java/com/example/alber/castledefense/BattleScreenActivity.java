@@ -602,27 +602,15 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     {
 
         isWaveActive = false;
-
         isShooting = 2;
-
         gameManager.getTown().setWallHealth(0);
-
         gameManager.setCurrentGold(gameManager.getCurrentGold());
-
         mExitButton.setAlpha(1);
-
         mExitButton.setClickable(true);
-
         mNextRoundButton.setAlpha(0);
-
         mNextRoundButton.setClickable(false);
-
         lossText.setAlpha(1);
-
         lossText.bringToFront();
-
-
-
     }
 
 
