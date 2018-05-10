@@ -95,8 +95,22 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
 
-        arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
-        punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
+        try{
+            arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
+            arrowSound.prepareAsync();
+        }
+        catch(IllegalStateException e) {
+
+        }
+        //arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
+        //punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
+        try{
+            punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
+            punch.prepareAsync();
+        }
+        catch(IllegalStateException e) {
+
+        }
 
         setToFullScreen();
         this.roundWon = false;
@@ -178,7 +192,17 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     int touchY = (int)motionEvent.getY();
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         Projectile arrow = new Projectile(BattleScreenActivity.this, 0x000000, 128);
-                        arrowSound.start();
+                        //arrowSound.start();
+                        if(arrowSound.isPlaying())
+                        {
+                            arrowSound.pause();
+                            arrowSound.seekTo(0);
+                            arrowSound.start();
+                        }
+                        else
+                        {
+                            arrowSound.start();
+                        }
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY()-64);
                         arrow.setImageResource(R.drawable.arrow_hero);
@@ -474,7 +498,17 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                             arrow.setDamage(innerTower.getTower().getDamage());
                             arrow.setProjectileType(1);
                             arrow.setImageResource(R.drawable.arrow_tower);
-                            arrowSound.start();
+                            //arrowSound.start();
+                            if(arrowSound.isPlaying())
+                            {
+                                arrowSound.pause();
+                                arrowSound.seekTo(0);
+                                arrowSound.start();
+                            }
+                            else
+                            {
+                                arrowSound.start();
+                            }
                             mContentView.addView(arrow);
                             heroArrowArray.add(arrow);
                             arrow.fireProjectile(innerWidth, 2000, 0);
@@ -527,7 +561,16 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 if(Math.abs(projectiles.get(currentProjectile).getX()-enemies.get(currentEnemy).getX()) < 50 && Math.abs(projectiles.get(currentProjectile).getY()-enemies.get(currentEnemy).getY()) < 100)
                 {
                     damageEnemy(enemies.get(currentEnemy),projectiles.get(currentProjectile));
-                    punch.start();
+                    //punch.start();
+                    if(punch.isPlaying())
+                    {
+                        punch.pause();
+                        punch.seekTo(0);
+                        punch.start();
+                    }
+                    else {
+                        punch.start();
+                    }
                     if (enemies.get((currentEnemy)).isDead())
                     {
                         enemies.remove(currentEnemy);
