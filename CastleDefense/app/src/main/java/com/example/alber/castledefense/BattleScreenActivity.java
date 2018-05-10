@@ -599,7 +599,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 EnemyProjectile acidBullet = new EnemyProjectile(BattleScreenActivity.this, 0x000000, 64);
                 acidBullet.setX(enemies.get(currentEnemy).getX());
                 acidBullet.setY(enemies.get(currentEnemy).getY()+enemies.get(currentEnemy).getHight()/2);
-                acidBullet.setDamage(3 + (3 * gameManager.getCurrentWave()/2));
+                acidBullet.setDamage(2 + (2 * gameManager.getCurrentWave()/2));
                 mContentView.addView(acidBullet);
                 //arrow.fireProjectile(mScreenWidth, 500, touchX);
                 acidBulletsArray.add(acidBullet);
