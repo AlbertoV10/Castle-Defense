@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.media.AudioManager;
+import android.media.SoundPool;
+
 import java.io.Serializable;
 
 public class UpgradeScreenActivity extends AppCompatActivity {
@@ -26,12 +29,19 @@ public class UpgradeScreenActivity extends AppCompatActivity {
     private TextView townOneLevel, townOnePrice;
     private TextView heroOneLevel, heroOnePrice;
 
+    private SoundPool spend;
+    private int spendSound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade_screen);
 
         //getWindow().setBackgroundDrawableResource(R.drawable.temp_upgrade);
+
+        spend = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        //spend.setOnLoadCompleteListener(this);
+        spendSound = spend.load(this, R.raw.spend_money, 1);
 
         // Get gameManager object from last screen
         intent = getIntent();
@@ -69,6 +79,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTowerUpgradePrice());
+                    spend.play(spendSound,1,1,1,0,1);
                     for(int index = 0; index < gameManager.getTowers().length; index++)
                     {
                         gameManager.getTowers()[index].upgradeTower();
@@ -89,6 +100,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getTown().getWallUpgradePrice());
+                    spend.play(spendSound,1,1,1,0,1);
                     gameManager.getTown().upgradeWall();
                     updateDisplay();
                 }
@@ -106,6 +118,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
                 }
                 else{
                     gameManager.setCurrentGold(gameManager.getCurrentGold() - gameManager.getHero().getDamageUpgradePrice());
+                    spend.play(spendSound,1,1,1,0,1);
                     gameManager.getHero().upgradeHero();
                     updateDisplay();
                 }
