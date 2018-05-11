@@ -1,5 +1,6 @@
 package com.example.alber.castledefense;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.ViewTreeObserver;
 import android.util.DisplayMetrics;
+import android.media.SoundPool;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,8 +69,12 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private ArrayList enemyArray = new ArrayList<EnemySprite>();
     private ArrayList heroArrowArray = new ArrayList<Projectile>();
     private ArrayList acidBulletsArray = new ArrayList<EnemyProjectile>();
-    MediaPlayer arrowSound;
-    MediaPlayer punch;
+    private SoundPool soundPlayer;
+    private int hitSound;
+    private int arrowSound;
+    //MediaPlayer arrowSound;
+    //MediaPlayer punch;
+    MediaPlayer applause;
 
     // Create local hero sprite, retrieve stats from game manager
     private HeroSprite hero;
@@ -95,22 +101,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         getWindow().setBackgroundDrawableResource(R.drawable.temp_battle);
         mContentView =(ViewGroup) findViewById(R.id.battle_screen);
 
-        try{
-            arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
-            arrowSound.prepareAsync();
-        }
-        catch(IllegalStateException e) {
-
-        }
         //arrowSound =  MediaPlayer.create(BattleScreenActivity.this, R.raw.arrowsound);
         //punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
-        try{
-            punch = MediaPlayer.create(BattleScreenActivity.this, R.raw.punch);
-            punch.prepareAsync();
-        }
-        catch(IllegalStateException e) {
-
-        }
 
         setToFullScreen();
         this.roundWon = false;
@@ -122,6 +114,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         gameManager.setRemainingEnemies(5 + (3 * gameManager.getCurrentWave()) );
         gameManager.setNumOfEnemies(5 + (3 * gameManager.getCurrentWave()) );
         this.gameManager.newWave();
+
+        soundPlayer = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
+        hitSound = soundPlayer.load(this, R.raw.punch, 0);
+        arrowSound = soundPlayer.load(this, R.raw.arrowsound, 1);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -166,6 +162,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mExitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                soundPlayer.release();
+                applause.release();
                 Intent battleIntent = new Intent(BattleScreenActivity.this, StartActivity.class);
                 startActivity(battleIntent);
             }
@@ -175,6 +173,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         mNextRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                soundPlayer.release();
+                applause.release();
                 Intent battleEndIntent = new Intent(BattleScreenActivity.this, EndOfRoundActivity.class);
                 // Pass gameManager object to next screen
                 battleEndIntent.putExtra("gameManager", gameManager);
@@ -193,16 +193,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                     if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         Projectile arrow = new Projectile(BattleScreenActivity.this, 0x000000, 128);
                         //arrowSound.start();
-                        if(arrowSound.isPlaying())
-                        {
-                            arrowSound.pause();
-                            arrowSound.seekTo(0);
-                            arrowSound.start();
-                        }
-                        else
-                        {
-                            arrowSound.start();
-                        }
+                        soundPlayer.play(arrowSound,1,1,1,0,1);
                         arrow.setX(mScreenWidth);
                         arrow.setY(motionEvent.getY()-64);
                         arrow.setImageResource(R.drawable.arrow_hero);
@@ -499,16 +490,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                             arrow.setProjectileType(1);
                             arrow.setImageResource(R.drawable.arrow_tower);
                             //arrowSound.start();
-                            if(arrowSound.isPlaying())
-                            {
-                                arrowSound.pause();
-                                arrowSound.seekTo(0);
-                                arrowSound.start();
-                            }
-                            else
-                            {
-                                arrowSound.start();
-                            }
+                            soundPlayer.play(arrowSound,1,1,1,0,1);
                             mContentView.addView(arrow);
                             heroArrowArray.add(arrow);
                             arrow.fireProjectile(innerWidth, 2000, 0);
@@ -562,15 +544,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
                 {
                     damageEnemy(enemies.get(currentEnemy),projectiles.get(currentProjectile));
                     //punch.start();
-                    if(punch.isPlaying())
-                    {
-                        punch.pause();
-                        punch.seekTo(0);
-                        punch.start();
-                    }
-                    else {
-                        punch.start();
-                    }
+                    soundPlayer.play(hitSound,1,1,1,0,1);
                     if (enemies.get((currentEnemy)).isDead())
                     {
                         enemies.remove(currentEnemy);
@@ -631,7 +605,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private void endRound()
     {
         //arrowSound =  MediaPlayer.create(BattleScreenActivity.this,R.raw.arrowsound);
-        MediaPlayer applause = MediaPlayer.create(BattleScreenActivity.this, R.raw.applause);
+        //MediaPlayer applause = MediaPlayer.create(BattleScreenActivity.this, R.raw.applause);
+        applause = MediaPlayer.create(BattleScreenActivity.this, R.raw.applause);
         if(gameManager.getRemainingEnemies() <= 0){
             applause.start();
             mNextRoundButton.setAlpha(1);
@@ -643,7 +618,6 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void youLose()
     {
-
         isWaveActive = false;
         isShooting = 2;
         gameManager.getTown().setWallHealth(0);
