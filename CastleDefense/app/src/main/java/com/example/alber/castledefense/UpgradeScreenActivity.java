@@ -61,6 +61,7 @@ public class UpgradeScreenActivity extends AppCompatActivity {
         nextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spend.release();
                 Intent androidsolved_intent = new Intent(getApplicationContext(), BattleScreenActivity.class);
                 // Pass gameManager object to next screen
                 androidsolved_intent.putExtra("gameManager", gameManager);
