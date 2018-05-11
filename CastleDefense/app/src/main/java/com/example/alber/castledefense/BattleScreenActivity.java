@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.view.ViewTreeObserver;
 import android.util.DisplayMetrics;
 import android.media.SoundPool;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -72,6 +71,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     private SoundPool soundPlayer;
     private int hitSound;
     private int arrowSound;
+    private int loseSound;
+    private int startSound;
     //MediaPlayer arrowSound;
     //MediaPlayer punch;
     MediaPlayer applause;
@@ -118,6 +119,8 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
         soundPlayer = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
         hitSound = soundPlayer.load(this, R.raw.punch, 0);
         arrowSound = soundPlayer.load(this, R.raw.arrowsound, 1);
+        loseSound = soundPlayer.load(this, R.raw.lose, 2);
+        startSound = soundPlayer.load(this, R.raw.start_wave, 1);
 
         ViewTreeObserver viewTreeObserver = mContentView.getViewTreeObserver();
         if(viewTreeObserver.isAlive())
@@ -296,6 +299,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
             launcher.execute(mWave);
             gameManager.startWave();
             mstartRoundButton.setAlpha(0);
+            mstartRoundButton.setClickable(false);
             mNextRoundButton.setClickable(false);
             mExitButton.setClickable(false);
 
@@ -312,6 +316,7 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
     public void startButtonClickHandler(View view) {
         isWaveActive = true;
         startWave();
+        soundPlayer.play(startSound,1,1,1,0,1);
     }
 
     //@Override
@@ -618,6 +623,10 @@ public class BattleScreenActivity extends AppCompatActivity implements EnemySpri
 
     public void youLose()
     {
+        if(isWaveActive)
+        {
+            soundPlayer.play(loseSound,1,1,1,0,1);
+        }
         isWaveActive = false;
         isShooting = 2;
         gameManager.getTown().setWallHealth(0);
